@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Toolkit — Chase the Entertainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e;
+    --cream: #f5f2eb;
+    --warm-white: #faf8f4;
+    --orange: #d4732a;
+    --orange-hover: #b85f22;
+    --orange-light: #f0e4d4;
+    --slate: #4a5568;
+    --slate-light: #8896a8;
+    --rule: #d8d2c4;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Lora', serif; font-size: 17px; line-height: 1.7; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--cream); border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 8px 20px; border-radius: 2px; letter-spacing: 0.1em !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--orange) !important; }
+
+  /* PAGE HEADER */
+  .page-header {
+    margin-top: 64px;
+    background: var(--ink);
+    padding: 5rem 4rem 4rem;
+    border-bottom: 2px solid var(--orange);
+  }
+  .page-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; display: block; }
+  .page-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(48px, 6vw, 80px); font-weight: 700; line-height: 0.95; text-transform: uppercase; color: var(--cream); margin-bottom: 1.5rem; }
+  .page-headline em { font-style: italic; color: var(--orange); }
+  .page-sub { font-family: 'Lora', serif; font-size: 17px; font-style: italic; color: var(--slate-light); max-width: 560px; line-height: 1.7; }
+
+  /* INTRO */
+  .intro-section {
+    background: var(--warm-white);
+    padding: 4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .intro-text {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--slate);
+    max-width: 680px;
+  }
+
+  /* ONE PAGERS GRID */
+  .onepagers-section {
+    padding: 5rem 4rem;
+    background: var(--cream);
+  }
+  .onepagers-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; display: block; }
+  .onepagers-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(32px, 3.5vw, 48px); font-weight: 700; text-transform: uppercase; line-height: 1; color: var(--ink); margin-bottom: 0.75rem; }
+  .onepagers-headline em { font-style: italic; color: var(--orange); }
+  .onepagers-sub { font-size: 15px; color: var(--slate); line-height: 1.7; max-width: 560px; margin-bottom: 3.5rem; }
+
+  .onepagers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .onepager-card {
+    background: var(--warm-white);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-top: 3px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .onepager-card:hover { border-color: var(--orange); }
+
+  .onepager-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    color: var(--orange);
+    opacity: 0.12;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .onepager-tag { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+  .onepager-title { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; text-transform: uppercase; line-height: 1; color: var(--ink); margin-bottom: 1rem; }
+  .onepager-desc { font-size: 14px; line-height: 1.75; color: var(--slate); margin-bottom: 1.5rem; flex: 1; }
+
+  .onepager-answers {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--cream);
+    border-radius: 2px;
+  }
+  .onepager-answers li {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--slate-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+  .onepager-answers li::before { content: ''; display: block; width: 12px; height: 1px; background: var(--orange); flex-shrink: 0; }
+
+  .onepager-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    align-self: flex-start;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .onepager-download:hover { color: var(--orange); border-bottom-color: var(--orange); }
+
+  /* CONTACT NUDGE */
+  .contact-nudge {
+    background: var(--warm-white);
+    padding: 4rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+  .contact-nudge-text { font-family: 'Lora', serif; font-size: 17px; font-style: italic; color: var(--slate); max-width: 480px; line-height: 1.7; }
+  .btn-primary { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ink); color: var(--cream); padding: 14px 28px; border-radius: 2px; text-decoration: none; transition: background 0.2s; display: inline-block; white-space: nowrap; flex-shrink: 0; }
+  .btn-primary:hover { background: var(--orange); }
+
+  /* FOOTER */
+  footer { background: var(--ink); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid var(--orange); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); }
+  .footer-logo span { color: var(--orange); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a7485; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #3a4252; letter-spacing: 0.04em; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .page-header { padding: 4rem 1.5rem 3rem; }
+    .intro-section { padding: 3rem 1.5rem; }
+    .onepagers-section { padding: 4rem 1.5rem; }
+    .onepagers-grid { grid-template-columns: 1fr; }
+    .contact-nudge { flex-direction: column; padding: 3rem 1.5rem; gap: 1.5rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Chase the <span>Entertainer</span></a>
+  <ul class="nav-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="toolkit.html">Toolkit</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <span class="page-eyebrow">For Bookers &amp; Organizers</span>
+  <h1 class="page-headline">Everything You<br>Need to <em>Close</em><br>the Booking</h1>
+  <p class="page-sub">One-pagers built for the moment you need to sell someone else on the idea. Print them, forward them, attach them to an email. Whatever gets Chase on your calendar.</p>
+</div>
+
+<div class="intro-section">
+  <p class="intro-text">If you're an event planner, a festival coordinator, a venue manager, or an executive assistant who just got handed the holiday party — these are for you. Each sheet answers the questions your boss, your committee, or your client is going to ask before they say yes. Download the one that fits your situation.</p>
+</div>
+
+<section class="onepagers-section">
+  <span class="onepagers-eyebrow">Booking One-Pagers</span>
+  <h2 class="onepagers-headline">The Right Sheet<br>for Your <em>Event</em></h2>
+  <p class="onepagers-sub">Three situations, three sheets. Pick the one that matches what you're planning and you'll have everything you need on a single page.</p>
+
+  <div class="onepagers-grid">
+
+    <!-- FAIRS AND FESTIVALS -->
+    <div class="onepager-card">
+      <div class="onepager-number">01</div>
+      <span class="onepager-tag">Outdoor Events</span>
+      <h3 class="onepager-title">Fairs &amp; Festivals</h3>
+      <p class="onepager-desc">A show people stop for. Comedy magic, audience participation, and a mind-reading orange — run 4 to 5 times throughout your event day. Self-contained, low footprint, all Chase needs is a spot near foot traffic.</p>
+      <ul class="onepager-answers">
+        <li>How many shows per day?</li>
+        <li>What does he need from us?</li>
+        <li>Is it family appropriate?</li>
+        <li>How does pricing work?</li>
+        <li>Can we bundle with close-up?</li>
+      </ul>
+      <a href="downloads/street_fairs_and_festivals.pdf" class="onepager-download" download>
+        &#8659; Download One-Pager
+      </a>
+    </div>
+
+    <!-- BARS AND BREWERIES -->
+    <div class="onepager-card">
+      <div class="onepager-number">02</div>
+      <span class="onepager-tag">Hospitality Venues</span>
+      <h3 class="onepager-title">Bars &amp; Breweries</h3>
+      <p class="onepager-desc">Magic that sells beer. Close-up sleight of hand table to table, or a seated 30-minute set for event nights. No stage, no announcement, no setup. Chase shows up and makes your slowest Tuesday more interesting.</p>
+      <ul class="onepager-answers">
+        <li>How does strolling magic work in a bar?</li>
+        <li>Will it disrupt service?</li>
+        <li>What kind of space does he need?</li>
+        <li>Can we do a recurring weekly slot?</li>
+        <li>Can we bundle with a stage show?</li>
+      </ul>
+      <a href="downloads/bars_and_breweries.pdf" class="onepager-download" download>
+        &#8659; Download One-Pager
+      </a>
+    </div>
+
+    <!-- PRIVATE AND CORPORATE -->
+    <div class="onepager-card">
+      <div class="onepager-number">03</div>
+      <span class="onepager-tag">Private &amp; Corporate</span>
+      <h3 class="onepager-title">Private Events</h3>
+      <p class="onepager-desc">The one they'll remember. Strolling close-up for cocktail hours, a comedy stage show for the full crowd, or both combined. Scales from 10 guests to 200 and adapts to any venue without a tech rider nightmare.</p>
+      <ul class="onepager-answers">
+        <li>What does the show look like at our event?</li>
+        <li>Can we combine close-up and stage?</li>
+        <li>What does he need from our venue?</li>
+        <li>Is it appropriate for our audience?</li>
+        <li>How do we get a quote?</li>
+      </ul>
+      <a href="downloads/private_events.pdf" class="onepager-download" download>
+        &#8659; Download One-Pager
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT NUDGE -->
+<div class="contact-nudge">
+  <p class="contact-nudge-text">Need something specific that isn't here? Email Chase directly and he'll put together whatever you need to make the booking happen.</p>
+  <a href="contact.html" class="btn-primary">Get in Touch</a>
+</div>
+
+<footer>
+  <div class="footer-logo">Chase the <span>Entertainer</span></div>
+  <ul class="footer-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="https://www.instagram.com/chasetheentertainerstudios/" target="_blank">Instagram</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
+</footer>
+
+</body>
+</html>
