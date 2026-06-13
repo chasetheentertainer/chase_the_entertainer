@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chase the Entertainer — Comedy Magic | Colorado Springs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e;
+    --cream: #f5f2eb;
+    --warm-white: #faf8f4;
+    --orange: #d4732a;
+    --orange-hover: #b85f22;
+    --orange-light: #f0e4d4;
+    --slate: #4a5568;
+    --slate-light: #8896a8;
+    --rule: #d8d2c4;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Lora', serif; font-size: 17px; line-height: 1.7; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--cream); border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 8px 20px; border-radius: 2px; letter-spacing: 0.1em !important; transition: background 0.2s !important; white-space: nowrap; }
+  .nav-cta:hover { background: var(--orange) !important; }
+  .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 32px; height: 32px; cursor: pointer; background: none; border: none; padding: 0; z-index: 110; }
+  .nav-hamburger span { display: block; width: 100%; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--cream); border-bottom: 2px solid var(--orange); z-index: 99; padding: 1.5rem 2rem 2rem; flex-direction: column; gap: 0; }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; padding: 1rem 0; border-bottom: 1px solid var(--rule); transition: color 0.2s; }
+  .nav-drawer a:hover { color: var(--orange); }
+  .nav-drawer a:last-child { border-bottom: none; }
+  .nav-drawer .drawer-cta { margin-top: 1.5rem; background: var(--ink); color: var(--cream) !important; padding: 14px 24px; border-radius: 2px; text-align: center; border-bottom: none !important; }
+  .nav-drawer .drawer-cta:hover { background: var(--orange); }
+
+  /* HERO */
+  .hero { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 64px); }
+  .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem 5rem 4rem; }
+  .hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; }
+  .hero-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(52px, 6vw, 82px); font-weight: 700; line-height: 0.95; letter-spacing: -0.01em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero-headline em { font-style: italic; color: var(--orange); font-weight: 600; }
+  .hero-sub { font-family: 'Lora', serif; font-size: 18px; line-height: 1.65; color: var(--slate); max-width: 420px; margin-bottom: 2.5rem; font-style: italic; }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ink); color: var(--cream); padding: 14px 28px; border-radius: 2px; text-decoration: none; transition: background 0.2s; border: none; cursor: pointer; display: inline-block; }
+  .btn-primary:hover { background: var(--orange); }
+  .btn-ghost { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost:hover { color: var(--orange); border-color: var(--orange); }
+  .hero-credential { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: var(--slate-light); text-transform: uppercase; }
+  .hero-credential strong { color: var(--ink); font-weight: 500; }
+  .hero-image { position: relative; overflow: hidden; }
+  .hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
+  .hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--cream) 0%, transparent 14%); pointer-events: none; }
+
+  /* PROOF STRIP */
+  .proof-strip { background: var(--ink); border-top: 2px solid var(--orange); padding: 1.25rem 4rem; display: flex; align-items: center; gap: 3rem; overflow-x: auto; }
+  .proof-label { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate-light); white-space: nowrap; flex-shrink: 0; }
+  .proof-items { display: flex; gap: 2.5rem; align-items: center; flex-wrap: wrap; }
+  .proof-item { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #a0a8b4; white-space: nowrap; }
+  .proof-divider { color: var(--orange); font-size: 18px; opacity: 0.5; }
+
+  /* SHOWS */
+  .shows { background: var(--warm-white); padding: 6rem 4rem; }
+  .shows-header { max-width: 600px; margin-bottom: 4rem; }
+  .section-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; display: block; }
+  .section-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 4vw, 54px); font-weight: 700; line-height: 1; text-transform: uppercase; color: var(--ink); margin-bottom: 1rem; }
+  .section-headline em { font-style: italic; color: var(--orange); font-weight: 600; }
+  .shows-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .show-card { background: var(--cream); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .show-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--orange); opacity: 0; transition: opacity 0.3s; z-index: 1; }
+  .show-card:hover::before { opacity: 1; }
+  .show-card-img-wrap { width: 100%; aspect-ratio: 4/3; overflow: hidden; flex-shrink: 0; }
+  .show-card-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%); transition: filter 0.4s, transform 0.4s; display: block; }
+  .show-card:hover .show-card-img { filter: grayscale(0%); transform: scale(1.02); }
+  .show-img-stage { object-position: center 20%; }
+  .show-img-closeup { object-position: center 30%; }
+  .show-card-body { padding: 2.5rem; display: flex; flex-direction: column; flex: 1; }
+  .show-tag { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+  .show-title { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 700; text-transform: uppercase; line-height: 1; color: var(--ink); margin-bottom: 1.25rem; }
+  .show-desc { font-size: 15px; line-height: 1.7; color: var(--slate); margin-bottom: 1.75rem; }
+  .show-fits { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 2rem; flex: 1; }
+  .show-fits li { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--slate); display: flex; align-items: center; gap: 0.5rem; }
+  .show-fits li::before { content: '—'; color: var(--orange); font-size: 11px; }
+
+  /* QUOTE / ABOUT */
+  .quote-section { background: var(--ink); display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
+  .quote-img-wrap { position: relative; overflow: hidden; }
+  .quote-img { width: 100%; height: 100%; min-height: 520px; object-fit: cover; object-position: center 35%; display: block; filter: grayscale(20%) contrast(1.05); }
+  .quote-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 65%, var(--ink) 100%); pointer-events: none; }
+  .quote-content { padding: 5rem 4rem 5rem 3rem; display: flex; flex-direction: column; justify-content: center; }
+  .quote-mark { font-family: 'Barlow Condensed', sans-serif; font-size: 120px; line-height: 0.7; color: var(--orange); opacity: 0.35; margin-bottom: 1rem; font-weight: 700; }
+  .quote-text { font-family: 'Lora', serif; font-size: clamp(20px, 2.2vw, 28px); font-style: italic; line-height: 1.5; color: var(--cream); margin-bottom: 1.5rem; }
+  .quote-attr { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-light); }
+  .quote-attr strong { color: var(--orange); }
+  .quote-cred-list { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid #2a2a4a; display: flex; flex-direction: column; gap: 0.75rem; }
+  .quote-cred { font-family: 'Inter', sans-serif; font-size: 13px; color: #6a7485; display: flex; align-items: flex-start; gap: 0.75rem; line-height: 1.5; }
+  .quote-cred::before { content: ''; display: block; width: 20px; height: 1px; background: var(--orange); flex-shrink: 0; margin-top: 0.7em; }
+
+  /* WHAT YOU GET */
+  .what-section { padding: 6rem 4rem; background: var(--cream); }
+  .what-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 3rem; }
+  .what-icon { width: 40px; height: 2px; background: var(--orange); margin-bottom: 1.5rem; }
+  .what-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink); margin-bottom: 0.75rem; }
+  .what-desc { font-size: 15px; line-height: 1.7; color: var(--slate); }
+
+  /* REACTION STRIP */
+  .reaction-strip { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+  .reaction-img-wrap { overflow: hidden; aspect-ratio: 4/3; }
+  .reaction-img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(10%); transition: filter 0.4s; }
+  .reaction-img:hover { filter: grayscale(0%); }
+  .reaction-img-left { object-position: center 55%; }
+  .reaction-img-right { object-position: center 30%; }
+
+  /* MALINI TEASE */
+  .malini-tease { background: var(--orange-light); display: grid; grid-template-columns: 1fr 1.4fr; }
+  .malini-img-wrap { position: relative; overflow: hidden; aspect-ratio: 3/4; }
+  .malini-img { width: 100%; height: 100%; object-fit: cover; object-position: center 50%; display: block; }
+  .malini-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 65%, var(--orange-light) 100%); pointer-events: none; }
+  .malini-content { padding: 5rem 4rem 5rem 3rem; display: flex; flex-direction: column; justify-content: center; }
+  .malini-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(48px, 5vw, 72px); font-weight: 700; text-transform: uppercase; line-height: 0.95; color: var(--ink); margin-bottom: 1.25rem; }
+  .malini-sub { font-family: 'Lora', serif; font-size: 16px; line-height: 1.7; color: var(--slate); font-style: italic; margin-bottom: 2rem; max-width: 400px; }
+
+  /* EMAIL */
+  .email-section { background: var(--ink); padding: 5rem 4rem; text-align: center; }
+  .email-eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+  .email-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 4vw, 56px); font-weight: 700; text-transform: uppercase; line-height: 1; color: var(--cream); margin-bottom: 1rem; }
+  .email-sub { font-family: 'Lora', serif; font-style: italic; font-size: 17px; color: #8896a8; margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .email-form { display: flex; max-width: 440px; margin: 0 auto; }
+  .email-input { flex: 1; padding: 14px 18px; font-family: 'Inter', sans-serif; font-size: 14px; background: #2a2a4a; border: 1px solid #3a3a5a; border-right: none; color: var(--cream); outline: none; border-radius: 2px 0 0 2px; }
+  .email-input::placeholder { color: #5a6278; }
+  .email-submit { padding: 14px 24px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--orange); color: var(--cream); border: none; cursor: pointer; border-radius: 0 2px 2px 0; transition: background 0.2s; white-space: nowrap; }
+  .email-submit:hover { background: var(--orange-hover); }
+  .email-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #4a5568; margin-top: 1rem; letter-spacing: 0.04em; }
+
+  /* BOOKING */
+  .booking-cta { padding: 6rem 4rem; background: var(--warm-white); display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; align-items: center; }
+  .booking-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(42px, 5vw, 68px); font-weight: 700; text-transform: uppercase; line-height: 0.95; color: var(--ink); margin-bottom: 1.5rem; }
+  .booking-headline em { font-style: italic; color: var(--orange); }
+  .booking-sub { font-size: 16px; line-height: 1.75; color: var(--slate); max-width: 520px; }
+  .booking-action { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .booking-contact-line { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: var(--slate-light); }
+  .booking-contact-line a { color: var(--orange); text-decoration: none; }
+  .booking-contact-line a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer { background: var(--ink); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid var(--orange); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); }
+  .footer-logo span { color: var(--orange); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a7485; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #3a4252; letter-spacing: 0.04em; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-image { order: -1; aspect-ratio: 3/4; height: auto; }
+    .hero-image img { object-position: center 20%; }
+    .hero-image::after { background: linear-gradient(to bottom, transparent 60%, var(--cream)); }
+    .hero-text { padding: 2.5rem 1.5rem 3rem; }
+    .proof-strip { padding: 1rem 1.5rem; gap: 1.5rem; }
+    .shows { padding: 4rem 1.5rem; }
+    .shows-grid { grid-template-columns: 1fr; }
+    .quote-section { grid-template-columns: 1fr; }
+    .quote-img-wrap { display: none; }
+    .quote-content { padding: 4rem 1.5rem; }
+    .what-section { padding: 4rem 1.5rem; }
+    .what-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .reaction-strip { grid-template-columns: 1fr; }
+    .reaction-img-wrap { aspect-ratio: 4/3; }
+    .malini-tease { grid-template-columns: 1fr; }
+    .malini-img-wrap { aspect-ratio: 4/3; }
+    .malini-img-wrap::after { background: linear-gradient(to bottom, transparent 60%, var(--orange-light)); }
+    .malini-content { padding: 3rem 1.5rem 4rem; }
+    .email-section { padding: 4rem 1.5rem; }
+    .email-form { flex-direction: column; }
+    .email-input { border-right: 1px solid #3a3a5a; border-bottom: none; border-radius: 2px 2px 0 0; }
+    .email-submit { border-radius: 0 0 2px 2px; }
+    .booking-cta { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Chase the <span>Entertainer</span></a>
+  <ul class="nav-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="contact.html" class="nav-cta" style="white-space:nowrap;">Book Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer" id="nav-drawer">
+  <a href="shows.html">Shows</a>
+  <a href="about.html">About</a>
+  <a href="malini.html">Malini</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="press.html">Press</a>
+  <a href="contact.html" class="drawer-cta">Book Now</a>
+</div>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Comedy Magic &amp; Sleight of Hand</p>
+    <h1 class="hero-headline">Magic.<br><em>Dumb</em><br>Jokes.<br>&amp; An Orange.</h1>
+    <p class="hero-sub">It's either a comedy show with some magic, or a magic show with some issues. Audiences tend to disagree on which.</p>
+    <div class="hero-actions">
+      <a href="contact.html" class="btn-primary">Book Chase</a>
+      <a href="shows.html" class="btn-ghost">See the Shows</a>
+    </div>
+    <div class="hero-credential">
+      <strong>Pier 39 Stage &middot; Fisherman's Wharf</strong> &nbsp;&middot;&nbsp; Philly Fringe &nbsp;&middot;&nbsp; Haunted Happenings Salem &nbsp;&middot;&nbsp; Rogue Festival &nbsp;&middot;&nbsp; Suncoast Ren Faire
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="https://chasetheentertainer.netlify.app/images/general/Pier39.JPEG"
+         alt="Chase performing to a packed crowd at Pier 39, Fisherman's Wharf">
+  </div>
+</section>
+
+<div class="proof-strip">
+  <span class="proof-label">Performed at</span>
+  <div class="proof-items">
+    <span class="proof-item">Pier 39 &middot; San Francisco</span>
+    <span class="proof-divider">&middot;</span>
+    <span class="proof-item">Haunted Happenings &middot; Salem</span>
+    <span class="proof-divider">&middot;</span>
+    <span class="proof-item">Philly Fringe Festival</span>
+    <span class="proof-divider">&middot;</span>
+    <span class="proof-item">Rogue Festival</span>
+    <span class="proof-divider">&middot;</span>
+    <span class="proof-item">Suncoast Ren Faire</span>
+    <span class="proof-divider">&middot;</span>
+    <span class="proof-item">Pear Festival &middot; Wine Country</span>
+  </div>
+</div>
+
+<section class="shows" id="shows">
+  <div class="shows-header">
+    <span class="section-eyebrow">What He Does</span>
+    <h2 class="section-headline">Pick Your <em>Poison</em></h2>
+    <p style="font-size:16px; color:var(--slate); line-height:1.7;">Two formats. Both involve impossible things happening. One has a microphone, one happens inches from your face. Neither has a rabbit.</p>
+  </div>
+  <div class="shows-grid">
+    <div class="show-card">
+      <div class="show-card-img-wrap">
+        <img class="show-card-img show-img-stage"
+             src="https://chasetheentertainer.netlify.app/images/general/philly_audience.JPEG"
+             alt="Chase performing his comedy magic stage show to a packed theatre in Philadelphia">
+      </div>
+      <div class="show-card-body">
+        <p class="show-tag">The Stage Show</p>
+        <h3 class="show-title">The Full Thing</h3>
+        <p class="show-desc">30 to 60 minutes of comedy magic. Bold sleight of hand, sharper jokes, audience participation, and one orange with a better poker face than anyone in the room. Road-tested on actual humans at actual events.</p>
+        <ul class="show-fits">
+          <li>Corporate dinners &amp; holiday parties</li>
+          <li>Street festivals &amp; fringe stages</li>
+          <li>Wedding receptions</li>
+          <li>Theater &amp; community events</li>
+          <li>Fundraisers &amp; galas</li>
+        </ul>
+        <a href="contact.html" class="btn-primary">Inquire About This Show</a>
+      </div>
+    </div>
+    <div class="show-card">
+      <div class="show-card-img-wrap">
+        <img class="show-card-img show-img-closeup"
+             src="https://chasetheentertainer.netlify.app/images/general/wine_bar.jpg"
+             alt="Chase performing close-up magic at a wine bar dinner table">
+      </div>
+      <div class="show-card-body">
+        <p class="show-tag">Close-Up / Strolling</p>
+        <h3 class="show-title">Inches Away</h3>
+        <p class="show-desc">No stage. No distance. Impossible things happen in your hands, with your borrowed ring, using a card you chose. Works table to table or as a seated 30-minute set for rotating groups. Extremely low footprint. High impact.</p>
+        <ul class="show-fits">
+          <li>Cocktail hours &amp; brewery events</li>
+          <li>Corporate retreats &amp; mixers</li>
+          <li>Wedding weekends</li>
+          <li>Speakeasy &amp; VIP environments</li>
+          <li>Restaurant &amp; private dining</li>
+        </ul>
+        <a href="contact.html" class="btn-primary">Inquire About This Show</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section" id="about">
+  <div class="quote-img-wrap">
+    <img class="quote-img"
+         src="https://chasetheentertainer.netlify.app/images/general/bacon_fest.JPEG"
+         alt="Crowd reaction during a Chase the Entertainer outdoor street show">
+  </div>
+  <div class="quote-content">
+    <div class="quote-mark">"</div>
+    <p class="quote-text">Some days they like the orange more than me. I've learned to live with that.</p>
+    <p class="quote-attr"><strong>Chase the Entertainer</strong> &nbsp;&middot;&nbsp; on performing</p>
+    <div class="quote-cred-list">
+      <p class="quote-cred">Years as a regular on the Pier 39 stage at Fisherman's Wharf, San Francisco</p>
+      <p class="quote-cred">Fringe festivals in California and Philadelphia</p>
+      <p class="quote-cred">Producer and host of Street Magic Live, a weekly variety show in San Francisco</p>
+      <p class="quote-cred">Available in Colorado Springs and nationally</p>
+    </div>
+  </div>
+</section>
+
+<section class="what-section">
+  <span class="section-eyebrow">How This Works</span>
+  <h2 class="section-headline">What You're <em>Actually</em> Getting</h2>
+  <div class="what-grid">
+    <div class="what-item">
+      <div class="what-icon"></div>
+      <h3 class="what-title">A Proven Act</h3>
+      <p class="what-desc">Not a hobbyist, not a party trick. Years of street stages, fringe festivals, and corporate events across the country. The kind of experience that makes people pull out their phones to show someone else what just happened.</p>
+    </div>
+    <div class="what-item">
+      <div class="what-icon"></div>
+      <h3 class="what-title">Zero Headaches</h3>
+      <p class="what-desc">Self-contained. Own sound, own gear, own setup and strike. You give Chase a spot and a time. He handles everything else. Your event coordinator will either love him or be mildly suspicious of how easy it was.</p>
+    </div>
+    <div class="what-item">
+      <div class="what-icon"></div>
+      <h3 class="what-title">A Room That Talks About It</h3>
+      <p class="what-desc">The goal isn't polite applause. The goal is the thing people mention on the drive home. Comedy and magic together do something neither can do alone: they make strangers feel like they were in on the same secret.</p>
+    </div>
+  </div>
+</section>
+
+<div class="reaction-strip">
+  <div class="reaction-img-wrap">
+    <img class="reaction-img reaction-img-left"
+         src="https://chasetheentertainer.netlify.app/images/general/ripley_crowd.JPEG"
+         alt="Chase drawing a large crowd at a San Francisco street fair">
+  </div>
+  <div class="reaction-img-wrap">
+    <img class="reaction-img reaction-img-right"
+         src="https://chasetheentertainer.netlify.app/images/general/philly_stage.JPEG"
+         alt="Chase working the front row at a Philadelphia theatre show">
+  </div>
+</div>
+
+<section class="malini-tease" id="malini">
+  <div class="malini-img-wrap">
+    <img class="malini-img"
+         src="https://chasetheentertainer.netlify.app/images/malini/malini_la.JPEG"
+         alt="Malini the Mind-Reading Orange">
+  </div>
+  <div class="malini-content">
+    <span class="section-eyebrow">There's also this</span>
+    <h2 class="malini-headline">Meet<br>Malini</h2>
+    <p class="malini-sub">He's an orange. He wears a turban. He knows things he shouldn't. He is the closer of the show and, frankly, the reason half the audience came back to this website.</p>
+    <a href="malini.html" class="btn-primary">Enter Malini's World</a>
+  </div>
+</section>
+
+<section class="email-section">
+  <p class="email-eyebrow">Malini's Psychic Advice Column</p>
+  <h2 class="email-headline">He Already<br>Knows Your Email</h2>
+  <p class="email-sub">Surrender it willingly and receive irregular dispatches of citrus wisdom, upcoming shows, and advice that is technically unsolicited but usually correct.</p>
+  <div class="email-form">
+    <input class="email-input" type="email" placeholder="your@email.com" aria-label="Your email address">
+    <button class="email-submit">Submit to Malini</button>
+  </div>
+  <p class="email-fine">No spam. Just oranges. Unsubscribe whenever. Malini will know.</p>
+</section>
+
+<section class="booking-cta">
+  <div class="booking-text">
+    <span class="section-eyebrow">Let's Talk</span>
+    <h2 class="booking-headline">Tell Chase<br>About Your<br><em>Event</em></h2>
+    <p class="booking-sub">Corporate party, street festival, wedding reception, brewery night, speakeasy, community event — if people will be there, there's probably a show in it. No pressure, no pitch. Just a conversation.</p>
+  </div>
+  <div class="booking-action">
+    <a href="contact.html" class="btn-primary" style="font-size:14px; padding:16px 32px;">Send an Inquiry</a>
+    <p class="booking-contact-line">Or email directly: <a href="mailto:Chase@chasetheentertainer.com">Chase@chasetheentertainer.com</a></p>
+    <p class="booking-contact-line">Booking manager: <a href="mailto:Caseylynn@chasetheentertainer.com">Caseylynn@chasetheentertainer.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Chase the <span>Entertainer</span></div>
+  <ul class="footer-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="press.html">Press</a></li>
+    <li><a href="https://www.instagram.com/chasetheentertainerstudios/" target="_blank">Instagram</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('nav-drawer');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  drawer.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>

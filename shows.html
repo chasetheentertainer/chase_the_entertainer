@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Shows — Chase the Entertainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e;
+    --cream: #f5f2eb;
+    --warm-white: #faf8f4;
+    --orange: #d4732a;
+    --orange-hover: #b85f22;
+    --orange-light: #f0e4d4;
+    --slate: #4a5568;
+    --slate-light: #8896a8;
+    --rule: #d8d2c4;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Lora', serif; font-size: 17px; line-height: 1.7; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--cream); border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 8px 20px; border-radius: 2px; letter-spacing: 0.1em !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--orange) !important; }
+
+  /* PAGE HEADER */
+  .page-header {
+    margin-top: 64px;
+    background: var(--ink);
+    padding: 5rem 4rem 4rem;
+    border-bottom: 2px solid var(--orange);
+  }
+  .page-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .page-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 700;
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+  .page-headline em { font-style: italic; color: var(--orange); }
+  .page-sub {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--slate-light);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* SHOW BLOCK — alternating layout */
+  .show-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 600px;
+  }
+  .show-block.reverse { direction: rtl; }
+  .show-block.reverse > * { direction: ltr; }
+
+  .show-img-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .show-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .show-block:hover .show-img { transform: scale(1.02); }
+  .show-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .show-block:not(.reverse) .show-img-wrap::after {
+    background: linear-gradient(to left, transparent 60%, var(--warm-white) 100%);
+  }
+  .show-block.reverse .show-img-wrap::after {
+    background: linear-gradient(to right, transparent 60%, var(--ink) 100%);
+  }
+
+  /* Stage show — warm white background */
+  .show-content-light {
+    background: var(--warm-white);
+    padding: 5rem 3rem 5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* Close-up — ink background */
+  .show-content-dark {
+    background: var(--ink);
+    padding: 5rem 4rem 5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .show-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--orange);
+    opacity: 0.15;
+    margin-bottom: 0.5rem;
+  }
+  .show-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .show-tag-light { color: var(--orange); }
+  .show-tag-dark { color: var(--orange); }
+
+  .show-title-light {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(40px, 4vw, 60px);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 0.95;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .show-title-light em { font-style: italic; color: var(--orange); }
+
+  .show-title-dark {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(40px, 4vw, 60px);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+  .show-title-dark em { font-style: italic; color: var(--orange); }
+
+  .show-desc-light {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--slate);
+    margin-bottom: 2rem;
+    max-width: 420px;
+  }
+  .show-desc-dark {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--slate-light);
+    margin-bottom: 2rem;
+    max-width: 420px;
+  }
+
+  /* SPECS */
+  .show-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 2px;
+  }
+  .show-specs-light { background: var(--cream); }
+  .show-specs-dark { background: #12122280; }
+
+  .spec-row {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+  .spec-label-light {
+    color: var(--slate-light);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 80px;
+  }
+  .spec-label-dark {
+    color: #4a5568;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 80px;
+  }
+  .spec-value-light { color: var(--ink); line-height: 1.5; }
+  .spec-value-dark { color: var(--slate-light); line-height: 1.5; }
+
+  /* GOOD FOR */
+  .good-for {
+    margin-bottom: 2.5rem;
+  }
+  .good-for-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .good-for-label-light { color: var(--slate-light); }
+  .good-for-label-dark { color: #4a5568; }
+
+  .good-for-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .tag-light {
+    background: var(--orange-light);
+    color: var(--slate);
+    border: 1px solid var(--rule);
+  }
+  .tag-dark {
+    background: #2a2a4a;
+    color: var(--slate-light);
+    border: 1px solid #3a3a5a;
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 14px 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+    align-self: flex-start;
+  }
+  .btn-primary:hover { background: var(--orange); }
+  .btn-primary-light { background: var(--ink); }
+  .btn-primary-dark { background: var(--orange); }
+  .btn-primary-dark:hover { background: var(--orange-hover); }
+
+  /* DIVIDER STRIP */
+  .divider-strip {
+    background: var(--cream);
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .divider-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+  }
+  .divider-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    max-width: 200px;
+  }
+
+  /* BOTH SHOWS NOTE */
+  .both-note {
+    background: var(--orange-light);
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    border-top: 2px solid var(--orange);
+  }
+  .both-note-text {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--slate);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer { background: var(--ink); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid var(--orange); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); }
+  .footer-logo span { color: var(--orange); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a7485; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #3a4252; letter-spacing: 0.04em; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .page-header { padding: 4rem 1.5rem 3rem; }
+    .show-block { grid-template-columns: 1fr; min-height: auto; }
+    .show-block.reverse { direction: ltr; }
+    .show-img-wrap { aspect-ratio: 4/3; height: auto; }
+    .show-block:not(.reverse) .show-img-wrap::after { background: linear-gradient(to bottom, transparent 60%, var(--warm-white)); }
+    .show-block.reverse .show-img-wrap::after { background: linear-gradient(to bottom, transparent 60%, var(--ink)); }
+    .show-content-light { padding: 3rem 1.5rem; }
+    .show-content-dark { padding: 3rem 1.5rem; }
+    .divider-strip { padding: 1.5rem; }
+    .both-note { flex-direction: column; padding: 3rem 1.5rem; gap: 1.5rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Chase the <span>Entertainer</span></a>
+  <ul class="nav-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <span class="page-eyebrow">What Chase Does</span>
+  <h1 class="page-headline">Two Shows.<br><em>One Guy.</em><br>Zero Rabbits.</h1>
+  <p class="page-sub">A full comedy magic stage show for crowds, and close-up sleight of hand for rooms. Both involve impossible things. Neither requires a stage if you don't have one.</p>
+</div>
+
+<!-- SHOW 1 — STAGE SHOW -->
+<section class="show-block" id="stage">
+  <div class="show-content-light">
+    <div class="show-number">01</div>
+    <span class="show-tag show-tag-light">The Stage Show</span>
+    <h2 class="show-title-light">The Full<br><em>Thing</em></h2>
+    <p class="show-desc-light">A 20 to 30 minute outdoor comedy magic show built for mixed crowds. Sharp sleight of hand, audience participation, dumb jokes, and one orange that consistently upstages everyone. Not a kids show — but the kids will watch anyway. Chase runs four to five scheduled shows across the day, gathers a crowd each time, and leaves a spot exactly as he found it.</p>
+
+    <div class="show-specs show-specs-light">
+      <div class="spec-row">
+        <span class="spec-label-light">Duration</span>
+        <span class="spec-value-light">20 to 30 minutes per show, 4 to 5 shows per day</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label-light">Setup</span>
+        <span class="spec-value-light">Own PA and full gear, completely self-contained</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label-light">Space</span>
+        <span class="spec-value-light">Any spot with foot traffic — not next to a music stage or in a dedicated kids area</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label-light">Pricing</span>
+        <span class="spec-value-light">Fee plus hat pass standard. Flat fee no hat pass option available. Rates on request.</span>
+      </div>
+    </div>
+
+    <div class="good-for">
+      <span class="good-for-label good-for-label-light">Good for</span>
+      <div class="good-for-tags">
+        <span class="tag tag-light">Street Festivals</span>
+        <span class="tag tag-light">Community Events</span>
+        <span class="tag tag-light">Family Events</span>
+        <span class="tag tag-light">Outdoor Fairs</span>
+        <span class="tag tag-light">Fundraisers</span>
+        <span class="tag tag-light">Fringe Stages</span>
+      </div>
+    </div>
+
+    <a href="contact.html" class="btn-primary btn-primary-light">Book This Show</a>
+  </div>
+
+  <div class="show-img-wrap">
+    <img class="show-img"
+         src="https://chasetheentertainer.netlify.app/images/general/bacon_fest.JPEG"
+         alt="Chase performing his outdoor comedy magic stage show to a crowd"
+         style="object-position: center 35%;">
+  </div>
+</section>
+
+<div class="divider-strip">
+  <div class="divider-rule"></div>
+  <span class="divider-text">Also Available</span>
+  <div class="divider-rule"></div>
+</div>
+
+<!-- SHOW 2 — CLOSE UP -->
+<section class="show-block reverse" id="closeup">
+  <div class="show-img-wrap">
+    <img class="show-img"
+         src="https://chasetheentertainer.netlify.app/images/general/wine_bar.jpg"
+         alt="Chase performing close-up magic at a wine bar table"
+         style="object-position: center 30%;">
+  </div>
+
+  <div class="show-content-dark">
+    <div class="show-number" style="color: var(--orange); opacity: 0.1;">02</div>
+    <span class="show-tag show-tag-dark">Close-Up / Strolling</span>
+    <h2 class="show-title-dark">Inches<br><em>Away</em></h2>
+    <p class="show-desc-dark">No stage. No distance. Magic that happens in your hands, with your borrowed ring, using a card you picked. Chase works the room table to table, or sits down for a focused 30 minute set for rotating groups. The kind of thing people lean in for and can't explain afterward.</p>
+
+    <div class="show-specs show-specs-dark">
+      <div class="spec-row">
+        <span class="spec-label-dark">Duration</span>
+        <span class="spec-value-dark">Strolling as needed, or 30 minute seated sets for rotating groups</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label-dark">Setup</span>
+        <span class="spec-value-dark">No equipment needed. Rubber bands, a coin, a deck of cards. Fits in a jacket pocket.</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label-dark">Space</span>
+        <span class="spec-value-dark">Any social environment — cocktail hours, dinner tables, bar tops, taprooms</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label-dark">Pricing</span>
+        <span class="spec-value-dark">Flat fee. Rates on request.</span>
+      </div>
+    </div>
+
+    <div class="good-for">
+      <span class="good-for-label good-for-label-dark">Good for</span>
+      <div class="good-for-tags">
+        <span class="tag tag-dark">Corporate Events</span>
+        <span class="tag tag-dark">Holiday Parties</span>
+        <span class="tag tag-dark">Brewery Nights</span>
+        <span class="tag tag-dark">Wedding Receptions</span>
+        <span class="tag tag-dark">Speakeasies</span>
+        <span class="tag tag-dark">Private Dining</span>
+        <span class="tag tag-dark">Cocktail Hours</span>
+      </div>
+    </div>
+
+    <a href="contact.html" class="btn-primary btn-primary-dark">Book This Show</a>
+  </div>
+</section>
+
+<!-- BOTH SHOWS NOTE -->
+<div class="both-note">
+  <p class="both-note-text">Need both? The stage show and close-up work well together — Chase can open with strolling during arrivals and shift to the full show once the crowd builds. Ask about combined bookings.</p>
+  <a href="contact.html" class="btn-primary" style="white-space: nowrap; flex-shrink: 0;">Get in Touch</a>
+</div>
+
+<footer>
+  <div class="footer-logo">Chase the <span>Entertainer</span></div>
+  <ul class="footer-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="https://www.instagram.com/chasetheentertainerstudios/" target="_blank">Instagram</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
+</footer>
+
+</body>
+</html>

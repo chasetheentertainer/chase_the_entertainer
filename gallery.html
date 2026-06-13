@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Chase the Entertainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e;
+    --ink-deep: #0f0f1e;
+    --cream: #f5f2eb;
+    --warm-white: #faf8f4;
+    --orange: #d4732a;
+    --orange-hover: #b85f22;
+    --orange-light: #f0e4d4;
+    --slate: #4a5568;
+    --slate-light: #8896a8;
+    --rule: #d8d2c4;
+    --rule-dark: #2a2a4a;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Lora', serif; font-size: 17px; line-height: 1.7; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--cream); border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 8px 20px; border-radius: 2px; letter-spacing: 0.1em !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--orange) !important; }
+
+  /* PAGE HEADER */
+  .page-header {
+    margin-top: 64px;
+    background: var(--ink);
+    padding: 4rem 4rem 3rem;
+    border-bottom: 2px solid var(--orange);
+  }
+  .page-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; display: block; }
+  .page-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(48px, 6vw, 80px); font-weight: 700; line-height: 0.95; text-transform: uppercase; color: var(--cream); }
+  .page-headline em { font-style: italic; color: var(--orange); }
+
+  /* SECTION LABEL */
+  .section-label {
+    padding: 2.5rem 4rem 0;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .section-label-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .section-label-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .section-label.dark .section-label-rule { background: var(--rule-dark); }
+
+  /* SHARED IMAGE STYLES */
+  .g-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.4s ease;
+  }
+  .g-item:hover .g-img { transform: scale(1.03); filter: brightness(1.05); }
+
+  .g-caption {
+    padding: 0.75rem 1rem;
+  }
+  .g-caption-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+  }
+  .g-caption-text.dark { color: #3a4252; }
+
+  /* SECTION 1 — THE SHOW */
+  .show-section {
+    background: var(--warm-white);
+    padding: 0 0 4rem;
+  }
+
+  /* Hero row — one wide + one portrait */
+  .show-hero-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2px;
+    margin-top: 2px;
+  }
+  .show-hero-row .g-item { overflow: hidden; position: relative; }
+  .show-hero-row .g-item:first-child { aspect-ratio: 16/9; }
+  .show-hero-row .g-item:last-child { aspect-ratio: 3/4; }
+
+  /* Three column row */
+  .show-three-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 2px;
+  }
+  .show-three-row .g-item { overflow: hidden; position: relative; aspect-ratio: 4/3; }
+
+  /* Two column row */
+  .show-two-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 2px;
+  }
+  .show-two-row .g-item { overflow: hidden; position: relative; aspect-ratio: 16/9; }
+
+  /* SECTION 2 — THE ROOM */
+  .room-section {
+    background: var(--cream);
+    padding: 0 0 4rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .room-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 2px;
+  }
+  .room-grid .g-item { overflow: hidden; position: relative; aspect-ratio: 3/4; }
+  .room-grid .g-item.landscape { aspect-ratio: 4/3; }
+  .room-grid .g-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+
+  /* SECTION 3 — THE ORACLE */
+  .oracle-section {
+    background: var(--ink-deep);
+    padding: 0 0 5rem;
+    border-top: 2px solid var(--orange);
+  }
+  .oracle-section .section-label { padding: 2.5rem 4rem 0; }
+  .oracle-section .section-label-text { color: var(--orange); }
+
+  .oracle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 2px;
+  }
+  .oracle-grid .g-item { overflow: hidden; position: relative; background: var(--ink); }
+  .oracle-grid .g-item.square { aspect-ratio: 1/1; }
+  .oracle-grid .g-item.portrait { aspect-ratio: 3/4; }
+  .oracle-grid .g-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+  .oracle-grid .g-item .g-img { filter: grayscale(20%) contrast(1.05); }
+  .oracle-grid .g-item:hover .g-img { filter: grayscale(0%) contrast(1.1); }
+
+  .oracle-caption {
+    padding: 0.75rem 1rem;
+    background: var(--ink);
+  }
+  .oracle-caption-text {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: #3a4252;
+    line-height: 1.5;
+  }
+
+  /* ORACLE CTA */
+  .oracle-cta {
+    text-align: center;
+    padding: 3rem 4rem 0;
+  }
+  .oracle-cta-text {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: #3a4252;
+    margin-bottom: 1.5rem;
+  }
+  .btn-ghost-light {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    text-decoration: none;
+    border-bottom: 1px solid var(--orange);
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+  .btn-ghost-light:hover { opacity: 0.7; }
+
+  /* BOOKING STRIP */
+  .booking-strip {
+    background: var(--ink);
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    border-top: 1px solid var(--rule-dark);
+  }
+  .booking-strip-text {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--slate-light);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+  .btn-primary {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--orange);
+    color: var(--cream);
+    padding: 14px 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .btn-primary:hover { background: var(--orange-hover); }
+
+  /* FOOTER */
+  footer { background: var(--ink-deep); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--rule-dark); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); }
+  .footer-logo span { color: var(--orange); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #3a4252; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #2a2a3a; letter-spacing: 0.04em; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .page-header { padding: 3rem 1.5rem 2.5rem; }
+    .section-label { padding: 2rem 1.5rem 0; }
+    .show-hero-row { grid-template-columns: 1fr; }
+    .show-hero-row .g-item:first-child { aspect-ratio: 4/3; }
+    .show-hero-row .g-item:last-child { aspect-ratio: 4/3; }
+    .show-three-row { grid-template-columns: 1fr 1fr; }
+    .show-two-row { grid-template-columns: 1fr; }
+    .room-grid { grid-template-columns: 1fr 1fr; }
+    .room-grid .g-item.wide { grid-column: span 2; aspect-ratio: 4/3; }
+    .oracle-grid { grid-template-columns: 1fr 1fr; }
+    .oracle-grid .g-item.wide { grid-column: span 2; }
+    .oracle-cta { padding: 2.5rem 1.5rem 0; }
+    .booking-strip { flex-direction: column; padding: 3rem 1.5rem; gap: 1.5rem; text-align: center; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Chase the <span>Entertainer</span></a>
+  <ul class="nav-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="press.html">Press</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <span class="page-eyebrow">Photos</span>
+  <h1 class="page-headline">The <em>Show</em><br>In Pictures</h1>
+</div>
+
+<!-- SECTION 1: THE SHOW -->
+<section class="show-section">
+  <div class="section-label">
+    <span class="section-label-text">The Show</span>
+    <div class="section-label-rule"></div>
+  </div>
+
+  <div class="show-hero-row">
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/Pier39.JPEG"
+           alt="Chase performing at Pier 39"
+           style="object-position: center 30%;">
+      <div class="g-caption"><p class="g-caption-text">Pier 39 &middot; San Francisco</p></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/philly_audience.JPEG"
+           alt="Philadelphia stage show"
+           style="object-position: center 20%;">
+      <div class="g-caption"><p class="g-caption-text">Philadelphia Fringe Festival</p></div>
+    </div>
+  </div>
+
+  <div class="show-three-row">
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/bacon_fest.JPEG"
+           alt="Bacon Fest crowd reaction"
+           style="object-position: center 35%;">
+      <div class="g-caption"><p class="g-caption-text">Wine Country, California</p></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/ripley_crowd.JPEG"
+           alt="Chase performing in San Francisco"
+           style="object-position: center 40%;">
+      <div class="g-caption"><p class="g-caption-text">Fisherman's Wharf, San Francisco</p></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/volunteer_reaction.JPEG"
+           alt="Volunteer reaction"
+           style="object-position: center 30%;">
+      <div class="g-caption"><p class="g-caption-text">Volunteer Reaction</p></div>
+    </div>
+  </div>
+
+  <div class="show-three-row">
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/street_fair1.JPEG"
+           alt="Street fair show"
+           style="object-position: center center;">
+      <div class="g-caption"><p class="g-caption-text">Street Festival</p></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/volunteer_smile.JPEG"
+           alt="Volunteer smiling"
+           style="object-position: center 25%;">
+      <div class="g-caption"><p class="g-caption-text">Audience Participation</p></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/rogue_fest_audience.jpg"
+           alt="Rogue Festival audience"
+           style="object-position: center center;">
+      <div class="g-caption"><p class="g-caption-text">Rogue Festival &middot; Fresno</p></div>
+    </div>
+  </div>
+
+  <div class="show-two-row">
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/fist_bump.JPEG"
+           alt="Fist bump with audience member"
+           style="object-position: center center;">
+      <div class="g-caption"><p class="g-caption-text">Post-Show</p></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/philly_stage.JPEG"
+           alt="Philadelphia stage"
+           style="object-position: center 30%;">
+      <div class="g-caption"><p class="g-caption-text">Philadelphia</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: THE ROOM -->
+<section class="room-section">
+  <div class="section-label">
+    <span class="section-label-text">The Room</span>
+    <div class="section-label-rule"></div>
+  </div>
+
+  <div class="room-grid">
+    <div class="g-item wide">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/wine_bar.jpg"
+           alt="Close-up magic at wine bar"
+           style="object-position: center 30%;">
+      <div class="g-caption"><p class="g-caption-text">Wine Bar &middot; Close-Up Magic</p></div>
+    </div>
+    <div class="g-item portrait">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/art_walk_magic.JPEG"
+           alt="Art walk magic"
+           style="object-position: center center;">
+      <div class="g-caption"><p class="g-caption-text">Art Walk</p></div>
+    </div>
+    <div class="g-item portrait">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/close_up_magic.HEIC"
+           alt="Close-up magic"
+           style="object-position: center center;">
+      <div class="g-caption"><p class="g-caption-text">Close-Up</p></div>
+    </div>
+    <div class="g-item landscape">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/brewery_show.JPEG"
+           alt="Brewery show"
+           style="object-position: center center;">
+      <div class="g-caption"><p class="g-caption-text">Brewery Show</p></div>
+    </div>
+    <div class="g-item landscape">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/wine_bar_magic.HEIC"
+           alt="Wine bar magic"
+           style="object-position: center center;">
+      <div class="g-caption"><p class="g-caption-text">Wine Bar</p></div>
+    </div>
+    <div class="g-item landscape">
+      <img class="g-img"
+           src="https://chasetheentertainer.netlify.app/images/general/his_card.JPEG"
+           alt="His card"
+           style="object-position: center center;">
+      <div class="g-caption"><p class="g-caption-text">Card Magic</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: THE ORACLE -->
+<section class="oracle-section">
+  <div class="section-label dark">
+    <span class="section-label-text">The Oracle</span>
+    <div class="section-label-rule"></div>
+  </div>
+
+  <div class="oracle-grid">
+    <div class="g-item wide">
+      <div style="aspect-ratio:16/9; overflow:hidden;">
+        <img class="g-img"
+             src="https://chasetheentertainer.netlify.app/images/malini/IMG_6727.JPEG"
+             alt="Malini on Route 66"
+             style="object-position: center center;">
+      </div>
+      <div class="oracle-caption"><p class="oracle-caption-text">"He has been on Route 66. He did not find it particularly magical. He found it accurate."</p></div>
+    </div>
+
+    <div class="g-item square">
+      <div style="aspect-ratio:1/1; overflow:hidden;">
+        <img class="g-img"
+             src="https://chasetheentertainer.netlify.app/images/malini/malini_la.JPEG"
+             alt="Malini in Los Angeles"
+             style="object-position: center 45%;">
+      </div>
+      <div class="oracle-caption"><p class="oracle-caption-text">"Los Angeles. Warm. Malini fit right in."</p></div>
+    </div>
+
+    <div class="g-item square">
+      <div style="aspect-ratio:1/1; overflow:hidden;">
+        <img class="g-img"
+             src="https://chasetheentertainer.netlify.app/images/malini/IMG_6335.JPEG"
+             alt="Malini in a car"
+             style="object-position: center center;">
+      </div>
+      <div class="oracle-caption"><p class="oracle-caption-text">"He does not drive. He supervises."</p></div>
+    </div>
+
+    <div class="g-item square">
+      <div style="aspect-ratio:1/1; overflow:hidden;">
+        <img class="g-img"
+             src="https://chasetheentertainer.netlify.app/images/malini/IMG_6363.JPEG"
+             alt="Malini at a cave"
+             style="object-position: center center;">
+      </div>
+      <div class="oracle-caption"><p class="oracle-caption-text">"He considered the cave. Neither went in."</p></div>
+    </div>
+
+    <div class="g-item wide">
+      <div style="aspect-ratio:16/9; overflow:hidden;">
+        <img class="g-img"
+             src="https://chasetheentertainer.netlify.app/images/malini/IMG_8784.JPEG"
+             alt="Malini watching the sunset"
+             style="object-position: center center;">
+      </div>
+      <div class="oracle-caption"><p class="oracle-caption-text">"He watched the sunset. The sunset did not thank him."</p></div>
+    </div>
+
+    <div class="g-item square">
+      <div style="aspect-ratio:1/1; overflow:hidden;">
+        <img class="g-img"
+             src="https://chasetheentertainer.netlify.app/images/malini/IMG_7121.JPEG"
+             alt="Malini on a bench"
+             style="object-position: center center;">
+      </div>
+      <div class="oracle-caption"><p class="oracle-caption-text">"He sat here for a while. Nobody asked why."</p></div>
+    </div>
+  </div>
+
+  <div class="oracle-cta">
+    <p class="oracle-cta-text">There is more where this came from.</p>
+    <a href="malini.html" class="btn-ghost-light">Meet Malini</a>
+  </div>
+</section>
+
+<!-- BOOKING STRIP -->
+<div class="booking-strip">
+  <p class="booking-strip-text">Seen enough? Good. That's what Chase looks like at an event. Tell him about yours.</p>
+  <a href="contact.html" class="btn-primary">Book Chase</a>
+</div>
+
+<footer>
+  <div class="footer-logo">Chase the <span>Entertainer</span></div>
+  <ul class="footer-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="press.html">Press</a></li>
+    <li><a href="https://www.instagram.com/chasetheentertainerstudios/" target="_blank">Instagram</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Chase the Entertainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e;
+    --cream: #f5f2eb;
+    --warm-white: #faf8f4;
+    --orange: #d4732a;
+    --orange-hover: #b85f22;
+    --orange-light: #f0e4d4;
+    --slate: #4a5568;
+    --slate-light: #8896a8;
+    --rule: #d8d2c4;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Lora', serif; font-size: 17px; line-height: 1.7; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--cream); border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 8px 20px; border-radius: 2px; letter-spacing: 0.1em !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--orange) !important; }
+
+  /* HERO SPLIT */
+  .about-hero {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 70vh;
+  }
+  .about-hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3rem 5rem 4rem;
+    background: var(--ink);
+  }
+  .about-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .about-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 700;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 1.75rem;
+  }
+  .about-headline em { font-style: italic; color: var(--orange); }
+  .about-intro {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--slate-light);
+    max-width: 440px;
+  }
+
+  /* HERO IMAGE */
+  .about-hero-img {
+    position: relative;
+    overflow: hidden;
+  }
+  .about-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+  }
+  .about-hero-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, transparent 60%, var(--ink) 100%);
+    pointer-events: none;
+  }
+
+  /* STORY SECTION */
+  .story-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--warm-white);
+  }
+  .story-img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+  }
+  .story-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    display: block;
+    filter: grayscale(10%);
+  }
+  .story-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 70%, var(--warm-white) 100%);
+    pointer-events: none;
+  }
+  .story-content {
+    padding: 5rem 4rem 5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .story-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  .story-text {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--slate);
+  }
+  .story-text p + p { margin-top: 1.25rem; }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    background: var(--ink);
+    padding: 5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-top: 2px solid var(--orange);
+  }
+  .quote-block-mark {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 100px;
+    line-height: 0.6;
+    color: var(--orange);
+    opacity: 0.3;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  .quote-block-text {
+    font-family: 'Lora', serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--cream);
+    max-width: 680px;
+    margin-bottom: 1.5rem;
+  }
+  .quote-block-attr {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: 0.8;
+  }
+
+  /* PRACTICAL SECTION */
+  .practical-section {
+    background: var(--cream);
+    padding: 5rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .practical-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .practical-headline em { font-style: italic; color: var(--orange); }
+  .practical-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .practical-list li {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--slate);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    line-height: 1.5;
+  }
+  .practical-list li::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+  .practical-note {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--slate-light);
+    line-height: 1.7;
+  }
+  .practical-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .btn-primary {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 14px 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--orange); }
+  .practical-email {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--slate-light);
+  }
+  .practical-email a { color: var(--orange); text-decoration: none; }
+  .practical-email a:hover { text-decoration: underline; }
+
+  /* AS SEEN AT */
+  .seen-at {
+    background: var(--warm-white);
+    padding: 4rem;
+    border-top: 1px solid var(--rule);
+  }
+  .seen-at-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+    display: block;
+    margin-bottom: 2rem;
+  }
+  .seen-at-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem 3rem;
+  }
+  .seen-at-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--orange);
+  }
+  .seen-at-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .seen-at-location {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--slate-light);
+  }
+
+  .seen-at-partial {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--slate-light);
+    margin-top: 2rem;
+  }
+
+  /* FOOTER */
+  footer { background: var(--ink); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid var(--orange); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); }
+  .footer-logo span { color: var(--orange); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a7485; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #3a4252; letter-spacing: 0.04em; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .about-hero { grid-template-columns: 1fr; }
+    .about-hero-img { height: 320px; order: -1; }
+    .about-hero-img::after { background: linear-gradient(to bottom, transparent 50%, var(--ink)); }
+    .about-hero-text { padding: 3rem 1.5rem 4rem; }
+    .story-section { grid-template-columns: 1fr; }
+    .story-img-wrap { aspect-ratio: 4/3; }
+    .story-img-wrap::after { background: linear-gradient(to bottom, transparent 60%, var(--warm-white)); }
+    .story-content { padding: 3rem 1.5rem; }
+    .quote-block { padding: 4rem 1.5rem; }
+    .practical-section { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2.5rem; }
+    .seen-at { padding: 3rem 1.5rem; }
+    .seen-at-grid { grid-template-columns: 1fr 1fr; gap: 1.25rem 2rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Chase the <span>Entertainer</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#shows">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="about-hero-text">
+    <span class="about-eyebrow">About Chase</span>
+    <h1 class="about-headline">The Show<br>Speaks for<br><em>Itself</em></h1>
+    <p class="about-intro">Chase the Entertainer is a comedy magician based in Colorado Springs. He's been doing this long enough to know what works, and weird enough to keep it interesting.</p>
+  </div>
+  <div class="about-hero-img">
+    <img src="https://chasetheentertainer.netlify.app/images/general/chase_street_shot.JPEG"
+         alt="Chase the Entertainer">
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section">
+  <div class="story-img-wrap">
+    <img class="story-img"
+         src="https://chasetheentertainer.netlify.app/images/general/fishermans_wharf.JPEG"
+         alt="Chase performing on the promenade at Fisherman's Wharf">
+  </div>
+  <div class="story-content">
+    <span class="story-eyebrow">The Story</span>
+    <div class="story-text">
+      <p>For years he performed on the promenade at Fisherman's Wharf and the Pier 39 stage, building a show that could stop a circle of strangers and hold them for thirty minutes using nothing but a rope, a coin, and an orange with attitude.</p>
+      <p>He produced and performed in Street Magic Live, a weekly variety show in San Francisco hosted by the legendary Frisco Fred, and took his act to stages across the country from California all the way to Philadelphia.</p>
+      <p>He shows up with everything he needs to leave your event something people laugh about, wonder about, and talk about till you bring Chase back for the next one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-block">
+  <div class="quote-block-mark">"</div>
+  <p class="quote-block-text">My name is Chase the Entertainer. I'm a mentally ill, physically disabled, Native American professional magician. And I only look like one of those things.</p>
+  <span class="quote-block-attr">Chase the Entertainer</span>
+</div>
+
+<!-- PRACTICAL -->
+<section class="practical-section">
+  <div>
+    <h2 class="practical-headline">Ready to<br><em>Book</em></h2>
+    <ul class="practical-list">
+      <li>Corporate events and holiday parties</li>
+      <li>Street festivals and fairs</li>
+      <li>Brewery and taproom nights</li>
+      <li>Speakeasies and nightlife venues</li>
+      <li>Weddings and private parties</li>
+      <li>Community and family events</li>
+    </ul>
+    <p class="practical-note">Based in Colorado Springs. Available regionally and nationally. Rates on request.</p>
+  </div>
+  <div class="practical-cta">
+    <a href="contact.html" class="btn-primary">Get in Touch</a>
+    <p class="practical-email">Or email: <a href="mailto:Chase@chasetheentertainer.com">Chase@chasetheentertainer.com</a></p>
+    <p class="practical-email">Booking: <a href="mailto:Caseylynn@chasetheentertainer.com">Caseylynn@chasetheentertainer.com</a></p>
+  </div>
+</section>
+
+<!-- AS SEEN AT -->
+<section class="seen-at">
+  <span class="seen-at-label">Venues &amp; Festivals</span>
+  <div class="seen-at-grid">
+    <div class="seen-at-item">
+      <span class="seen-at-name">Pier 39</span>
+      <span class="seen-at-location">Fisherman's Wharf, San Francisco, California</span>
+    </div>
+    <div class="seen-at-item">
+      <span class="seen-at-name">Fisherman's Wharf Promenade</span>
+      <span class="seen-at-location">San Francisco, California</span>
+    </div>
+    <div class="seen-at-item">
+      <span class="seen-at-name">Haunted Happenings Festival</span>
+      <span class="seen-at-location">Salem, Massachusetts</span>
+    </div>
+    <div class="seen-at-item">
+      <span class="seen-at-name">Philadelphia Fringe Festival</span>
+      <span class="seen-at-location">Philadelphia, Pennsylvania</span>
+    </div>
+    <div class="seen-at-item">
+      <span class="seen-at-name">Rogue Festival</span>
+      <span class="seen-at-location">Fresno, California</span>
+    </div>
+    <div class="seen-at-item">
+      <span class="seen-at-name">Suncoast Renaissance Faire</span>
+      <span class="seen-at-location">Florida</span>
+    </div>
+    <div class="seen-at-item">
+      <span class="seen-at-name">Pear Festival</span>
+      <span class="seen-at-location">Lake County Wine Country, California</span>
+    </div>
+    <div class="seen-at-item">
+      <span class="seen-at-name">Street Magic Live</span>
+      <span class="seen-at-location">Weekly Variety Show, San Francisco, California</span>
+    </div>
+    <div class="seen-at-item">
+      <span class="seen-at-name">San Diego Fringe Festival</span>
+      <span class="seen-at-location">San Diego, California</span>
+    </div>
+  </div>
+  <p class="seen-at-partial">A partial list.</p>
+</section>
+
+<footer>
+  <div class="footer-logo">Chase the <span>Entertainer</span></div>
+  <ul class="footer-links">
+    <li><a href="index.html#shows">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="https://www.instagram.com/chasetheentertainerstudios/" target="_blank">Instagram</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
+</footer>
+
+</body>
+</html>
