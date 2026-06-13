@@ -15,7 +15,6 @@
     --warm-white: #faf8f4;
     --orange: #d4732a;
     --orange-hover: #b85f22;
-    --orange-light: #f0e4d4;
     --slate: #4a5568;
     --slate-light: #8896a8;
     --rule: #d8d2c4;
@@ -38,21 +37,22 @@
   .page-header {
     margin-top: 64px;
     background: var(--ink);
-    padding: 4rem 4rem 3rem;
+    padding: 5rem 4rem 4rem;
     border-bottom: 2px solid var(--orange);
   }
-  .page-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; display: block; }
-  .page-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(48px, 6vw, 80px); font-weight: 700; line-height: 0.95; text-transform: uppercase; color: var(--cream); }
+  .page-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; display: block; }
+  .page-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(48px, 6vw, 80px); font-weight: 700; line-height: 0.95; text-transform: uppercase; color: var(--cream); margin-bottom: 1.5rem; }
   .page-headline em { font-style: italic; color: var(--orange); }
+  .page-sub { font-family: 'Lora', serif; font-size: 17px; font-style: italic; color: var(--slate-light); max-width: 480px; line-height: 1.7; }
 
-  /* SECTION LABEL */
-  .section-label {
-    padding: 2.5rem 4rem 0;
+  /* SECTION DIVIDER */
+  .section-divider {
+    padding: 5rem 4rem 0;
     display: flex;
     align-items: center;
     gap: 2rem;
   }
-  .section-label-text {
+  .section-divider-label {
     font-family: 'Inter', sans-serif;
     font-size: 10px;
     font-weight: 500;
@@ -62,134 +62,195 @@
     white-space: nowrap;
     flex-shrink: 0;
   }
-  .section-label-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--rule);
-  }
-  .section-label.dark .section-label-rule { background: var(--rule-dark); }
+  .section-divider-rule { flex: 1; height: 1px; background: var(--rule); }
 
-  /* SHARED IMAGE STYLES */
-  .g-img {
+  /* EDITORIAL SPREAD — large image + quote floating beside */
+  .spread {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 0;
+    margin-top: 3rem;
+    padding: 0 4rem;
+    align-items: center;
+  }
+  .spread.reverse { grid-template-columns: 2fr 3fr; }
+  .spread.reverse .spread-img { order: 2; }
+  .spread.reverse .spread-text { order: 1; }
+
+  .spread-img {
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+  .spread-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease, filter 0.4s ease;
+    transition: transform 0.6s ease;
   }
-  .g-item:hover .g-img { transform: scale(1.03); filter: brightness(1.05); }
+  .spread-img:hover img { transform: scale(1.02); }
 
-  .g-caption {
-    padding: 0.75rem 1rem;
+  .spread-text {
+    padding: 3rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-  .g-caption-text {
+  .spread-location {
     font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--slate-light);
+    color: var(--orange);
+    margin-bottom: 1.25rem;
+    display: block;
   }
-  .g-caption-text.dark { color: #3a4252; }
-
-  /* SECTION 1 — THE SHOW */
-  .show-section {
-    background: var(--warm-white);
-    padding: 0 0 4rem;
+  .spread-quote {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
   }
-
-  /* Hero row — one wide + one portrait */
-  .show-hero-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2px;
-    margin-top: 2px;
-  }
-  .show-hero-row .g-item { overflow: hidden; position: relative; }
-  .show-hero-row .g-item:first-child { aspect-ratio: 16/9; }
-  .show-hero-row .g-item:last-child { aspect-ratio: 3/4; }
-
-  /* Three column row */
-  .show-three-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-    margin-top: 2px;
-  }
-  .show-three-row .g-item { overflow: hidden; position: relative; aspect-ratio: 4/3; }
-
-  /* Two column row */
-  .show-two-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    margin-top: 2px;
-  }
-  .show-two-row .g-item { overflow: hidden; position: relative; aspect-ratio: 16/9; }
-
-  /* SECTION 2 — THE ROOM */
-  .room-section {
-    background: var(--cream);
-    padding: 0 0 4rem;
-    border-top: 1px solid var(--rule);
-  }
-
-  .room-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-    margin-top: 2px;
-  }
-  .room-grid .g-item { overflow: hidden; position: relative; aspect-ratio: 3/4; }
-  .room-grid .g-item.landscape { aspect-ratio: 4/3; }
-  .room-grid .g-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
-
-  /* SECTION 3 — THE ORACLE */
-  .oracle-section {
-    background: var(--ink-deep);
-    padding: 0 0 5rem;
-    border-top: 2px solid var(--orange);
-  }
-  .oracle-section .section-label { padding: 2.5rem 4rem 0; }
-  .oracle-section .section-label-text { color: var(--orange); }
-
-  .oracle-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-    margin-top: 2px;
-  }
-  .oracle-grid .g-item { overflow: hidden; position: relative; background: var(--ink); }
-  .oracle-grid .g-item.square { aspect-ratio: 1/1; }
-  .oracle-grid .g-item.portrait { aspect-ratio: 3/4; }
-  .oracle-grid .g-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
-  .oracle-grid .g-item .g-img { filter: grayscale(20%) contrast(1.05); }
-  .oracle-grid .g-item:hover .g-img { filter: grayscale(0%) contrast(1.1); }
-
-  .oracle-caption {
-    padding: 0.75rem 1rem;
-    background: var(--ink);
-  }
-  .oracle-caption-text {
-    font-family: 'Lora', serif;
-    font-size: 13px;
-    font-style: italic;
-    color: #3a4252;
-    line-height: 1.5;
-  }
-
-  /* ORACLE CTA */
-  .oracle-cta {
-    text-align: center;
-    padding: 3rem 4rem 0;
-  }
-  .oracle-cta-text {
+  .spread-quote em { font-style: italic; color: var(--orange); }
+  .spread-body {
     font-family: 'Lora', serif;
     font-size: 15px;
     font-style: italic;
-    color: #3a4252;
-    margin-bottom: 1.5rem;
+    color: var(--slate);
+    line-height: 1.75;
   }
-  .btn-ghost-light {
+
+  /* SINGLE FULL-WIDTH MOMENT */
+  .full-moment {
+    margin-top: 3rem;
+    padding: 0 4rem;
+    position: relative;
+  }
+  .full-moment-img {
+    width: 100%;
+    aspect-ratio: 21/9;
+    object-fit: cover;
+    display: block;
+  }
+  .full-moment-caption {
+    position: absolute;
+    bottom: 0;
+    left: 4rem;
+    right: 4rem;
+    background: linear-gradient(to top, rgba(15,15,30,0.85) 0%, transparent 100%);
+    padding: 3rem 2.5rem 1.5rem;
+  }
+  .full-moment-caption p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--cream);
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* PAIR ROW — two images side by side with generous gap */
+  .pair-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    padding: 0 4rem;
+  }
+  .pair-item {}
+  .pair-img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .pair-item:hover .pair-img { transform: scale(1.01); }
+  .pair-caption {
+    padding: 1rem 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  .pair-caption-loc {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+  .pair-caption-line {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--slate-light);
+  }
+
+  /* ROOM SECTION — dark bg */
+  .room-section {
+    background: var(--ink);
+    padding-bottom: 5rem;
+    margin-top: 5rem;
+  }
+  .room-section .section-divider { padding-top: 5rem; }
+  .room-section .section-divider-label { color: var(--orange); }
+  .room-section .section-divider-rule { background: var(--rule-dark); }
+  .room-section .spread-quote { color: var(--cream); }
+  .room-section .spread-body { color: var(--slate-light); }
+  .room-section .pair-caption-line { color: #3a4252; }
+  .room-section .full-moment-caption p { color: var(--cream); }
+
+  /* MALINI TEASE */
+  .malini-tease {
+    background: var(--ink-deep);
+    padding: 6rem 4rem;
+    border-top: 2px solid var(--orange);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .malini-tease-img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(20%) contrast(1.05);
+  }
+  .malini-tease-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .malini-tease-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--cream);
+    margin-bottom: 1.25rem;
+  }
+  .malini-tease-headline em { font-style: italic; color: var(--orange); }
+  .malini-tease-body {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--slate-light);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .btn-ghost {
     font-family: 'Inter', sans-serif;
     font-size: 12px;
     font-weight: 500;
@@ -200,13 +261,14 @@
     border-bottom: 1px solid var(--orange);
     padding-bottom: 2px;
     transition: opacity 0.2s;
+    display: inline-block;
   }
-  .btn-ghost-light:hover { opacity: 0.7; }
+  .btn-ghost:hover { opacity: 0.7; }
 
   /* BOOKING STRIP */
   .booking-strip {
     background: var(--ink);
-    padding: 3rem 4rem;
+    padding: 3.5rem 4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -251,18 +313,17 @@
   @media (max-width: 768px) {
     nav { padding: 0 1.5rem; }
     .nav-links { display: none; }
-    .page-header { padding: 3rem 1.5rem 2.5rem; }
-    .section-label { padding: 2rem 1.5rem 0; }
-    .show-hero-row { grid-template-columns: 1fr; }
-    .show-hero-row .g-item:first-child { aspect-ratio: 4/3; }
-    .show-hero-row .g-item:last-child { aspect-ratio: 4/3; }
-    .show-three-row { grid-template-columns: 1fr 1fr; }
-    .show-two-row { grid-template-columns: 1fr; }
-    .room-grid { grid-template-columns: 1fr 1fr; }
-    .room-grid .g-item.wide { grid-column: span 2; aspect-ratio: 4/3; }
-    .oracle-grid { grid-template-columns: 1fr 1fr; }
-    .oracle-grid .g-item.wide { grid-column: span 2; }
-    .oracle-cta { padding: 2.5rem 1.5rem 0; }
+    .page-header { padding: 4rem 1.5rem 3rem; }
+    .section-divider { padding: 3.5rem 1.5rem 0; }
+    .spread, .spread.reverse { grid-template-columns: 1fr; padding: 0 1.5rem; margin-top: 2rem; }
+    .spread.reverse .spread-img { order: 0; }
+    .spread.reverse .spread-text { order: 0; }
+    .spread-text { padding: 1.75rem 0; }
+    .full-moment { padding: 0 1.5rem; margin-top: 2rem; }
+    .full-moment-img { aspect-ratio: 4/3; }
+    .full-moment-caption { left: 1.5rem; right: 1.5rem; }
+    .pair-row { grid-template-columns: 1fr; padding: 0 1.5rem; gap: 2rem; margin-top: 2rem; }
+    .malini-tease { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2.5rem; }
     .booking-strip { flex-direction: column; padding: 3rem 1.5rem; gap: 1.5rem; text-align: center; }
     footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
@@ -284,226 +345,141 @@
 
 <div class="page-header">
   <span class="page-eyebrow">Photos</span>
-  <h1 class="page-headline">The <em>Show</em><br>In Pictures</h1>
+  <h1 class="page-headline">What It Looks<br>Like When It's <em>Working</em></h1>
+  <p class="page-sub">Crowds at street fairs, close-up magic at bars, and one very judgmental orange.</p>
 </div>
 
 <!-- SECTION 1: THE SHOW -->
-<section class="show-section">
-  <div class="section-label">
-    <span class="section-label-text">The Show</span>
-    <div class="section-label-rule"></div>
-  </div>
+<div class="section-divider">
+  <span class="section-divider-label">The Show</span>
+  <div class="section-divider-rule"></div>
+</div>
 
-  <div class="show-hero-row">
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/pier39crowd.JPEG"
-           alt="Chase performing at Pier 39"
-           style="object-position: center 30%;">
-      <div class="g-caption"><p class="g-caption-text">Pier 39 &middot; San Francisco</p></div>
-    </div>
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/philly_audience.JPEG"
-           alt="Philadelphia stage show"
-           style="object-position: center 20%;">
-      <div class="g-caption"><p class="g-caption-text">Philadelphia Fringe Festival</p></div>
-    </div>
+<div class="spread">
+  <div class="spread-img">
+    <img src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/pier39crowd.JPEG"
+         alt="Chase performing at Pier 39"
+         style="object-position: center 30%;">
   </div>
+  <div class="spread-text">
+    <span class="spread-location">Pier 39 &middot; San Francisco</span>
+    <h2 class="spread-quote">They Stopped <em>Walking.</em></h2>
+    <p class="spread-body">Nobody shows up to Fisherman's Wharf planning to watch a magic show. That's the bit.</p>
+  </div>
+</div>
 
-  <div class="show-three-row">
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/bacon_fest.JPEG"
-           alt="Bacon Fest crowd reaction"
-           style="object-position: center 35%;">
-      <div class="g-caption"><p class="g-caption-text">Wine Country, California</p></div>
-    </div>
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/ripley_crowd.JPEG"
-           alt="Chase performing in San Francisco"
-           style="object-position: center 40%;">
-      <div class="g-caption"><p class="g-caption-text">Fisherman's Wharf, San Francisco</p></div>
-    </div>
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/volunteer_reaction.JPEG"
-           alt="Volunteer reaction"
-           style="object-position: center 30%;">
-      <div class="g-caption"><p class="g-caption-text">Volunteer Reaction</p></div>
-    </div>
+<div class="full-moment" style="margin-top: 3rem;">
+  <img class="full-moment-img"
+       src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/street_fair1.JPEG"
+       alt="Chase working a street fair crowd"
+       style="object-position: center 40%;">
+  <div class="full-moment-caption">
+    <p>Four shows a day. Scheduled on a sign. The crowd gathers anyway.</p>
   </div>
+</div>
 
-  <div class="show-three-row">
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/street_fair1.JPEG"
-           alt="Street fair show"
-           style="object-position: center center;">
-      <div class="g-caption"><p class="g-caption-text">Street Festival</p></div>
-    </div>
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/volunteer_smile.JPEG"
-           alt="Volunteer smiling"
-           style="object-position: center 25%;">
-      <div class="g-caption"><p class="g-caption-text">Audience Participation</p></div>
-    </div>
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/rogue_fest_audience.jpg"
-           alt="Rogue Festival audience"
-           style="object-position: center center;">
-      <div class="g-caption"><p class="g-caption-text">Rogue Festival &middot; Fresno</p></div>
-    </div>
+<div class="spread reverse" style="margin-top: 3rem;">
+  <div class="spread-img">
+    <img src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/volunteer_reaction.JPEG"
+         alt="Audience reaction"
+         style="object-position: center 25%;">
   </div>
+  <div class="spread-text">
+    <span class="spread-location">Audience Participation</span>
+    <h2 class="spread-quote">That Face Is <em>Real.</em></h2>
+    <p class="spread-body">Nobody rehearsed this. The volunteer didn't know what was coming. Neither did anyone else watching.</p>
+  </div>
+</div>
 
-  <div class="show-two-row">
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/fist_bump.JPEG"
-           alt="Fist bump with audience member"
-           style="object-position: center center;">
-      <div class="g-caption"><p class="g-caption-text">Post-Show</p></div>
-    </div>
-    <div class="g-item">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/philly_stage.JPEG"
-           alt="Philadelphia stage"
-           style="object-position: center 30%;">
-      <div class="g-caption"><p class="g-caption-text">Philadelphia</p></div>
+<div class="pair-row">
+  <div class="pair-item">
+    <img class="pair-img"
+         src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/philly_stage.JPEG"
+         alt="Philadelphia stage show"
+         style="object-position: center 30%;">
+    <div class="pair-caption">
+      <span class="pair-caption-loc">Philadelphia</span>
+      <span class="pair-caption-line">Philly Fringe Festival</span>
     </div>
   </div>
-</section>
+  <div class="pair-item">
+    <img class="pair-img"
+         src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/ripley_crowd.JPEG"
+         alt="Fisherman's Wharf crowd"
+         style="object-position: center 40%;">
+    <div class="pair-caption">
+      <span class="pair-caption-loc">San Francisco</span>
+      <span class="pair-caption-line">Fisherman's Wharf</span>
+    </div>
+  </div>
+</div>
 
 <!-- SECTION 2: THE ROOM -->
 <section class="room-section">
-  <div class="section-label">
-    <span class="section-label-text">The Room</span>
-    <div class="section-label-rule"></div>
+  <div class="section-divider">
+    <span class="section-divider-label">The Room</span>
+    <div class="section-divider-rule"></div>
   </div>
 
-  <div class="room-grid">
-    <div class="g-item wide">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/wine_bar.jpg"
-           alt="Close-up magic at wine bar"
+  <div class="spread" style="margin-top: 3rem;">
+    <div class="spread-img">
+      <img src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/wine_bar.jpg"
+           alt="Close-up magic at a wine bar"
            style="object-position: center 30%;">
-      <div class="g-caption"><p class="g-caption-text">Wine Bar &middot; Close-Up Magic</p></div>
     </div>
-    <div class="g-item portrait">
-      <img class="g-img"
+    <div class="spread-text">
+      <span class="spread-location">Close-Up Magic</span>
+      <h2 class="spread-quote">Inches From <em>Your Hands.</em></h2>
+      <p class="spread-body">No stage. No announcement. No setup. Just sleight of hand that happens right in front of you and still doesn't make sense afterward.</p>
+    </div>
+  </div>
+
+  <div class="full-moment">
+    <img class="full-moment-img"
+         src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/brewery_show.JPEG"
+         alt="Chase at a brewery"
+         style="object-position: center center;">
+    <div class="full-moment-caption">
+      <p>People who get a trick done for them buy another drink. Everybody wins.</p>
+    </div>
+  </div>
+
+  <div class="pair-row">
+    <div class="pair-item">
+      <img class="pair-img"
            src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/art_walk_magic.JPEG"
-           alt="Art walk magic"
+           alt="Art walk close-up magic"
            style="object-position: center center;">
-      <div class="g-caption"><p class="g-caption-text">Art Walk</p></div>
+      <div class="pair-caption">
+        <span class="pair-caption-loc">Close-Up</span>
+        <span class="pair-caption-line">Art Walk</span>
+      </div>
     </div>
-    <div class="g-item portrait">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/close_up_magic.jpg"
-           alt="Close-up magic"
-           style="object-position: center center;">
-      <div class="g-caption"><p class="g-caption-text">Close-Up</p></div>
-    </div>
-    <div class="g-item landscape">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/brewery_show.JPEG"
-           alt="Brewery show"
-           style="object-position: center center;">
-      <div class="g-caption"><p class="g-caption-text">Brewery Show</p></div>
-    </div>
-    <div class="g-item landscape">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/wine_bar_magic.jpg"
-           alt="Wine bar magic"
-           style="object-position: center center;">
-      <div class="g-caption"><p class="g-caption-text">Wine Bar</p></div>
-    </div>
-    <div class="g-item landscape">
-      <img class="g-img"
-           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/his_card.JPEG"
-           alt="His card"
-           style="object-position: center center;">
-      <div class="g-caption"><p class="g-caption-text">Card Magic</p></div>
+    <div class="pair-item">
+      <img class="pair-img"
+           src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/volunteer_smile.JPEG"
+           alt="Volunteer smiling"
+           style="object-position: center 25%;">
+      <div class="pair-caption">
+        <span class="pair-caption-loc">Private Event</span>
+        <span class="pair-caption-line">They asked to see it again</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 3: THE ORACLE -->
-<section class="oracle-section">
-  <div class="section-label dark">
-    <span class="section-label-text">The Oracle</span>
-    <div class="section-label-rule"></div>
+<!-- MALINI TEASE -->
+<div class="malini-tease">
+  <img class="malini-tease-img"
+       src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/malini/route_66.jpg"
+       alt="Malini on Route 66">
+  <div>
+    <span class="malini-tease-eyebrow">The Oracle</span>
+    <h2 class="malini-tease-headline">Malini Has<br><em>Been Places</em></h2>
+    <p class="malini-tease-body">He has been on Route 66. He did not find it particularly magical. He found it accurate. He has also been to Los Angeles, a cave entrance he declined to enter, and several sunsets that did not thank him.</p>
+    <a href="malini.html" class="btn-ghost">Meet Malini</a>
   </div>
-
-  <div class="oracle-grid">
-    <div class="g-item wide">
-      <div style="aspect-ratio:16/9; overflow:hidden;">
-        <img class="g-img"
-             src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/malini/route_66.jpg"
-             alt="Malini on Route 66"
-             style="object-position: center center;">
-      </div>
-      <div class="oracle-caption"><p class="oracle-caption-text">"He has been on Route 66. He did not find it particularly magical. He found it accurate."</p></div>
-    </div>
-
-    <div class="g-item square">
-      <div style="aspect-ratio:1/1; overflow:hidden;">
-        <img class="g-img"
-             src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/malini/malini_la.JPEG"
-             alt="Malini in Los Angeles"
-             style="object-position: center 45%;">
-      </div>
-      <div class="oracle-caption"><p class="oracle-caption-text">"Los Angeles. Warm. Malini fit right in."</p></div>
-    </div>
-
-    <div class="g-item square">
-      <div style="aspect-ratio:1/1; overflow:hidden;">
-        <img class="g-img"
-             src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/malini/dashboard_malini.jpg"
-             alt="Malini in a car"
-             style="object-position: center center;">
-      </div>
-      <div class="oracle-caption"><p class="oracle-caption-text">"He does not drive. He supervises."</p></div>
-    </div>
-
-    <div class="g-item square">
-      <div style="aspect-ratio:1/1; overflow:hidden;">
-        <img class="g-img"
-             src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/malini/roadside_malini.jpg"
-             alt="Malini at a cave"
-             style="object-position: center center;">
-      </div>
-      <div class="oracle-caption"><p class="oracle-caption-text">"He considered the cave. Neither went in."</p></div>
-    </div>
-
-    <div class="g-item wide">
-      <div style="aspect-ratio:16/9; overflow:hidden;">
-        <img class="g-img"
-             src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/malini/windowsun_malini.jpg"
-             alt="Malini watching the sunset"
-             style="object-position: center center;">
-      </div>
-      <div class="oracle-caption"><p class="oracle-caption-text">"He watched the sunset. The sunset did not thank him."</p></div>
-    </div>
-
-    <div class="g-item square">
-      <div style="aspect-ratio:1/1; overflow:hidden;">
-        <img class="g-img"
-             src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/malini/roadside_attraction.jpg"
-             alt="Malini on a bench"
-             style="object-position: center center;">
-      </div>
-      <div class="oracle-caption"><p class="oracle-caption-text">"He sat here for a while. Nobody asked why."</p></div>
-    </div>
-  </div>
-
-  <div class="oracle-cta">
-    <p class="oracle-cta-text">There is more where this came from.</p>
-    <a href="malini.html" class="btn-ghost-light">Meet Malini</a>
-  </div>
-</section>
+</div>
 
 <!-- BOOKING STRIP -->
 <div class="booking-strip">
