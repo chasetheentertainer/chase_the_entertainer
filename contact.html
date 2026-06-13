@@ -323,9 +323,11 @@
   <div class="form-side">
     <span class="form-intro">Booking Inquiry</span>
 
-    <form class="contact-form" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="booking">
-      <input type="hidden" name="bot-field" style="display:none">
+    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY">
+      <input type="hidden" name="subject" value="New Booking Inquiry — Chase the Entertainer">
+      <input type="hidden" name="redirect" value="false">
+      <input type="checkbox" name="botcheck" style="display:none">
 
       <div class="form-row">
         <div class="form-group">
@@ -394,7 +396,7 @@
   </div>
 
   <div class="photo-side">
-    <img src="https://chasetheentertainer.netlify.app/images/general/volunteer_reaction.JPEG"
+    <img src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/volunteer_reaction.JPEG"
          alt="Audience reaction at a Chase the Entertainer show">
   </div>
 
