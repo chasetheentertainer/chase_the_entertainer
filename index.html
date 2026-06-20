@@ -141,6 +141,22 @@
   .email-submit { padding: 14px 24px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--orange); color: var(--cream); border: none; cursor: pointer; border-radius: 0 2px 2px 0; transition: background 0.2s; white-space: nowrap; }
   .email-submit:hover { background: var(--orange-hover); }
   .email-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #4a5568; margin-top: 1rem; letter-spacing: 0.04em; }
+  .email-success {
+    display: none;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--orange);
+    border-radius: 2px;
+    background: rgba(212,115,42,0.1);
+  }
+  .email-success p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+  }
 
   /* BOOKING */
   .booking-cta { padding: 6rem 4rem; background: var(--warm-white); display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; align-items: center; }
@@ -378,9 +394,14 @@
   <p class="email-eyebrow">Malini's Psychic Advice Column</p>
   <h2 class="email-headline">He Already<br>Knows Your Email</h2>
   <p class="email-sub">Surrender it willingly and receive irregular dispatches of citrus wisdom, upcoming shows, and advice that is technically unsolicited but usually correct.</p>
-  <div class="email-form">
-    <input class="email-input" type="email" placeholder="your@email.com" aria-label="Your email address">
-    <button class="email-submit">Submit to Malini</button>
+  <form class="email-form" id="index-email-form" action="https://formspree.io/f/mnjylzyj" method="POST">
+    <input type="hidden" name="_subject" value="Malini Email Signup — Chase the Entertainer">
+    <input type="text" name="_gotcha" style="display:none">
+    <input class="email-input" type="email" name="email" placeholder="your@email.com" aria-label="Your email address" required>
+    <button type="submit" class="email-submit">Submit to Malini</button>
+  </form>
+  <div class="email-success" id="index-email-success">
+    <p>He already knew you'd do that.</p>
   </div>
   <p class="email-fine">No spam. Just oranges. Unsubscribe whenever. Malini will know.</p>
 </section>
@@ -424,6 +445,33 @@
       drawer.classList.remove('open');
     });
   });
+
+  (function () {
+    var form = document.getElementById('index-email-form');
+    var success = document.getElementById('index-email-success');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var submitBtn = form.querySelector('.email-submit');
+      submitBtn.disabled = true;
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (response) {
+        if (response.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          submitBtn.disabled = false;
+          alert("Malini didn't catch that. Try again?");
+        }
+      }).catch(function () {
+        submitBtn.disabled = false;
+        alert("Malini didn't catch that. Try again?");
+      });
+    });
+  })();
 </script>
 </body>
 </html>

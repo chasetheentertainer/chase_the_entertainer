@@ -323,10 +323,9 @@
   <div class="form-side">
     <span class="form-intro">Booking Inquiry</span>
 
-    <form class="contact-form" action="https://formspree.io/f/xeewvzwv" method="POST">
+    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xeewvzwv" method="POST">
       
       <input type="hidden" name="_subject" value="New Booking Inquiry — Chase the Entertainer">
-      <input type="hidden" name="_next" value="false">
       <input type="text" name="_gotcha" style="display:none">
 
       <div class="form-row">
@@ -374,11 +373,11 @@
       </div>
 
       <button type="submit" class="form-submit">Send Inquiry</button>
-
-      <div class="form-success" id="form-success">
-        <p>Got it. Chase or Caseylynn will be in touch within 24 hours.</p>
-      </div>
     </form>
+
+    <div class="form-success" id="form-success">
+      <p>Got it. Chase or Caseylynn will be in touch within 24 hours.</p>
+    </div>
 
     <div class="direct-contact">
       <span class="direct-label">Or reach out directly</span>
@@ -419,6 +418,35 @@
   </ul>
   <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
 </footer>
+
+<script>
+  (function () {
+    var form = document.getElementById('contact-form');
+    var success = document.getElementById('form-success');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var submitBtn = form.querySelector('.form-submit');
+      submitBtn.disabled = true;
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (response) {
+        if (response.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          submitBtn.disabled = false;
+          alert("Something went wrong sending that. Mind emailing Chase directly instead?");
+        }
+      }).catch(function () {
+        submitBtn.disabled = false;
+        alert("Something went wrong sending that. Mind emailing Chase directly instead?");
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
