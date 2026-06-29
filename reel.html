@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Chase the Entertainer — A Quick Look</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e;
+    --cream: #f5f2eb;
+    --orange: #d4732a;
+    --orange-hover: #b85f22;
+    --slate: #4a5568;
+    --slate-light: #8896a8;
+  }
+  html, body { background: var(--ink); color: var(--cream); font-family: 'Lora', serif; }
+  body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 1.5rem 3rem; text-align: center; }
+
+  .page-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.5rem; }
+  .page-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(34px, 5vw, 52px); font-weight: 700; line-height: 1.05; text-transform: uppercase; color: var(--cream); margin-bottom: 1rem; }
+  .page-headline em { font-style: italic; color: var(--orange); }
+  .page-sub { font-family: 'Lora', serif; font-size: 16px; font-style: italic; color: var(--slate-light); max-width: 420px; margin: 0 auto 2.5rem; line-height: 1.6; }
+
+  .reel-video-wrap { position: relative; width: clamp(240px, 60vw, 360px); aspect-ratio: 9 / 16; border-radius: 6px; overflow: hidden; background: #12121f; box-shadow: 0 24px 60px -10px rgba(0,0,0,0.5); margin: 0 auto; }
+  .reel-video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; background: #12121f; }
+  .reel-play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 68px; height: 68px; border-radius: 50%; background: var(--orange); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s; box-shadow: 0 10px 26px rgba(0,0,0,0.35); }
+  .reel-play-btn:hover { background: var(--orange-hover); transform: translate(-50%, -50%) scale(1.06); }
+  .reel-play-btn svg { width: 24px; height: 24px; fill: var(--cream); margin-left: 3px; }
+  .reel-play-btn.is-hidden { display: none; }
+  .reel-caption { margin-top: 1.1rem; font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; color: var(--slate-light); text-transform: uppercase; }
+
+  .cta-block { margin-top: 3rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .cta-nudge { font-family: 'Lora', serif; font-size: 15px; font-style: italic; color: var(--cream); margin-bottom: 0.25rem; }
+  .btn-primary { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--orange); color: var(--ink); padding: 16px 32px; border-radius: 2px; text-decoration: none; transition: background 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--orange-hover); color: var(--cream); }
+  .cta-email { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--slate-light); }
+  .cta-email a { color: var(--orange); text-decoration: none; }
+  .cta-email a:hover { text-decoration: underline; }
+
+  .page-fine { margin-top: 3.5rem; font-family: 'Inter', sans-serif; font-size: 11px; color: #3a4252; letter-spacing: 0.04em; }
+
+  @media (max-width: 480px) {
+    body { padding: 3rem 1.25rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-headline">Magic For<br>Real People<em>.</em></h1>
+<p class="page-sub">No edits. No laugh track. Just what happens when I show up to your event.</p>
+
+<div class="reel-video-wrap" id="reel-video-wrap">
+  <video id="reel-video" poster="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase-demo-reel-poster.jpg" playsinline preload="metadata">
+    <source src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase-demo-reel.mp4" type="video/mp4">
+  </video>
+  <button class="reel-play-btn" id="reel-play-btn" aria-label="Play demo reel">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+  </button>
+</div>
+<p class="reel-caption">Tap to play &middot; sound on</p>
+
+<div class="cta-block">
+  <p class="cta-nudge">This is the part where you reply to that email.</p>
+  <a href="mailto:Chase@chasetheentertainer.com?subject=Let's%20talk" class="btn-primary">Let's Talk</a>
+  <p class="cta-email">Or just hit reply on the email you got this from.</p>
+</div>
+
+<p class="page-fine">&copy; 2026 Chase the Entertainer</p>
+
+<script>
+  (function () {
+    var playBtn = document.getElementById('reel-play-btn');
+    var video = document.getElementById('reel-video');
+    if (!playBtn || !video) return;
+    playBtn.addEventListener('click', function () {
+      playBtn.classList.add('is-hidden');
+      video.controls = true;
+      video.play();
+    });
+    video.addEventListener('ended', function () {
+      video.controls = false;
+      playBtn.classList.remove('is-hidden');
+    });
+  })();
+</script>
+
+</body>
+</html>
