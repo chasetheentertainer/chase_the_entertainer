@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Coffin Chase — Chase the Entertainer Presents</title>
+<meta name="description" content="A Manitou Springs walking mystery. Presented by Chase the Entertainer.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------------------------------------------------------
+     DESIGN TOKENS
+     ink       — background, near-black warm charcoal
+     parchment — card surfaces, aged paper
+     bone      — light text on dark surfaces
+     oxblood   — primary accent (wax seals, headers, states)
+     brass     — secondary accent (borders, dividers, icons)
+     spirit    — "unlocked / otherworldly" accent (mineral-glass green)
+     --------------------------------------------------------- */
+  :root{
+    --ink: #17130f;
+    --ink-2: #201a15;
+    --parchment: #e9dec2;
+    --parchment-2: #f4ecd8;
+    --bone: #f4ecd8;
+    --oxblood: #6d1f2a;
+    --oxblood-2: #8a2c3a;
+    --brass: #b8925a;
+    --brass-2: #d9b57e;
+    --spirit: #5f9c82;
+    --ink-text: #2a2015;
+    --shadow: 0 12px 30px rgba(0,0,0,.45);
+    --radius: 4px;
+    --display: "Fraunces", serif;
+    --body: "Spectral", serif;
+    --ui: "Work Sans", sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 20% -10%, rgba(109,31,42,.35), transparent 55%),
+      radial-gradient(ellipse at 100% 110%, rgba(95,156,130,.10), transparent 45%),
+      var(--ink);
+    color: var(--bone);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    min-height:100%;
+  }
+
+  a{ color: inherit; }
+
+  /* subtle paper-grain vignette used behind every screen */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0px, transparent 1px, transparent 2px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.012) 0px, transparent 1px, transparent 2px);
+  }
+
+  #app{ position:relative; z-index:1; max-width: 560px; margin: 0 auto; min-height:100vh; display:flex; flex-direction:column; }
+
+  header.topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 18px; border-bottom: 1px solid rgba(184,146,90,.25);
+    font-family: var(--ui); text-transform: uppercase; letter-spacing: .08em; font-size:.7rem;
+  }
+  header.topbar .brand{ opacity:.8; }
+  header.topbar .brand b{ color: var(--brass-2); }
+
+  .tray-btn{
+    display:flex; align-items:center; gap:8px; background:none; border:1px solid var(--brass);
+    color: var(--bone); padding:6px 10px; border-radius: 999px; cursor:pointer; font-family: var(--ui);
+    font-size:.72rem; letter-spacing:.05em;
+  }
+  .tray-btn:hover{ background: rgba(184,146,90,.12); }
+  .tray-count{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:18px; height:18px; border-radius:50%; background: var(--oxblood); color:var(--bone);
+    font-size:.65rem;
+  }
+
+  main{ flex:1; padding: 28px 20px 60px; }
+
+  /* ---------- typography ---------- */
+  .eyebrow{
+    font-family: var(--ui); text-transform:uppercase; letter-spacing:.22em; font-size:.68rem;
+    color: var(--brass-2); margin: 0 0 10px;
+  }
+  h1.title{
+    font-family: var(--display); font-weight:900; font-size: clamp(2.1rem, 9vw, 3.2rem);
+    line-height:1.02; margin:0 0 6px; color: var(--bone);
+  }
+  h1.title em{ color: var(--oxblood-2); font-style: italic; }
+  .subtitle{
+    font-family: var(--display); font-style: italic; font-weight:600; color: var(--brass-2);
+    font-size: 1.05rem; margin: 0 0 26px;
+  }
+  h2.section-title{
+    font-family: var(--display); font-weight:700; font-size:1.5rem; margin: 0 0 4px; color: var(--bone);
+  }
+  p{ line-height:1.6; color: rgba(244,236,216,.86); }
+
+  .divider{
+    height:1px; margin: 22px 0;
+    background: linear-gradient(90deg, transparent, rgba(184,146,90,.55), transparent);
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    font-family: var(--ui); font-weight:600; letter-spacing:.03em; font-size:.9rem;
+    padding: 13px 22px; border-radius: var(--radius); border: 1px solid transparent; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;
+  }
+  .btn-primary{ background: var(--oxblood); color: var(--bone); box-shadow: var(--shadow); }
+  .btn-primary:hover{ background: var(--oxblood-2); }
+  .btn-ghost{ background: transparent; border-color: var(--brass); color: var(--bone); }
+  .btn-ghost:hover{ background: rgba(184,146,90,.1); }
+  .btn-block{ width:100%; }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible, a:focus-visible, input:focus-visible, .stop-card:focus-visible{
+    outline: 2px solid var(--spirit); outline-offset: 2px;
+  }
+
+  /* ---------- video slots ---------- */
+  .radio-player{
+    background: linear-gradient(160deg, #2b2118, #1a140e);
+    border: 2px solid var(--brass); border-radius: 10px;
+    padding: 18px 18px 14px; margin: 22px 0;
+    box-shadow: inset 0 0 20px rgba(0,0,0,.5), var(--shadow);
+  }
+  .radio-face{ display:flex; align-items:center; gap:16px; }
+  .radio-grille{
+    flex:1; height:64px; border-radius:6px; background-color:#0f0b07;
+    background-image: repeating-linear-gradient(180deg, rgba(0,0,0,.7) 0px 3px, transparent 3px 8px);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,.6);
+  }
+  .radio-dial{
+    width:64px; height:64px; border-radius:50%; flex-shrink:0; cursor:pointer;
+    border: 3px solid var(--brass-2); background: radial-gradient(circle at 35% 30%, #3a2c1d, #14100b 75%);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .radio-dial .radio-icon{ color: var(--brass-2); font-size:1rem; }
+  .radio-dial .glow{
+    position:absolute; top:8px; right:8px; width:9px; height:9px; border-radius:50%;
+    background:#5a4a2a; transition: background .3s, box-shadow .3s;
+  }
+  .radio-dial.playing .glow{
+    background: var(--brass-2); box-shadow: 0 0 8px 3px rgba(217,181,126,.8);
+    animation: radioGlowPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes radioGlowPulse{ 0%,100%{ opacity:1; } 50%{ opacity:.55; } }
+  .radio-tuning{ margin-top:14px; }
+  .radio-tuning-track{
+    -webkit-appearance:none; appearance:none; width:100%; height:6px; border-radius:3px; outline:none; cursor:pointer;
+    background: repeating-linear-gradient(90deg, rgba(184,146,90,.5) 0 1px, transparent 1px 9px), rgba(184,146,90,.15);
+  }
+  .radio-tuning-track::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none; width:10px; height:16px; border-radius:2px;
+    background: var(--brass-2); cursor:pointer; margin-top:-5px; box-shadow: var(--shadow);
+  }
+  .radio-tuning-track::-moz-range-thumb{ width:10px; height:16px; border-radius:2px; background: var(--brass-2); border:none; cursor:pointer; }
+  .radio-meta{ display:flex; justify-content:space-between; font-family: var(--ui); font-size:.68rem; color: rgba(244,236,216,.5); margin-top:6px; }
+  .radio-label{ font-family: var(--ui); font-size:.66rem; text-transform:uppercase; letter-spacing:.12em; color: var(--brass-2); text-align:center; margin-top:10px; }
+
+  @media (prefers-reduced-motion: reduce){
+    .radio-dial.playing .glow{ animation:none; }
+  }
+
+  /* ---------- intro screen ---------- */
+  .intro-wrap{ text-align:center; padding-top: 10px; }
+  .seal-mark{
+    width:64px; height:70px; margin: 0 auto 22px;
+    display:flex; align-items:center; justify-content:center;
+    filter: drop-shadow(0 8px 14px rgba(0,0,0,.5));
+  }
+  .seal-mark svg{ width:100%; height:100%; }
+
+  /* ---------- map / stop list ---------- */
+  .progress-line{
+    display:flex; align-items:center; gap:10px; margin-bottom: 22px; font-family: var(--ui);
+    font-size:.78rem; color: var(--brass-2); letter-spacing:.04em;
+  }
+  .progress-bar{ flex:1; height:3px; background: rgba(184,146,90,.2); border-radius:3px; overflow:hidden; }
+  .progress-bar > i{ display:block; height:100%; background: var(--spirit); transition: width .4s ease; }
+
+  .stop-list{ display:flex; flex-direction:column; gap:12px; list-style:none; margin:0; padding:0; }
+  .stop-card{
+    display:flex; align-items:center; gap:14px; padding: 14px; border: 1px solid rgba(184,146,90,.35);
+    border-radius: var(--radius); background: rgba(233,222,194,.03); cursor:pointer; text-align:left;
+    width:100%; color: inherit; font-family: inherit;
+  }
+  .stop-card:hover{ border-color: var(--brass); background: rgba(233,222,194,.06); }
+  .stop-card.done{ border-color: var(--spirit); background: rgba(95,156,130,.07); }
+  .stop-num{
+    font-family: var(--display); font-weight:700; font-size:1.1rem; color: var(--brass-2);
+    width: 30px; text-align:center; flex-shrink:0;
+  }
+  .stop-card.done .stop-num{ color: var(--spirit); }
+  .stop-info{ flex:1; }
+  .stop-name{ font-family: var(--display); font-weight:700; font-size:1.05rem; }
+  .stop-meta{ font-family: var(--ui); font-size:.72rem; color: rgba(244,236,216,.55); text-transform:uppercase; letter-spacing:.06em; margin-top:2px; }
+  .stop-check{
+    width:22px; height:22px; border-radius:50%; border: 1px solid var(--brass); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:.7rem;
+  }
+  .stop-card.done .stop-check{ background: var(--spirit); border-color: var(--spirit); color: var(--ink); }
+
+  /* ---------- stop detail: beats ---------- */
+  .beat{ display:none; }
+  .beat.active{ display:block; animation: fadein .35s ease; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(6px);} to{ opacity:1; transform:none; } }
+
+  .beat-label{
+    font-family: var(--ui); text-transform:uppercase; letter-spacing:.15em; font-size:.66rem;
+    color: var(--brass-2); margin-bottom:8px; display:flex; align-items:center; gap:8px;
+  }
+  .beat-label::before{ content:""; width:16px; height:1px; background: var(--brass); }
+
+  .emma-line{
+    font-family: var(--display); font-style: italic; font-size: 1.15rem; line-height:1.55;
+    color: var(--bone); border-left: 2px solid var(--oxblood); padding-left:16px; margin: 14px 0 22px;
+  }
+
+  input[type=text]{
+    width:100%; padding: 13px 14px; font-family: var(--ui); font-size: 1rem;
+    background: var(--parchment-2); color: var(--ink-text); border: 1px solid var(--brass);
+    border-radius: var(--radius); margin-bottom: 10px;
+  }
+  .field-row{ display:flex; gap:10px; }
+  .field-row .btn{ flex-shrink:0; }
+
+  .feedback{ font-family: var(--ui); font-size:.85rem; margin: 8px 0 4px; min-height: 1.2em; }
+  .feedback.bad{ color: #d98a8a; }
+  .feedback.good{ color: var(--spirit); }
+
+  .hint-row{ display:flex; gap:8px; flex-wrap:wrap; margin: 14px 0 6px; }
+  .hint-chip{
+    font-family: var(--ui); font-size:.72rem; padding:7px 12px; border-radius:999px;
+    border: 1px dashed var(--brass); background:none; color: var(--brass-2); cursor:pointer;
+  }
+  .hint-chip:disabled{ opacity:.35; cursor:default; }
+  .hint-text{ font-size:.85rem; font-style:italic; color: rgba(244,236,216,.7); margin: 6px 0 0; }
+
+  /* ---------- effect reveal ---------- */
+  .effect-reveal{ text-align:center; padding: 10px 0 6px; }
+  .wax-seal{
+    width:86px; height:86px; margin: 6px auto 18px; border-radius:50%;
+    background: radial-gradient(circle at 35% 28%, var(--oxblood-2), var(--oxblood) 72%);
+    border: 3px solid var(--brass-2); display:flex; align-items:center; justify-content:center;
+    font-family: var(--display); font-weight:900; font-size: 2.1rem; color: var(--brass-2);
+    box-shadow: var(--shadow);
+  }
+  .effect-name{ font-family: var(--display); font-weight:700; font-size:1.3rem; margin: 4px 0 8px; }
+  .effect-desc{ font-style: italic; color: rgba(244,236,216,.7); max-width: 380px; margin: 0 auto; }
+
+  /* ---------- tray modal ---------- */
+  .modal-backdrop{
+    position:fixed; inset:0; background: rgba(10,8,6,.72); z-index:20; display:none;
+    align-items:flex-end; justify-content:center;
+  }
+  .modal-backdrop.open{ display:flex; }
+  .modal{
+    background: var(--ink-2); border-top: 1px solid var(--brass); border-radius: 16px 16px 0 0;
+    max-width: 560px; width:100%; padding: 22px 20px 34px; max-height: 78vh; overflow-y:auto;
+  }
+  .modal h3{ font-family: var(--display); margin: 0 0 4px; }
+  .modal .sub{ font-family: var(--ui); font-size:.75rem; color: var(--brass-2); text-transform:uppercase; letter-spacing:.08em; margin-bottom:18px; }
+  .effects-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+  .effect-slot{ text-align:center; }
+  .effect-slot .disc{
+    width:52px; height:52px; margin: 0 auto 6px; border-radius:50%; border:1px dashed rgba(184,146,90,.4);
+    display:flex; align-items:center; justify-content:center; font-family: var(--display); font-weight:900; color: rgba(184,146,90,.35);
+  }
+  .effect-slot.filled .disc{
+    border-style:solid; border-color: var(--brass-2);
+    background: radial-gradient(circle at 35% 28%, var(--oxblood-2), var(--oxblood) 72%);
+    color: var(--brass-2); box-shadow: var(--shadow);
+  }
+  .effect-slot .label{ font-family: var(--ui); font-size:.62rem; color: rgba(244,236,216,.5); }
+  .effect-slot.filled .label{ color: rgba(244,236,216,.85); }
+  .modal-close{ display:block; margin: 22px auto 0; }
+
+  /* ---------- finale ---------- */
+  .letter-pool, .letter-slots{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin: 18px 0; }
+  .letter-chip{
+    width:44px; height:44px; border-radius:6px; border:1px solid var(--brass-2); background: var(--oxblood);
+    color: var(--bone); font-family: var(--display); font-weight:900; font-size:1.2rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .letter-chip:disabled{ opacity:.25; cursor:default; }
+  .letter-slot{
+    width:44px; height:44px; border-radius:6px; border:1px dashed var(--brass); background: rgba(184,146,90,.06);
+    color: var(--bone); font-family: var(--display); font-weight:900; font-size:1.2rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .letter-slot.filled{ border-style:solid; background: var(--oxblood); }
+
+  /* ---------- share card ---------- */
+  #shareCanvas{ width:100%; border-radius: var(--radius); border:1px solid var(--brass); margin: 18px 0; display:block; }
+
+  footer.credit{
+    text-align:center; font-family: var(--ui); font-size:.68rem; letter-spacing:.08em;
+    text-transform:uppercase; color: rgba(244,236,216,.35); padding: 30px 20px 40px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .beat.active{ animation:none; }
+    * { scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div id="app">
+
+  <header class="topbar">
+    <div class="brand">Chase the Entertainer <b>presents</b></div>
+    <button class="tray-btn" onclick="openTray()">
+      <span>Personal Effects</span>
+      <span class="tray-count" id="trayCount">0</span>
+    </button>
+  </header>
+
+  <main id="main"><!-- views render here --></main>
+
+  <footer class="credit">The Coffin Chase · A Manitou Springs Walking Mystery</footer>
+</div>
+
+<!-- Personal Effects tray modal -->
+<div class="modal-backdrop" id="trayModal">
+  <div class="modal">
+    <h3>Personal Effects</h3>
+    <div class="sub" id="trayModalSub">0 of 8 recovered</div>
+    <div class="effects-grid" id="effectsGrid"></div>
+    <button class="btn btn-ghost btn-block modal-close" onclick="closeTray()">Close</button>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   THE COFFIN CHASE — scaffold
+   All puzzle/audio/video content below is PLACEHOLDER. Swap the values
+   in STOPS, and drop real audio files into /audio and video into /video,
+   without touching any of the logic beneath the data.
+   ===================================================================== */
+
+const STOPS = [
+  {
+    id: "seven-minute",
+    order: 1,
+    name: "Seven Minute Spring",
+    walkNote: "Start here — across from Memorial Park",
+    presence: {
+      question: "Read me the name carved at this spring. Exactly as written.",
+      answer: "seven minute spring",
+    },
+    puzzle: {
+      question: "What number is this spring named for?",
+      answer: "7",
+      altAnswers: ["seven"],
+      hints: [
+        "It's in the name.",
+        "Read the sign again, slower this time.",
+        "It's seven.",
+      ],
+    },
+    narrative: "Drilled in 1909. Redrilled in the '90s, and again in 2014 — this town keeps digging things back up, myself included. It used to erupt every seven minutes, sharp, for the better part of a century. Punctuality. A trait I no longer have the luxury of.",
+    effect: { letter: "R", name: "A Rusted Pocket Watch", desc: "Stopped at seven minutes past the hour. Obviously." },
+  },
+  {
+    id: "shoshone",
+    order: 2,
+    name: "Shoshone Spring",
+    walkNote: "Half a mile in, along Manitou Ave",
+    presence: {
+      question: "What color is the stone this fountain is built from?",
+      answer: "red-orange",
+      altAnswers: ["red", "orange", "red orange"],
+    },
+    puzzle: {
+      question: "Of the eight springs in town, what is this one's rank?",
+      answer: "highest",
+      altAnswers: ["1st", "most minerals", "first"],
+      hints: [
+        "Doctors loved this one most. Why?",
+        "It's not the sweetest, it's not the oldest — it's the most something.",
+        "Highest mineral content of all eight.",
+      ],
+    },
+    narrative: "Highest mineral content of all eight springs. Doctors sent patients here like it was a pharmacy counter. It wasn't. It just tasted like a penny and came with a story attached. Belief is a powerful placebo — I trusted a mountain to keep me, so I'm not one to judge.",
+    effect: { letter: "E", name: "One Earring", desc: "Just the one. She's still annoyed about it." },
+  },
+  {
+    id: "navajo",
+    order: 3,
+    name: "Navajo Spring",
+    walkNote: "By the Penny Arcade & Patsy's Candies — this is the photo-op stop",
+    presence: {
+      question: "You're standing by a candy shop that used to be something else entirely. What's the name on the sign?",
+      answer: "patsy's",
+      altAnswers: ["patsys", "patsy"],
+    },
+    puzzle: {
+      question: "This water used to be bottled into a drink with 'champagne' in the name — though there wasn't a drop of the real thing in it. What kind of champagne?",
+      answer: "ginger",
+      hints: [
+        "It's a spice, not a grape.",
+        "Think of the drink, not the wine.",
+        "Ginger Champagne.",
+      ],
+    },
+    narrative: "This spring is hiding under a popcorn machine now. Undignified. Though I know a thing or two about undignified relocations myself.",
+    effect: { letter: "B", name: "A Bonnet", desc: "With a mysterious singe mark she refuses to explain." },
+  },
+  {
+    id: "cheyenne",
+    order: 4,
+    name: "Cheyenne Spring",
+    walkNote: "Middle of the sidewalk, hard to miss",
+    presence: {
+      question: "This spring sits in the middle of the sidewalk. Easier or harder to find than the others?",
+      answer: "easier",
+    },
+    puzzle: {
+      question: "The stone building around this spring has a year built into its story. What year was it built?",
+      answer: "1893",
+      hints: [
+        "Look for the Manitou Spa Building — that's what was built around this spring.",
+        "Late 1800s. Close to the turn of the century, but not quite.",
+        "1893.",
+      ],
+    },
+    narrative: "This water is roughly twenty thousand years old. Older than this town, older than every argument anyone here has ever had about parking. I lasted twenty-eight years. Humbling, comparing notes with a rock.",
+    effect: { letter: "U", name: "An Umbrella", desc: "Never once opened indoors. She wasn't an idiot." },
+  },
+  {
+    id: "wheeler",
+    order: 5,
+    name: "Wheeler Spring",
+    walkNote: "Behind downtown, next to the Cliff House",
+    presence: {
+      question: "This spring sits behind the old Cliff House. What family name is attached to it?",
+      answer: "wheeler",
+    },
+    puzzle: {
+      question: "Someone left this scrawled on an old ledger: 23-8-5-5-12-5-18. A=1, B=2, and so on. What does it spell?",
+      answer: "wheeler",
+      hints: [
+        "A is 1. Start counting.",
+        "It's a name you already read once at this spring.",
+        "It spells WHEELER.",
+      ],
+    },
+    narrative: "Jerome Wheeler funded half this town — guilt, generosity, or boredom, depending who you ask. Drilled by his own son-in-law in 1920. Rich families never stop leaving their name on things. I once got a bill for a séance I never asked for. Itemized, of course.",
+    effect: { letter: "R", name: "A Receipt", desc: "For an unpaid séance. Itemized." },
+  },
+  {
+    id: "stratton",
+    order: 6,
+    name: "Stratton Spring",
+    walkNote: "At 'The Loop,' Ruxton & Manitou Ave",
+    presence: {
+      question: "There's a bronze woman bent over this fountain. Is she standing, sitting, or bending?",
+      answer: "bending",
+    },
+    puzzle: {
+      question: "This spot sits where three different kinds of travel once crossed — an old Indigenous trail, a trolley line, and a modern highway. Name any one of the three.",
+      answer: "trail",
+      altAnswers: ["trolley", "highway"],
+      hints: [
+        "People, then trains, then cars — all passed through this exact spot.",
+        "One's on foot, one's on rails, one's on pavement.",
+        "Trail, trolley, or highway — any one works.",
+      ],
+    },
+    narrative: "Stratton drilled this one during the Depression, free, no strings attached. Rare, that. Most gifts around here come itemized.",
+    effect: { letter: "I", name: "An IOU", desc: "Written in suspiciously shaky handwriting." },
+  },
+  {
+    id: "twin",
+    order: 7,
+    name: "Twin Spring",
+    walkNote: "Two springs, one flow",
+    presence: {
+      question: "How many springs originally made up 'Twin Spring'?",
+      answer: "2",
+      altAnswers: ["two"],
+    },
+    puzzle: {
+      question: "Add up Wheeler's numbers from before — 23+8+5+5+12+5+18. Is the total odd or even?",
+      answer: "even",
+      hints: [
+        "You already collected all seven numbers. Just add them.",
+        "23+8+5+5+12+5+18 — do the math.",
+        "It's 76. Even.",
+      ],
+    },
+    narrative: "They used to be separate. Now they're one flow, one name, and nobody remembers where one ended and the other began. I relate to that more than I'd like to admit.",
+    effect: { letter: "E", name: "An Extra Shoe", desc: "The left one. Don't ask about the right one." },
+  },
+  {
+    id: "iron",
+    order: 8,
+    name: "Iron Spring Geyser",
+    walkNote: "The northernmost stop",
+    presence: {
+      question: "What year was this spring drilled?",
+      answer: "1910",
+    },
+    puzzle: {
+      question: "What does iron do to water, given enough time?",
+      answer: "rust",
+      altAnswers: ["stains", "turns red", "rusts"],
+      hints: [
+        "Think of an old nail left out in the rain.",
+        "It's a color and a chemical process at once.",
+        "Rust.",
+      ],
+    },
+    narrative: "They found me not far from here. Not all of me. A skull. Some bone. The handle of a coffin. Two boys, out walking, the way you're walking right now. I'd like to tell you it didn't feel like anything, being found in pieces. It did.",
+    effect: { letter: "D", name: "A Dented Casket Handle", desc: "This part isn't a joke. This part really happened." },
+  },
+];
+
+const WIN_WORD = "REBURIED";
+
+/* ---------------------- state ---------------------- */
+const STORAGE_KEY = "coffinChaseState_v1";
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return { completed: {}, effects: [], finaleSolved: false };
+}
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+let state = loadState();
+
+/* ---------------------- router ---------------------- */
+window.addEventListener("hashchange", render);
+window.addEventListener("DOMContentLoaded", render);
+
+function go(hash){ location.hash = hash; }
+
+function render(){
+  const hash = location.hash || "#intro";
+  const main = document.getElementById("main");
+
+  if(hash === "#intro") return renderIntro(main);
+  if(hash === "#map") return renderMap(main);
+  if(hash === "#finale") return renderFinale(main);
+  if(hash === "#quip") return renderQuip(main);
+  if(hash === "#outro") return renderOutro(main);
+
+  const stopMatch = hash.match(/^#stop-(.+)$/);
+  if(stopMatch){
+    const stop = STOPS.find(s => s.id === stopMatch[1]);
+    if(stop) return renderStop(main, stop);
+  }
+
+  renderIntro(main);
+}
+
+/* ---------------------- views ---------------------- */
+
+function coffinSealSVG(){
+  return `
+    <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" aria-label="Chase the Entertainer">
+      <defs>
+        <radialGradient id="coffinFill" cx="35%" cy="25%" r="80%">
+          <stop offset="0%" stop-color="#8a2c3a"/>
+          <stop offset="60%" stop-color="#6d1f2a"/>
+          <stop offset="100%" stop-color="#4a1420"/>
+        </radialGradient>
+      </defs>
+      <polygon points="38,6 62,6 80,32 80,72 60,104 40,104 20,72 20,32"
+        fill="url(#coffinFill)" stroke="#d9b57e" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="38,6 62,6 80,32 80,72 60,104 40,104 20,72 20,32"
+        fill="none" stroke="#b8925a" stroke-width="1" stroke-linejoin="round" opacity="0.6"
+        transform="scale(0.9) translate(5.5, 6)"/>
+    </svg>
+  `;
+}
+
+function radioPlayerHTML(id, src, label){
+  return `
+    <div class="radio-player">
+      <audio id="${id}" src="${src}" preload="metadata"></audio>
+      <div class="radio-face">
+        <div class="radio-dial" id="${id}Dial" onclick="toggleRadio('${id}')">
+          <span class="radio-icon" id="${id}Icon">▶</span>
+          <span class="glow"></span>
+        </div>
+        <div class="radio-grille"></div>
+      </div>
+      <div class="radio-tuning">
+        <input type="range" class="radio-tuning-track" id="${id}Seek" value="0" min="0" max="100" step="0.1" oninput="seekRadio('${id}', this.value)">
+        <div class="radio-meta"><span id="${id}Current">0:00</span><span id="${id}Total">0:00</span></div>
+      </div>
+      <p class="radio-label">${label}</p>
+    </div>
+  `;
+}
+
+function renderIntro(main){
+  main.innerHTML = `
+    <div class="intro-wrap">
+      <div class="seal-mark">${coffinSealSVG()}</div>
+      <p class="eyebrow">Chase the Entertainer presents</p>
+      <h1 class="title">The <em>Coffin</em> Chase</h1>
+      <p class="subtitle">A Manitou Springs Walking Mystery</p>
+
+      ${radioPlayerHTML("introRadio", "audio/intro.mp3", "Tune in — the cold open")}
+
+      <p style="max-width:420px;margin:0 auto 6px;">
+        Emma Crawford has been buried in this town three times. Statistically,
+        someone should get this right. Tonight, that someone is you.
+      </p>
+      <p style="max-width:420px;margin:0 auto 26px;font-size:.85rem;color:rgba(244,236,216,.55);">
+        Eight mineral springs. Eight Personal Effects. One word standing between
+        Emma and finally resting in peace — or something close to it.
+      </p>
+
+      <button class="btn btn-primary" onclick="go('#map')">Begin the Investigation</button>
+    </div>
+  `;
+  wireRadio("introRadio");
+}
+
+function renderMap(main){
+  const doneCount = Object.values(state.completed).filter(Boolean).length;
+  const pct = Math.round((doneCount / STOPS.length) * 100);
+
+  const items = STOPS.slice().sort((a,b)=>a.order-b.order).map(stop => {
+    const done = !!state.completed[stop.id];
+    return `
+      <li>
+        <button class="stop-card ${done ? "done" : ""}" onclick="go('#stop-${stop.id}')">
+          <span class="stop-num">${String(stop.order).padStart(2,"0")}</span>
+          <span class="stop-info">
+            <span class="stop-name">${stop.name}</span>
+            <span class="stop-meta">${stop.walkNote}</span>
+          </span>
+          <span class="stop-check">${done ? "✓" : ""}</span>
+        </button>
+      </li>
+    `;
+  }).join("");
+
+  main.innerHTML = `
+    <p class="eyebrow">The Route</p>
+    <h2 class="section-title">Eight Springs. Eight Effects.</h2>
+    <div class="progress-line">
+      <span>${doneCount} / ${STOPS.length} recovered</span>
+      <span class="progress-bar"><i style="width:${pct}%"></i></span>
+    </div>
+
+    <ul class="stop-list">${items}</ul>
+
+    <div class="divider"></div>
+    <button class="btn btn-primary btn-block" ${doneCount < STOPS.length ? "disabled" : ""} onclick="go('#finale')">
+      ${doneCount < STOPS.length ? "Finish all 8 stops to continue" : "Lay Her to Rest →"}
+    </button>
+  `;
+}
+
+function renderStop(main, stop){
+  const alreadyDone = !!state.completed[stop.id];
+
+  main.innerHTML = `
+    <button class="btn btn-ghost" style="margin-bottom:18px;" onclick="go('#map')">← Back to route</button>
+    <p class="eyebrow">Stop ${String(stop.order).padStart(2,"0")} of 8</p>
+    <h2 class="section-title">${stop.name}</h2>
+    <div class="divider"></div>
+
+    ${alreadyDone ? renderAlreadyDone(stop) : renderStopBeats(stop)}
+  `;
+
+  if(!alreadyDone) wireStopBeats(stop);
+}
+
+function renderAlreadyDone(stop){
+  return `
+    <div class="effect-reveal">
+      <div class="wax-seal">${stop.effect.letter}</div>
+      <p class="effect-name">${stop.effect.name}</p>
+      <p class="effect-desc">${stop.effect.desc}</p>
+      <div class="divider"></div>
+      <button class="btn btn-primary" onclick="go('#map')">Back to the route</button>
+    </div>
+  `;
+}
+
+function renderStopBeats(stop){
+  return `
+    <!-- BEAT 1: presence check -->
+    <div class="beat active" data-beat="presence">
+      <p class="beat-label">Prove you're here</p>
+      <p class="emma-line">${stop.presence.question}</p>
+      <div class="field-row">
+        <input type="text" id="presenceInput" placeholder="Your answer" autocomplete="off">
+        <button class="btn btn-primary" onclick="checkPresence('${stop.id}')">Answer</button>
+      </div>
+      <p class="feedback" id="presenceFeedback"></p>
+    </div>
+
+    <!-- BEAT 2: narrative audio -->
+    <div class="beat" data-beat="narrative">
+      <p class="beat-label">Emma has something to say</p>
+      ${radioPlayerHTML("stopRadio", "audio/" + stop.id + ".mp3", stop.name)}
+      <p class="emma-line">${stop.narrative}</p>
+      <button class="btn btn-primary" onclick="showBeat('${stop.id}', 'puzzle')">Continue</button>
+    </div>
+
+    <!-- BEAT 3: puzzle -->
+    <div class="beat" data-beat="puzzle">
+      <p class="beat-label">The real question</p>
+      <p class="emma-line">${stop.puzzle.question}</p>
+      <div class="field-row">
+        <input type="text" id="puzzleInput" placeholder="Your answer" autocomplete="off">
+        <button class="btn btn-primary" onclick="checkPuzzle('${stop.id}')">Answer</button>
+      </div>
+      <p class="feedback" id="puzzleFeedback"></p>
+      <div class="hint-row" id="hintRow">
+        <button class="hint-chip" onclick="revealHint('${stop.id}',0)">Hint 1</button>
+        <button class="hint-chip" onclick="revealHint('${stop.id}',1)">Hint 2</button>
+        <button class="hint-chip" onclick="revealHint('${stop.id}',2)">Just tell me</button>
+      </div>
+      <p class="hint-text" id="hintText"></p>
+    </div>
+
+    <!-- BEAT 4: reveal -->
+    <div class="beat" data-beat="reveal">
+      <div class="effect-reveal">
+        <div class="wax-seal">${stop.effect.letter}</div>
+        <p class="effect-name">${stop.effect.name}</p>
+        <p class="effect-desc">${stop.effect.desc}</p>
+        <div class="divider"></div>
+        <button class="btn btn-primary" onclick="go('#map')">Back to the route</button>
+      </div>
+    </div>
+  `;
+}
+
+function wireStopBeats(stop){
+  document.getElementById("presenceInput")?.addEventListener("keydown", e=>{
+    if(e.key === "Enter") checkPresence(stop.id);
+  });
+  document.getElementById("puzzleInput")?.addEventListener("keydown", e=>{
+    if(e.key === "Enter") checkPuzzle(stop.id);
+  });
+  wireRadio("stopRadio");
+}
+
+function showBeat(stopId, beatName){
+  document.querySelectorAll(".beat").forEach(b => b.classList.remove("active"));
+  document.querySelector(`.beat[data-beat="${beatName}"]`)?.classList.add("active");
+  if(beatName !== "narrative"){
+    const audio = document.getElementById("stopRadio");
+    if(audio && !audio.paused) audio.pause();
+  }
+}
+
+function fmtTime(sec){
+  if(!isFinite(sec)) return "0:00";
+  const m = Math.floor(sec/60);
+  const s = Math.floor(sec%60).toString().padStart(2,"0");
+  return `${m}:${s}`;
+}
+
+/* ---------------------- generic radio player (intro/outro/stops) ---------------------- */
+
+function toggleRadio(id){
+  const audio = document.getElementById(id);
+  if(!audio) return;
+  if(audio.paused){ audio.play(); } else { audio.pause(); }
+}
+
+function seekRadio(id, val){
+  const audio = document.getElementById(id);
+  if(!audio || !isFinite(audio.duration)) return;
+  audio.currentTime = (val/100) * audio.duration;
+}
+
+function wireRadio(id){
+  const audio = document.getElementById(id);
+  if(!audio) return;
+  const dial = document.getElementById(id+"Dial");
+  const icon = document.getElementById(id+"Icon");
+  const seek = document.getElementById(id+"Seek");
+  const curEl = document.getElementById(id+"Current");
+  const totEl = document.getElementById(id+"Total");
+
+  audio.addEventListener("loadedmetadata", ()=>{ totEl.textContent = fmtTime(audio.duration); });
+  audio.addEventListener("play", ()=>{ icon.textContent = "❚❚"; dial.classList.add("playing"); });
+  audio.addEventListener("pause", ()=>{ icon.textContent = "▶"; dial.classList.remove("playing"); });
+  audio.addEventListener("ended", ()=>{ icon.textContent = "▶"; dial.classList.remove("playing"); seek.value = 0; curEl.textContent = "0:00"; });
+  audio.addEventListener("timeupdate", ()=>{
+    if(isFinite(audio.duration)){
+      seek.value = (audio.currentTime / audio.duration) * 100;
+      curEl.textContent = fmtTime(audio.currentTime);
+    }
+  });
+  audio.addEventListener("error", ()=>{
+    document.querySelector(`#${id}`).closest(".radio-player").querySelector(".radio-label").innerHTML =
+      `<span style="color:#d98a8a;">Audio file not found — check that /audio/${audio.src.split("/").pop()} was uploaded.</span>`;
+  });
+}
+
+function normalize(str){ return (str||"").trim().toLowerCase(); }
+
+function matchesAnswer(val, field){
+  const candidates = [field.answer, ...(field.altAnswers || [])].map(normalize);
+  return candidates.includes(normalize(val));
+}
+
+function checkPresence(stopId){
+  const stop = STOPS.find(s=>s.id===stopId);
+  const val = document.getElementById("presenceInput").value;
+  const fb = document.getElementById("presenceFeedback");
+  if(matchesAnswer(val, stop.presence)){
+    fb.textContent = "Fine. You're real. Barely.";
+    fb.className = "feedback good";
+    setTimeout(()=> showBeat(stopId, "narrative"), 500);
+  } else {
+    fb.textContent = "Not quite. Look again.";
+    fb.className = "feedback bad";
+  }
+}
+
+function checkPuzzle(stopId){
+  const stop = STOPS.find(s=>s.id===stopId);
+  const val = document.getElementById("puzzleInput").value;
+  const fb = document.getElementById("puzzleFeedback");
+  if(matchesAnswer(val, stop.puzzle)){
+    fb.textContent = "That's it.";
+    fb.className = "feedback good";
+    state.completed[stopId] = true;
+    if(!state.effects.find(e=>e.stopId===stopId)){
+      state.effects.push({ stopId, letter: stop.effect.letter, name: stop.effect.name });
+    }
+    saveState();
+    updateTrayCount();
+    setTimeout(()=> showBeat(stopId, "reveal"), 500);
+  } else {
+    fb.textContent = "Not it. Try again.";
+    fb.className = "feedback bad";
+  }
+}
+
+function revealHint(stopId, level){
+  const stop = STOPS.find(s=>s.id===stopId);
+  document.getElementById("hintText").textContent = stop.puzzle.hints[level];
+}
+
+/* ---------------------- Personal Effects tray ---------------------- */
+
+function updateTrayCount(){
+  const count = Object.values(state.completed).filter(Boolean).length;
+  document.getElementById("trayCount").textContent = count;
+}
+
+function openTray(){
+  const grid = document.getElementById("effectsGrid");
+  const sortedStops = STOPS.slice().sort((a,b)=>a.order-b.order);
+  grid.innerHTML = sortedStops.map(stop=>{
+    const has = !!state.completed[stop.id];
+    return `
+      <div class="effect-slot ${has ? "filled" : ""}">
+        <div class="disc">${has ? stop.effect.letter : "?"}</div>
+        <div class="label">${has ? stop.effect.name : "Unrecovered"}</div>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("trayModalSub").textContent =
+    `${Object.values(state.completed).filter(Boolean).length} of ${STOPS.length} recovered`;
+  document.getElementById("trayModal").classList.add("open");
+}
+function closeTray(){ document.getElementById("trayModal").classList.remove("open"); }
+
+/* ---------------------- finale: anagram ---------------------- */
+
+let finalePool = [];
+let finaleSlots = [];
+
+function renderFinale(main){
+  const doneCount = Object.values(state.completed).filter(Boolean).length;
+  if(doneCount < STOPS.length){ go("#map"); return; }
+
+  if(finalePool.length === 0 && finaleSlots.length === 0){
+    finalePool = state.effects.map((e,i)=>({ id:i, letter:e.letter }));
+    finaleSlots = new Array(WIN_WORD.length).fill(null);
+  }
+
+  main.innerHTML = `
+    <p class="eyebrow">Soda Springs Park</p>
+    <h2 class="section-title">Every Effect Is Home. Almost.</h2>
+    <p class="emma-line">
+      Eight effects. That's everything they ever found of me, scattered across a town that couldn't
+      keep track of one dead pianist. Put them back in order. One word. Then I can stop doing this.
+    </p>
+
+    <div class="letter-slots" id="letterSlots"></div>
+    <div class="letter-pool" id="letterPool"></div>
+
+    <p class="feedback" id="finaleFeedback" style="text-align:center;"></p>
+
+    <div class="divider"></div>
+    <button class="btn btn-primary btn-block" id="finaleCheckBtn" disabled onclick="checkFinale()">Lay Her to Rest</button>
+  `;
+  drawFinale();
+}
+
+function drawFinale(){
+  document.getElementById("letterSlots").innerHTML = finaleSlots.map((val, i)=>{
+    const letter = val === null ? "" : finalePool.find(p=>p.id===val)?.letter || "";
+    return `<button class="letter-slot ${val!==null?"filled":""}" onclick="removeFromSlot(${i})">${letter}</button>`;
+  }).join("");
+
+  document.getElementById("letterPool").innerHTML = finalePool.map(p=>{
+    const used = finaleSlots.includes(p.id);
+    return `<button class="letter-chip" ${used?"disabled":""} onclick="placeInSlot(${p.id})">${p.letter}</button>`;
+  }).join("");
+
+  const full = !finaleSlots.includes(null);
+  document.getElementById("finaleCheckBtn").disabled = !full;
+}
+
+function placeInSlot(poolId){
+  const emptyIndex = finaleSlots.indexOf(null);
+  if(emptyIndex === -1) return;
+  finaleSlots[emptyIndex] = poolId;
+  drawFinale();
+}
+function removeFromSlot(slotIndex){
+  finaleSlots[slotIndex] = null;
+  drawFinale();
+}
+
+function checkFinale(){
+  const attempt = finaleSlots.map(id => finalePool.find(p=>p.id===id).letter).join("");
+  const fb = document.getElementById("finaleFeedback");
+  if(attempt.toUpperCase() === WIN_WORD){
+    fb.textContent = "RESOLVED. FINALLY.";
+    fb.className = "feedback good";
+    state.finaleSolved = true;
+    saveState();
+    setTimeout(()=> go("#quip"), 900);
+  } else {
+    fb.textContent = "Not quite her peace yet. Rearrange and try again.";
+    fb.className = "feedback bad";
+  }
+}
+
+function renderQuip(main){
+  main.innerHTML = `
+    <div class="intro-wrap">
+      <div class="seal-mark">${coffinSealSVG()}</div>
+      <p class="eyebrow">Reburied</p>
+      <h2 class="section-title">One Last Word</h2>
+
+      ${radioPlayerHTML("quipRadio", "audio/final-quip.mp3", "Tune in — Emma's last word")}
+
+      <button class="btn btn-primary btn-block" onclick="go('#outro')">Continue</button>
+    </div>
+  `;
+  wireRadio("quipRadio");
+}
+
+/* ---------------------- outro + share card ---------------------- */
+
+function renderOutro(main){
+  main.innerHTML = `
+    <div class="intro-wrap">
+      <div class="seal-mark" style="background:radial-gradient(circle at 35% 30%, var(--spirit), #3f6f5c 70%); color:var(--ink);">✓</div>
+      <p class="eyebrow">Case Closed</p>
+      <h1 class="title" style="font-size:2.4rem;">She's Been <em>Reburied.</em></h1>
+
+      ${radioPlayerHTML("outroRadio", "audio/outro.mp3", "Tune in — the send-off")}
+
+      <p style="max-width:420px;margin:0 auto 22px;">
+        Emma Crawford is, for the first time in over a century, exactly where
+        she's supposed to be. You did that. Mostly by finding a bunch of
+        pretend antique junk around a small Colorado town, but still.
+      </p>
+
+      <button class="btn btn-primary btn-block" onclick="drawShareCard()">Generate Completion Card</button>
+      <canvas id="shareCanvas" width="1000" height="1250" style="display:none;"></canvas>
+      <a id="downloadCard" class="btn btn-ghost btn-block" style="display:none;margin-top:10px;">Download & Share</a>
+    </div>
+  `;
+  wireRadio("outroRadio");
+}
+
+function drawShareCard(){
+  const canvas = document.getElementById("shareCanvas");
+  canvas.style.display = "block";
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width, h = canvas.height;
+
+  // background
+  ctx.fillStyle = "#17130f";
+  ctx.fillRect(0,0,w,h);
+  const grad = ctx.createRadialGradient(w*0.2,0,0,w*0.2,0,w*0.9);
+  grad.addColorStop(0,"rgba(109,31,42,.45)");
+  grad.addColorStop(1,"rgba(109,31,42,0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,w,h);
+
+  // border
+  ctx.strokeStyle = "#b8925a";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(30,30,w-60,h-60);
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#d9b57e";
+  ctx.font = "600 26px Work Sans, sans-serif";
+  ctx.fillText("CHASE THE ENTERTAINER PRESENTS", w/2, 150);
+
+  ctx.fillStyle = "#f4ecd8";
+  ctx.font = "900 74px Fraunces, serif";
+  ctx.fillText("THE COFFIN CHASE", w/2, 260);
+
+  ctx.font = "italic 600 32px Fraunces, serif";
+  ctx.fillStyle = "#b8925a";
+  ctx.fillText("A Manitou Springs Walking Mystery", w/2, 320);
+
+  // wax seal
+  ctx.beginPath();
+  ctx.arc(w/2, 560, 110, 0, Math.PI*2);
+  const sealGrad = ctx.createRadialGradient(w/2-30,530,10,w/2,560,110);
+  sealGrad.addColorStop(0,"#8a2c3a");
+  sealGrad.addColorStop(1,"#6d1f2a");
+  ctx.fillStyle = sealGrad;
+  ctx.fill();
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = "#d9b57e";
+  ctx.stroke();
+
+  ctx.fillStyle = "#d9b57e";
+  ctx.font = "900 60px Fraunces, serif";
+  ctx.fillText("8/8", w/2, 580);
+
+  ctx.fillStyle = "#f4ecd8";
+  ctx.font = "700 44px Fraunces, serif";
+  ctx.fillText("CASE STATUS: REBURIED", w/2, 780);
+
+  ctx.font = "400 24px Spectral, serif";
+  ctx.fillStyle = "rgba(244,236,216,.75)";
+  const dateStr = new Date().toLocaleDateString(undefined, { year:"numeric", month:"long", day:"numeric" });
+  ctx.fillText(dateStr, w/2, 830);
+
+  ctx.font = "italic 26px Spectral, serif";
+  ctx.fillStyle = "#b8925a";
+  wrapText(ctx, "\u201CAfter 135 years, all her personal effects have finally been returned.\u201D", w/2, 960, w-220, 34);
+
+  ctx.font = "600 22px Work Sans, sans-serif";
+  ctx.fillStyle = "#d9b57e";
+  ctx.fillText("chasetheentertainer.com  ·  #TheCoffinChase", w/2, h-90);
+
+  const link = document.getElementById("downloadCard");
+  link.href = canvas.toDataURL("image/png");
+  link.download = "the-coffin-chase-completion-card.png";
+  link.style.display = "block";
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+  const words = text.split(" ");
+  let line = "";
+  let lines = [];
+  for(let n=0;n<words.length;n++){
+    const test = line + words[n] + " ";
+    if(ctx.measureText(test).width > maxWidth && n > 0){
+      lines.push(line);
+      line = words[n] + " ";
+    } else {
+      line = test;
+    }
+  }
+  lines.push(line);
+  const startY = y - ((lines.length-1) * lineHeight)/2;
+  lines.forEach((l,i)=> ctx.fillText(l.trim(), x, startY + i*lineHeight));
+}
+
+/* init */
+updateTrayCount();
+</script>
+</body>
+</html>
