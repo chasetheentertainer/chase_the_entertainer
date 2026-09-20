@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>The Coffin Chase — Chase the Entertainer Presents</title>
+<title>The Coffin Chase: Chase the Entertainer Presents</title>
 <meta name="description" content="A Manitou Springs walking mystery. Presented by Chase the Entertainer.">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#17130f">
@@ -410,13 +410,15 @@
 
   .malini-emblem{ text-align:center; margin: 4px 0 14px; }
   .malini-emblem-row{ display:flex; align-items:center; justify-content:center; gap:2px; }
-  .malini-flourish{ width:50px; height:50px; flex-shrink:0; color: var(--brass); opacity:.85; }
-  .malini-flourish.right{ transform: scaleX(-1); }
   .malini-medallion{
     position:relative; width:84px; height:84px; border-radius:50%; flex-shrink:0;
     border: 3px solid var(--brass); box-shadow: 0 0 0 2px var(--parchment-2), 0 0 0 3.5px var(--brass-2), 0 6px 14px rgba(0,0,0,.3);
     overflow:hidden; background: var(--ink);
   }
+  .malini-emblem.dark .malini-medallion{
+    box-shadow: 0 0 0 2px var(--ink), 0 0 0 3.5px var(--brass-2), 0 6px 14px rgba(0,0,0,.5);
+  }
+  .malini-emblem.dark{ margin: 4px 0 20px; }
   .malini-medallion img{ width:100%; height:100%; object-fit:cover; transform: scale(1.05); display:block; }
   .malini-nameplate{
     font-family: var(--antique); font-weight:600; font-size:.98rem; letter-spacing:.14em;
@@ -495,13 +497,18 @@
     clip-path: polygon(38% 6%, 62% 6%, 86% 33%, 70% 94%, 30% 94%, 14% 33%);
   }
   .malini-item-disc svg{ width:46%; height:46%; }
-  .malini-item-name{ font-family: var(--display); font-weight:700; font-size:1rem; margin: 2px 0 6px; }
+  .malini-item-name{ font-family: var(--display); font-weight:700; font-size:1rem; margin: 2px 0 6px; color: var(--ink-text); }
   .malini-item-desc{ font-family: var(--body); font-style:italic; font-size:.88rem; color: rgba(42,32,21,.75); max-width:320px; margin:0 auto; }
 
   .malini-next-line{
     margin: 18px 0 0; padding-top:14px; border-top: 1px dashed rgba(42,32,21,.2);
     font-family: var(--ui); font-size:.74rem; text-align:center; color: rgba(42,32,21,.62);
   }
+  .malini-directions{
+    margin: 8px 0 0; font-family: var(--ui); font-size:.72rem; text-align:center; color: rgba(42,32,21,.6);
+    line-height:1.5;
+  }
+  .malini-directions a{ color: var(--oxblood); font-weight:600; text-decoration: underline; }
   .malini-next-line b{ color: var(--oxblood); font-weight:600; }
 
   .malini-card-back-btn{ text-align:center; margin-top:20px; }
@@ -633,7 +640,7 @@
   <header class="topbar" id="topbar">
     <div class="brand" id="topbarBrand">The Coffin Chase</div>
     <button class="tray-btn" onclick="openTray()">
-      <span>Séance Items</span>
+      <span>Items Collected</span>
       <span class="tray-count" id="trayCount">0</span>
     </button>
   </header>
@@ -643,10 +650,10 @@
   <footer class="credit">The Coffin Chase · A Manitou Springs Walking Mystery</footer>
 </div>
 
-<!-- Séance Items tray modal -->
+<!-- Items Collected tray modal -->
 <div class="modal-backdrop" id="trayModal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="trayModalTitle">
-    <h3 id="trayModalTitle">Séance Items</h3>
+    <h3 id="trayModalTitle">Items Collected</h3>
     <div class="sub" id="trayModalSub">0 of 7 gathered</div>
     <div class="effects-grid" id="effectsGrid"></div>
     <button class="btn btn-ghost btn-block modal-close" onclick="closeTray()">Close</button>
@@ -676,8 +683,8 @@ CERT_PORTRAIT_IMG.src = MALINI_PORTRAIT_SRC;
 const COLD_OPEN = [
   "You're standing at 6,412 feet, in a town called Manitou Springs. Lovely place. Mineral water, mountain air, and about a dozen creative ways to die of consumption back in 1890. Really something for everybody.",
   "This town also has a complicated relationship with staying buried. In 1891, a woman was laid to rest on the mountain right up there. A few years later, that mountain flooded, and she came back down the hill in her coffin to say hello. Two boys found what was left of her at the bottom. She's been reburied three times since. Three. In one town. And that's just the story they put on the plaque.",
-  "Tonight, or this afternoon, I don't judge, you find yourself on what appears to be a normal walking tour. It is not. Let me introduce you to Malini the Mind Reading Orange — my friend, performing partner, and your guide for a decision you're already starting to question. He has a mission for you.",
-  "We are going to seven stops and he has seven items he says he needs for an experiment at the end of the tour. Why? It's October, he's a mind reading orange and this is prerecorded — why are you asking questions?",
+  "Tonight, or this afternoon, I don't judge, you find yourself on what appears to be a normal walking tour. It is not. Let me introduce you to Malini the Mind Reading Orange, my friend, performing partner, and your guide for a decision you're already starting to question. He has a mission for you.",
+  "We are going to seven stops and he has seven items he says he needs for an experiment at the end of the tour. Why? It's October, he's a mind reading orange and this is prerecorded, why are you asking questions?",
   "My name is Chase the Entertainer, this is Malini the Mind Reading Orange. Welcome to The Coffin Chase.",
 ];
 
@@ -699,19 +706,20 @@ const STOPS = [
     id: "seven-minute",
     order: 1,
     name: "Seven Minute Spring",
-    walkNote: "Start here — across from Memorial Park, just past SunWater Spa.",
+    walkNote: "Start here, across from Memorial Park, just past SunWater Spa.",
     chaseArrival: [
-      "Seven Minute Spring. Used to be a geyser. Now it's just water with a good backstory. SunWater Spa's to your right. Memorial Park's across the street. Neither one's relevant — just how I'm telling you where you are. That's my whole job at this stop — show up, say something, get out of the way. Malini does the real work. He takes it very seriously. He's an orange. I don't get to have opinions about that anymore.",
+      "Seven Minute Spring. Used to be a geyser. Now it's just water with a good backstory. SunWater Spa's to your right. Memorial Park's across the street. Neither one's relevant, that's just how I'm telling you where you are. That's my whole job at this stop: show up, say something, get out of the way. Malini does the real work. He takes it very seriously. He's an orange. I don't get to have opinions about that anymore.",
     ],
     malini: {
       question: "Everything in this park was built, drilled, or dragged into place. One thing wasn't. Name it.",
       answer: "pikes peak", altAnswers: ["pikes", "the peak"],
       hint1: "Stop reading. Look up.",
       hint2: "It was here before this town had a name. It will be here after it forgets both of ours.",
-      reveal: "Pikes Peak. I already knew you'd need this. Write it down anyway — I still want to watch you do it.",
-      correct: "Correct. I was aware.",
+      reveal: "Pikes Peak. I already knew you'd need this. Write it down anyway, I still want to watch you do it.",
+      correct: "I knew you would get it. After all, I am a mind reader.",
       item: { letter: "F", name: "A Fountain Wish, Slightly Used", desc: "Somebody wished for something in that water. I need it. Don't ask what it was for. The dead rarely explain themselves, and neither, on principle, do I." },
       next: "West on Manitou Ave. City Hall. I'll have more for you there.",
+      nextDest: { name: "City Hall", query: "606 Manitou Ave, Manitou Springs, CO 80829" },
     },
   },
   {
@@ -723,14 +731,15 @@ const STOPS = [
       "City Hall. Handles permits, records, zoning. Every part of small-town life nobody thinks about until 4:58 on a Friday. There's also a howitzer out front. Nobody around here finds that strange. Small town, apparently strong feelings about defense. Malini's got business with this building now. Don't ask me what. I stopped asking.",
     ],
     malini: {
-      question: "This building carries a date carved into its stone — the year it was actually built. Find it.",
-      answer: "1897", altAnswers: ["eighteen ninety-seven", "eighteen ninety seven"],
-      hint1: "Look up, near the roofline or the entrance. Not the ground. Never the ground.",
-      hint2: "It's stone. Whoever carved it wanted it to outlast every piece of paper this building would ever file.",
-      reveal: "1897. I already knew. I was simply confirming that you could read.",
-      correct: "Correct. As expected.",
+      question: "There's a street number bolted up near the entrance, the building's address. Add the digits together and tell me the sum. I have a system. Don't ask about the system.",
+      answer: "12", altAnswers: ["twelve"],
+      hint1: "It's a small metal number plate, usually right by the door. Read the digits, not the words around them.",
+      hint2: "Three digits. Add them the normal way, then stop overthinking it.",
+      reveal: "Twelve. That's the sum, if you were wondering. My system says the digits add up to something. I never said what.",
+      correct: "Correct. Somehow, I'm never surprised when I'm right.",
       item: { letter: "C", name: "Citizen Complaint Form #4,417", desc: "Filed in 1974. Never addressed. I need it. Preferably before whoever wrote it stops complaining." },
       next: "West on Manitou Ave, past the brewery and the coffee shop, to where the street bends. Barker House.",
+      nextDest: { name: "Barker House", query: "38.85788,-104.91732" },
     },
   },
   {
@@ -742,14 +751,15 @@ const STOPS = [
       "Barker House. First resort hotel in town. A hundred and ten rooms, one bathroom per floor. But they had Manitou's first hydraulic elevator, so guests could ride in style on their way to share a toilet with forty strangers. Priorities. Malini's got a thing about somebody who stayed here. Not me. Someone more interesting.",
     ],
     malini: {
-      question: "There's a bronze marker mounted near the entrance, naming a very famous former guest. Find it. Read it. Tell me what nickname they gave her — not her real name.",
+      question: "There's a bronze marker mounted near the entrance, naming a very famous former guest. Find it. Read it. Tell me what nickname they gave her, not her real name.",
       answer: "jersey lily", altAnswers: ["the jersey lily", "lillie langtry", "lily langtry"],
       hint1: "It's not subtle. Bronze plaque, right by the door. Actual reading required.",
       hint2: "The nickname borrows from a flower and a Channel Island. She wasn't royalty, but men treated her like she was.",
       reveal: "The Jersey Lily. Lillie Langtry. It's right there on the sign. I already knew. I was simply confirming you'd read it.",
-      correct: "Correct. Naturally.",
-      item: { letter: "E", name: "One Extremely Confident Elevator Button", desc: "Still works perfectly. The elevator, historically, was Manitou's first — the bathrooms, less so. One per floor, for a hundred and ten rooms. I don't need the elevator. Just the button." },
+      correct: "Correct. See, you're better at this than you thought.",
+      item: { letter: "E", name: "One Extremely Confident Elevator Button", desc: "Still works perfectly. The elevator, historically, was Manitou's first, the bathrooms less so. One per floor, for a hundred and ten rooms. I don't need the elevator. Just the button." },
       next: "West again, past the brewery and coffee shop. The post office, this time. Go.",
+      nextDest: { name: "The Post Office (Wheeler's Old Estate)", query: "307 Canon Ave, Manitou Springs, CO 80829" },
     },
   },
   {
@@ -758,17 +768,18 @@ const STOPS = [
     name: "The Post Office (Wheeler's Old Estate)",
     walkNote: "Continue west, past the brewery and coffee shop, to the post office.",
     chaseArrival: [
-      "This is the post office. Built in 1940, out of local greenstone — the last building in town ever made from it. Locals fought for that stone specifically, it cost the federal government extra, and they got it anyway. That's the kind of hill this town's always been willing to die on. Sometimes literally. There's a mural over the postmaster's door too, painted in '42, still there. Worth a look, not required. There's also a spring behind here called Wheeler Spring. Named after the guy whose backyard this used to be — greenhouse, bowling alley, the works. He died, and somebody had plans for what came next. Big plans. They got a post office instead. Malini's still got questions about it.",
+      "This is the post office. Built in 1940, out of local greenstone, the last building in town ever made from it. Locals fought for that stone specifically, it cost the federal government extra, and they got it anyway. That's the kind of hill this town's always been willing to die on. Sometimes literally. There's a mural over the postmaster's door too, painted in '42, still there. Worth a look, not required. There's also a spring behind here called Wheeler Spring. Named after the guy whose backyard this used to be, greenhouse, bowling alley, the works. He died, and somebody had plans for what came next. Big plans. They got a post office instead. Malini's still got questions about it.",
     ],
     malini: {
-      question: "There's a marker on this building, in two parts. Read the second half — the part about the mansion that used to stand here. What did they mean to build in its place?",
+      question: "There's a marker on this building, in two parts. Read the second half, the part about the mansion that used to stand here. What did they mean to build in its place?",
       answer: "hotel and amusement park", altAnswers: ["a hotel and amusement park", "hotel", "amusement park", "hotel and amusement complex", "a hotel and amusement complex", "amusement complex", "complex"],
-      hint1: "It's not the post office section. Look for the other name on the marker — Windemere.",
+      hint1: "It's not the post office section. Look for the other name on the marker, Windemere.",
       hint2: "It was meant for tourists, not for the family that lived here. Whatever it was, it never got built.",
       reveal: "A hotel and amusement complex. Never materialized. It's right there on the sign. I already knew. I was simply confirming you'd read it.",
-      correct: "Correct. Predictably.",
+      correct: "Correct. I had a feeling you'd get there eventually.",
       item: { letter: "T", name: "A Ticket to Nowhere", desc: "Good for one entry to the amusement park that never opened. Non-refundable. I need it anyway. Presentation matters, even when there's nowhere to go." },
       next: "Back toward the roundabout, then up the hill, to the house that can't agree with itself. Miramont Castle. Go.",
+      nextDest: { name: "Miramont Castle", query: "9 Capitol Hill Ave, Manitou Springs, CO 80829" },
     },
   },
   {
@@ -777,19 +788,20 @@ const STOPS = [
     name: "Miramont Castle",
     walkNote: "Back toward the roundabout, then up the hill to Miramont Castle.",
     chaseArrival: [
-      "Miramont Castle. Four stories, same green stone as the post office — guess there was a sale. Nine architectural styles crammed into one building. Nobody agreed on a plan. They just kept building. Whoever designed this had a very specific vision, and also, it turns out, a completely different day job. Malini's curious about that.",
+      "Miramont Castle. Four stories, same green stone as the post office, guess there was a sale. Nine architectural styles crammed into one building. Nobody agreed on a plan. They just kept building. Whoever designed this had a very specific vision, and also, it turns out, a completely different day job. Malini's curious about that.",
     ],
     malini: {
       question: "There's a marker near the entrance about the man who designed this place. Read it. He had a second occupation, entirely unrelated to architecture. What was it?",
       answer: "priest", altAnswers: ["catholic priest", "a priest", "a catholic priest"],
-      hint1: "It's not carpenter, not mason — those were the men he hired. This is about him.",
+      hint1: "It's not carpenter, not mason, those were the men he hired. This is about him.",
       hint2: "He answered to a higher authority than a building inspector.",
       reveal: "A Catholic priest. Jean Baptiste Francolon. Turrets by day, apparently, absolution also by day. I already knew. I was simply confirming you'd read it.",
-      correct: "Correct. Fitting.",
+      correct: "Correct. Good. I was starting to worry about you.",
       item: { letter: "R", name: "A Rosary, Slightly Tangled", desc: "Belonged to a priest with very strong feelings about turrets. I need it. Don't ask if it still works. I didn't ask either." },
-      next: "Down the hill, through the roundabout again — yes, again — back onto Manitou Ave. There's a spring housed in real stone waiting. Go.",
+      next: "Down the hill, through the roundabout again, yes, again, back onto Manitou Ave. There's a spring housed in real stone waiting. Go.",
+      nextDest: { name: "Shoshone Spring", query: "Shoshone Spring, Manitou Ave, Manitou Springs, CO" },
     },
-    footnote: "The original riddle here (count the walls in a 16-sided room) was cut — that room is only viewable via paid museum admission, Tue–Sun, 10am–3:30pm, which would break a free self-guided tour outside those hours.",
+    footnote: "The original riddle here (count the walls in a 16-sided room) was cut. That room is only viewable via paid museum admission, Tue-Sun, 10am-3:30pm, which would break a free self-guided tour outside those hours.",
   },
   {
     id: "shoshone",
@@ -797,17 +809,18 @@ const STOPS = [
     name: "Shoshone Spring",
     walkNote: "Down the hill, through the roundabout again, back onto Manitou Ave.",
     chaseArrival: [
-      "Shoshone Spring. Warmest water in town — seventy degrees, allegedly. I've never brought a thermometer. I just trust the plaque. Built from red-orange sandstone, hauled in from a local quarry. Doctors used to prescribe this exact spring for specific ailments. Specific meaning: not sure if it'll work, but drink the smelly water anyway. Now here's the actual test — drink some, or at least get close enough to smell it. Most of these springs taste like a penny and call it a day. This one's showing off. Malini wants a word about that.",
+      "Shoshone Spring. Warmest water in town, seventy degrees, allegedly. I've never brought a thermometer. I just trust the plaque. Built from red-orange sandstone, hauled in from a local quarry. Doctors used to prescribe this exact spring for specific ailments. Specific meaning: not sure if it'll work, but drink the smelly water anyway. Now here's the actual test, drink some, or at least get close enough to smell it. Most of these springs taste like a penny and call it a day. This one's showing off. Malini wants a word about that.",
     ],
     malini: {
-      question: "Every other spring in this town settles for a mouthful of loose change. This one's got something extra riding along with the minerals — something that smells like a struck match. Name it.",
+      question: "Every other spring in this town settles for a mouthful of loose change. This one's got something extra riding along with the minerals, something that smells like a struck match. Name it.",
       answer: "sulphur", altAnswers: ["sulfur"],
       hint1: "Stop looking at the water. Smell it.",
       hint2: "Think of the smell right after you blow out a candle. That little bite in the air. Same thing, older.",
       reveal: "Sulphur. It's been in this water for a hundred and fifty years, and people keep drinking it anyway. I already knew. I was simply confirming your nose works.",
-      correct: "Correct. Obviously.",
+      correct: "Correct. Was there ever any doubt? ...Don't answer that.",
       item: { letter: "J", name: "A Small Jar of Bottled Air (Sulphur)", desc: "Smells like a blown-out match and a bad decision. Do not open indoors. I open it indoors constantly." },
       next: "Barker House is right behind you, if you didn't clock it on the way in. Past it, past something that smells like popcorn, there's a plaque. Last stop. Go.",
+      nextDest: { name: "The Emma Crawford Memorial Plaque", query: "38.8583,-104.917783" },
     },
   },
   {
@@ -816,10 +829,10 @@ const STOPS = [
     name: "The Emma Crawford Memorial Plaque",
     walkNote: "Past Barker House, past the smell of popcorn, to the plaque near the fence.",
     chaseArrival: [
-      "Last stop. Officially, anyway — Malini tells me there's one more thing after this, but he's being cagey about what, so let's not get ahead of ourselves. This is Emma Crawford's memorial plaque. She was twenty-eight when she died. That's the whole tragedy, in two digits. Everything the grumpy orange has had you chasing all over town comes back to this fence post. Malini's very quiet right now. That's new.",
+      "Last stop. Officially, anyway, Malini tells me there's one more thing after this, but he's being cagey about what, so let's not get ahead of ourselves. This is Emma Crawford's memorial plaque. She was twenty-eight when she died. That's the whole tragedy, in two digits. Everything the grumpy orange has had you chasing all over town comes back to this fence post. Malini's very quiet right now. That's new.",
     ],
     malini: {
-      question: "Read the plaque. It lists what she did for a living, twice — and one more thing, a relationship. I don't need the jobs. I need the relationship. Who was she supposed to marry?",
+      question: "Read the plaque. It lists what she did for a living, twice, and one more thing, a relationship. I don't need the jobs. I need the relationship. Who was she supposed to marry?",
       answer: "wilhelm hildenbrand", altAnswers: ["wilhelm", "hildenbrand"],
       hint1: "Not a title. A name. Look near the bottom.",
       hint2: "She never got to use it. That's rather the whole point of tonight, if you think about it.",
@@ -827,8 +840,9 @@ const STOPS = [
       correct: "Correct.",
       item: { letter: "W", name: "A Ring, Never Worn", desc: "It was supposed to go on her hand in the spring of 1891. That's the last one. That's all seven. I need to go now. Don't follow me." },
       next: null,
+      nextDest: null,
     },
-    footnote: "Emma Crawford Memorial: HMDB marker at Manitou Ave & Navajo Ave confirms her age (28) and fiance (Wilhelm Hildenbrand). A second, newer memorial (installed 2023, outside Townhouse Sports Grill, 907 Manitou Ave) also exists — confirm in person which the route should use before launch.",
+    footnote: "Emma Crawford Memorial: HMDB marker at Manitou Ave and Navajo Ave confirms her age (28) and fiance (Wilhelm Hildenbrand). A second, newer memorial (installed 2023, outside Townhouse Sports Grill, 907 Manitou Ave) also exists, confirm in person which the route should use before launch.",
   },
 ];
 
@@ -841,18 +855,18 @@ const FINALE_CLIP1 = [
   "Quick disclosure: we didn't have the budget for an animator, or a voice actor for Malini. So I'm going to describe what happens, with some eerie music playing behind me.",
   "Malini's laid all seven out along the base of the plaque. In order. He's very particular about the order.",
   "I did not realize a fountain wish, a complaint form, an elevator button, a ticket to nowhere, a rosary, a jar of bad-smelling air, and a ring were a matching set until just now, looking at them lined up like this.",
-  "Okay. Something's happening. There's wind, somehow, from nowhere. The temperature's dropping. Probably. Something in the distance might be glowing — can't confirm that part.",
+  "Okay. Something's happening. There's wind, somehow, from nowhere. The temperature's dropping. Probably. Something in the distance might be glowing, can't confirm that part.",
   "...Oh. Oh, I know what he's doing. This is a séance.",
   "I don't believe in ghosts. I believe this orange can read minds. But I don't believe in ghosts.",
-  "Here's what I do believe: give a town one interesting dead person, wait a hundred years, and see what gets built on top of her. Emma Crawford wasn't a fortune teller. Wasn't anything supernatural — she was a piano teacher who died young and had the bad luck of being memorable about it. And now there's ghost stories, and plaques, and a grown man walking strangers around with a piece of psychic citrus, and somewhere in there the actual piano teacher part just sort of—",
+  "Here's what I do believe: give a town one interesting dead person, wait a hundred years, and see what gets built on top of her. Emma Crawford wasn't a fortune teller. Wasn't anything supernatural, she was a piano teacher who died young and had the bad luck of being memorable about it. And now there's ghost stories, and plaques, and a grown man walking strangers around with a piece of psychic citrus, and somewhere in there the actual piano teacher part just sort of...",
   "[all the piano keys crash down at once]",
-  "...Okay. That was spooky. Still don't believe in ghosts. But that's it — that's the tour. Everyone go your own way. Me? I'm gonna go... that way.",
+  "...Okay. That was spooky. Still don't believe in ghosts. But that's it, that's the tour. Everyone go your own way. Me? I'm gonna go... that way.",
   "(walking away, voice starting to drop off)",
-  "Anyway. I've got things. Citrus doesn't refrigerate itself — actually it does, that's the whole point of a fridge, I don't know why I said it like that—",
+  "Anyway. I've got things. Citrus doesn't refrigerate itself, actually it does, that's the whole point of a fridge, I don't know why I said it like that...",
   "(quieter, more distant)",
-  "—gonna go find lunch, or a nap, possibly both, at the same time, is that legal—",
+  "...gonna go find lunch, or a nap, possibly both, at the same time, is that legal...",
   "(barely audible, trailing to nothing)",
-  "—somebody should really ask Emma about the piano thing, I feel like that's a bigger story than we—",
+  "...somebody should really ask Emma about the piano thing, I feel like that's a bigger story than we...",
   "(silence)",
 ];
 
@@ -860,10 +874,10 @@ const FINALE_CLIP1 = [
    "Tap Here -- He's Not Coming Back" tap-through. */
 const OUTRO_LINES = [
   "Somewhere between a gift shop and a mineral spring, a piano teacher got turned into a ghost story, and people like you keep showing up to prove it.",
-  "Guess what, though — you survived.",
+  "Guess what, though, you survived.",
   "Below is your certificate of completion. Think of it like a badge of honor. Share it on social media and everyone will know you spent an hour taking walking directions from a mind-reading orange.",
-  "This experience took a lot to put together, and it was absolutely free. So all we ask — follow us, tell people about it. That's what lets us keep doing crazy, ill-advised, artsy crap like this.",
-  "And if you want the actual live version of us — Chase and Malini, in person, at your event — that's chasetheentertainer.com. Upcoming shows, bookings, all of it.",
+  "This experience took a lot to put together, and it was absolutely free. So all we ask: follow us, tell people about it. That's what lets us keep doing crazy, ill-advised, artsy crap like this.",
+  "And if you want the actual live version of us (Chase and Malini, in person, at your event), that's chasetheentertainer.com. Upcoming shows, bookings, all of it.",
   "We've got more walking adventures coming. Next up: Do Not Disturb. Downtown Colorado Springs.",
   "I'm Chase. That was Malini. This has been The Coffin Chase. There's more coming. See you then.",
 ];
@@ -1052,17 +1066,15 @@ function toggleCaptions(id){
   if(caret) caret.textContent = isOpen ? "▴" : "▾";
 }
 
-function malini(){
+function malini(dark){
   return `
-    <div class="malini-emblem">
+    <div class="malini-emblem${dark ? " dark" : ""}">
       <div class="malini-emblem-row">
-        <svg class="malini-flourish" viewBox="0 0 100 100"><path d="M92,50 C92,30 78,14 55,12 C68,20 74,35 70,50 C74,65 68,80 55,88 C78,86 92,70 92,50 Z" fill="currentColor"/><circle cx="90" cy="50" r="4" fill="currentColor"/></svg>
         <div class="malini-medallion"><img src="${MALINI_PORTRAIT_SRC}" alt="Malini the Mind-Reading Orange"></div>
-        <svg class="malini-flourish right" viewBox="0 0 100 100"><path d="M92,50 C92,30 78,14 55,12 C68,20 74,35 70,50 C74,65 68,80 55,88 C78,86 92,70 92,50 Z" fill="currentColor"/><circle cx="90" cy="50" r="4" fill="currentColor"/></svg>
       </div>
       <p class="malini-nameplate">Malini<span class="sub">The Mind-Reading Orange</span></p>
     </div>
-    <div class="malini-card-rule"></div>
+    ${dark ? "" : `<div class="malini-card-rule"></div>`}
   `;
 }
 
@@ -1074,11 +1086,13 @@ function renderIntro(main){
       <h1 class="title">The <em>Coffin</em> Chase</h1>
       <p class="subtitle">A Manitou Springs Walking Mystery</p>
 
-      ${radioPlayerHTML("introRadio", "audio/intro.mp3", "Tune in — the cold open", "rolling", true)}
+      ${malini(true)}
+
+      ${radioPlayerHTML("introRadio", "audio/intro.mp3", "The Introduction", "rolling", true)}
       ${chaseCaptions("intro", COLD_OPEN)}
 
       <p style="max-width:420px;margin:0 auto 26px;font-size:.85rem;color:rgba(244,236,216,.55);">
-        Seven stops. Seven items. A little under an hour, start to finish —
+        Seven stops. Seven items. A little under an hour, start to finish,
         assuming Malini doesn't decide he needs an eighth thing halfway
         through. He might.
       </p>
@@ -1102,7 +1116,7 @@ function renderMap(main){
     const locked = !done && !isNext;
     const cls = done ? "done" : isNext ? "next" : "locked";
     const checkContent = done ? "✓" : locked ? "&mdash;" : "";
-    const metaText = locked ? `Locked — finish ${sorted[stop.order-2]?.name || "the previous stop"} first` : stop.walkNote;
+    const metaText = locked ? `Locked, finish ${sorted[stop.order-2]?.name || "the previous stop"} first` : stop.walkNote;
     const attrs = locked ? `disabled aria-disabled="true"` : `onclick="go('#stop-${stop.id}')"`;
     return `
       <li>
@@ -1121,7 +1135,7 @@ function renderMap(main){
   main.innerHTML = `
     <p class="eyebrow">The Route</p>
     <h2 class="section-title">Seven Stops. Seven Items.</h2>
-    <p style="margin:-2px 0 18px; font-family:var(--ui); font-size:.78rem; color:rgba(244,236,216,.55); text-transform:uppercase; letter-spacing:.05em;">Start at 01 and follow them in order — later stops unlock as you go.</p>
+    <p style="margin:-2px 0 18px; font-family:var(--ui); font-size:.78rem; color:rgba(244,236,216,.55); text-transform:uppercase; letter-spacing:.05em;">Start at 01 and follow them in order. Later stops unlock as you go.</p>
     <div class="progress-line">
       <span>${doneCount} / ${STOPS.length} gathered</span>
       <span class="progress-bar"><i style="width:${pct}%"></i></span>
@@ -1131,7 +1145,7 @@ function renderMap(main){
 
     <div class="divider"></div>
     <button class="btn btn-primary btn-block" ${doneCount < STOPS.length ? "disabled" : ""} onclick="go('#finale')">
-      ${doneCount < STOPS.length ? "Finish all 7 stops to continue" : "Attempt the Séance →"}
+      ${doneCount < STOPS.length ? "Finish all 7 stops to continue" : "The Big Finale →"}
     </button>
 
     <div class="map-footer-links">
@@ -1156,6 +1170,18 @@ function renderStop(main, stop){
   `;
 
   if(!alreadyDone) wireStopPage(stop);
+}
+
+function directionsLinksHTML(dest){
+  if(!dest) return "";
+  const q = encodeURIComponent(dest.query);
+  return `<div class="malini-directions">
+      Heading to <b>${dest.name}</b> next.
+      <a href="https://www.google.com/maps/dir/?api=1&destination=${q}&travelmode=walking" target="_blank" rel="noopener">Google Maps</a>
+      or
+      <a href="https://maps.apple.com/?daddr=${q}&dirflg=w" target="_blank" rel="noopener">Apple Maps</a>,
+      or just pull up your own maps app.
+    </div>`;
 }
 
 function renderAlreadyDone(stop){
@@ -1211,7 +1237,7 @@ function renderStopPage(stop){
             <p class="malini-item-name">${stop.malini.item.name}</p>
             <p class="malini-item-desc">${stop.malini.item.desc}</p>
           </div>
-          ${stop.malini.next ? `<div class="malini-next-line"><b>Next:</b> ${stop.malini.next}</div>` : ""}
+          ${stop.malini.next ? `<div class="malini-next-line"><b>Next:</b> ${stop.malini.next}</div>${directionsLinksHTML(stop.malini.nextDest)}` : ""}
         </div>
       </div>
     </div>
@@ -1231,7 +1257,7 @@ function wireStopPage(stop){
 }
 
 const RIDDLE_MISS_LINES = [
-  "Not it. Try again — or ask for a hint.",
+  "Not it. Try again, or ask for a hint.",
   "Wrong. I'll wait.",
   "No. Think about what's actually in front of you.",
 ];
@@ -1322,7 +1348,7 @@ function wireRadio(id){
   audio.addEventListener("error", ()=>{
     const label = document.getElementById(id+"Label");
     if(label){
-      label.innerHTML = `<span style="color:#d98a8a;">Audio file not found — check that /audio/${audio.src.split("/").pop()} was uploaded.</span>`;
+      label.innerHTML = `<span style="color:#d98a8a;">Audio file not found. Check that /audio/${audio.src.split("/").pop()} was uploaded.</span>`;
     }
   });
 }
@@ -1442,12 +1468,12 @@ function renderFinale(main){
     <div class="intro-wrap">
       <div class="seal-mark">${coffinSealSVG()}</div>
       <p class="eyebrow">All Seven, Gathered</p>
-      <h2 class="section-title">The Séance</h2>
+      <h2 class="section-title">The Finale</h2>
 
       ${radioPlayerHTML("finaleRadio1", "audio/finale-1.mp3", "Chase, at the plaque", "rolling", false)}
       ${chaseCaptions("finale1", FINALE_CLIP1)}
 
-      <button type="button" class="btn btn-primary btn-block finale-tap" id="finaleTapThrough" onclick="finishFinale()">Tap Here — He's Not Coming Back</button>
+      <button type="button" class="btn btn-primary btn-block finale-tap" id="finaleTapThrough" onclick="finishFinale()">Tap Here: He's Not Coming Back</button>
     </div>
   `;
   wireRadio("finaleRadio1");
@@ -1487,12 +1513,13 @@ function renderOutro(main){
       <p class="eyebrow">That's the show</p>
       <h1 class="title" style="font-size:2rem;">You <em>Survived</em></h1>
 
-      ${radioPlayerHTML("outroRadio", "audio/finale-2.mp3", "Tune in — Chase's send-off", "breathe", false)}
+      ${radioPlayerHTML("outroRadio", "audio/finale-2.mp3", "Closing Notes", "breathe", false)}
       ${chaseCaptions("outro", OUTRO_LINES)}
 
       <p class="eyebrow" style="margin-top:26px;">Certificate of Completion</p>
       <canvas id="shareCanvas" width="1000" height="1250"></canvas>
-      <a id="downloadCard" class="btn btn-ghost btn-block" style="display:none;margin-top:10px;">Download & Share</a>
+      <button id="shareCardBtn" type="button" class="btn btn-primary btn-block" style="display:none;margin-top:10px;" onclick="shareCard()">Share</button>
+      <a id="downloadCard" class="btn btn-ghost btn-block" style="display:none;margin-top:10px;">Download Certificate</a>
 
       <div class="divider"></div>
       <button class="btn btn-ghost btn-block" onclick="go('#resources')">While You're in Manitou</button>
@@ -1595,7 +1622,7 @@ function drawShareCard(){
 
     ctx.font = "italic 26px Spectral, serif";
     ctx.fillStyle = "#b8925a";
-    wrapText(ctx, "\u201cThe dead rarely explain themselves. Neither, on principle, do I.\u201d — Malini", w/2, 990, w-220, 34);
+    wrapText(ctx, "\u201cThe dead rarely explain themselves. Neither, on principle, do I.\u201d – Malini", w/2, 990, w-220, 34);
 
     ctx.font = "600 22px Work Sans, sans-serif";
     ctx.fillStyle = "#d9b57e";
@@ -1605,6 +1632,9 @@ function drawShareCard(){
     link.href = canvas.toDataURL("image/png");
     link.download = "the-coffin-chase-completion-card.png";
     link.style.display = "block";
+
+    const shareBtn = document.getElementById("shareCardBtn");
+    if(shareBtn) shareBtn.style.display = "block";
   };
 
   if(CERT_PORTRAIT_IMG.complete){
@@ -1613,6 +1643,30 @@ function drawShareCard(){
     CERT_PORTRAIT_IMG.onload = paint;
     CERT_PORTRAIT_IMG.onerror = paint;
   }
+}
+
+function shareCard(){
+  const canvas = document.getElementById("shareCanvas");
+  if(!canvas) return;
+  canvas.toBlob(async (blob) => {
+    if(!blob){ document.getElementById("downloadCard")?.click(); return; }
+    const file = new File([blob], "the-coffin-chase-completion-card.png", { type: "image/png" });
+    const canUseFileShare = typeof navigator.canShare === "function" && navigator.canShare({ files: [file] });
+    if(navigator.share && canUseFileShare){
+      try{
+        await navigator.share({
+          files: [file],
+          title: "The Coffin Chase",
+          text: "I survived The Coffin Chase, a Manitou Springs walking mystery by Chase the Entertainer.",
+        });
+        return;
+      }catch(e){
+        if(e && e.name === "AbortError") return; /* user cancelled the share sheet */
+      }
+    }
+    /* unsupported browser, or share failed for a reason other than cancel: fall back to download */
+    document.getElementById("downloadCard")?.click();
+  }, "image/png");
 }
 
 function wrapText(ctx, text, x, y, maxWidth, lineHeight){
@@ -1647,7 +1701,7 @@ function renderResources(main){
       <div class="res-item">
         <p class="res-name">Red Dog Coffee</p>
         <p class="res-addr">739 Manitou Ave</p>
-        <p>Right on the route — locally roasted coffee and breakfast burritos people genuinely rave about. Good spot to sit for ten minutes before the last couple of stops.</p>
+        <p>Right on the route, locally roasted coffee and breakfast burritos people genuinely rave about. Good spot to sit for ten minutes before the last couple of stops.</p>
       </div>
       <div class="res-item">
         <p class="res-name">Manitou Brewing Company</p>
@@ -1666,7 +1720,7 @@ function renderResources(main){
       <div class="res-item">
         <p class="res-name">Patsy's Candies</p>
         <p class="res-addr">Manitou Ave, downtown</p>
-        <p>Old-fashioned candy and popcorn shop sitting on top of a real piece of history — one of the town's original mineral springs runs right underneath it.</p>
+        <p>Old-fashioned candy and popcorn shop sitting on top of a real piece of history, one of the town's original mineral springs runs right underneath it.</p>
       </div>
     </div>
 
@@ -1675,7 +1729,7 @@ function renderResources(main){
       <div class="res-item">
         <p class="res-name">Miramont Castle Museum & The Queen's Parlour Tea Room</p>
         <p class="res-addr">9 Capitol Hill Ave</p>
-        <p>Already part of the walk, but worth going back inside — nine mismatched architectural styles, and a proper afternoon tea if you want to linger.</p>
+        <p>Already part of the walk, but worth going back inside: nine mismatched architectural styles, and a proper afternoon tea if you want to linger.</p>
       </div>
       <div class="res-item">
         <p class="res-name">Cave of the Winds, Manitou Cliff Dwellings, Garden of the Gods</p>
@@ -1687,9 +1741,9 @@ function renderResources(main){
       <h3>FAQ</h3>
       <dl class="res-faq">
         <dt>How long does the walk take?</dt>
-        <dd>Around 60–90 minutes at a relaxed pace, covering a little over a mile total. There's some backtracking through downtown by design.</dd>
+        <dd>Around 60-90 minutes at a relaxed pace, covering a little over a mile total. There's some backtracking through downtown by design.</dd>
         <dt>Is it stroller-friendly? Good in the rain?</dt>
-        <dd>All paved sidewalk, so strollers are fine. A couple of stops are outdoors with limited cover — check the forecast if it's looking wet.</dd>
+        <dd>All paved sidewalk, so strollers are fine. A couple of stops are outdoors with limited cover, check the forecast if it's looking wet.</dd>
         <dt>Best time of day?</dt>
         <dd>Mornings are quieter, especially in October. Afternoons are livelier if you want the town at full energy.</dd>
         <dt>Where do I park?</dt>
@@ -1700,21 +1754,21 @@ function renderResources(main){
     <div class="res-section">
       <h3>A few fun facts, if you want more after you're done</h3>
       <div class="res-item">
-        <p>The Wheeler Town Clock downtown is topped with a statue of Hebe — the Greek goddess who served ambrosia to the gods and kept the "elixir of eternal youth." She's been quietly presiding over a town built on bottled "miracle water" for over a century.</p>
+        <p>The Wheeler Town Clock downtown is topped with a statue of Hebe, the Greek goddess who served ambrosia to the gods and kept the "elixir of eternal youth." She's been quietly presiding over a town built on bottled "miracle water" for over a century.</p>
       </div>
       <div class="res-item">
         <p>The Manitou Springs Post Office has a 1942 mural inside depicting a local legend: the god Manitou clubbing a quarrelsome chief. Worth popping your head in if it's open.</p>
       </div>
       <div class="res-item">
-        <p>Barker House, one of the town's first resort hotels, proudly advertised having the first hydraulic elevator in Manitou — while still only offering one bathroom per floor.</p>
+        <p>Barker House, one of the town's first resort hotels, proudly advertised having the first hydraulic elevator in Manitou, while still only offering one bathroom per floor.</p>
       </div>
     </div>
 
     <div class="res-cta">
-      <p style="margin:0;">The Coffin Chase is a free walking mystery presented by Chase the Entertainer — magic, comedy, and variety shows for corporate and family events around Colorado Springs.</p>
+      <p style="margin:0;">The Coffin Chase is a free walking mystery presented by Chase the Entertainer: magic, comedy, and variety shows for corporate and family events around Colorado Springs.</p>
       <p style="margin:8px 0 0;">If you enjoyed this, follow along for whatever gets built next:</p>
       <div class="social-row">
-        <a class="btn btn-ghost" href="https://instagram.com/chasetheentertainer" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-ghost" href="https://instagram.com/chasetheentertainers" target="_blank" rel="noopener">Instagram</a>
         <a class="btn btn-ghost" href="https://facebook.com/chasetheentertainer" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
@@ -1732,24 +1786,24 @@ function renderShop(main){
 
     <p style="max-width:460px;">
       Two shirts, printed through Bonfire. Finish the walk and there's a
-      discount code waiting on the completion screen — everyone else pays
+      discount code waiting on the completion screen, everyone else pays
       full price for the privilege.
     </p>
 
     <div class="shop-grid">
       <div class="shop-card">
-        <div class="shop-thumb">Product photo — placeholder</div>
+        <div class="shop-thumb">Product photo, placeholder</div>
         <h3>Manitou Springs Coffin Relocation Services</h3>
         <p class="shop-price">$28</p>
-        <p>A dry, vintage-seal design — "Manitou Springs" arcing over a woodcut coffin-on-a-cart, "Coffin Relocation Services" arcing under it, and "Est. 1891 (Unintentionally)" underneath. Reads like a real 19th-century business mark, if you don't look too closely at what it's actually advertising.</p>
+        <p>A dry, vintage-seal design: "Manitou Springs" arcing over a woodcut coffin-on-a-cart, "Coffin Relocation Services" arcing under it, and "Est. 1891 (Unintentionally)" underneath. Reads like a real 19th-century business mark, if you don't look too closely at what it's actually advertising.</p>
         <button class="btn btn-primary btn-block" style="margin-top:14px;" disabled>Bonfire link coming soon</button>
       </div>
 
       <div class="shop-card">
-        <div class="shop-thumb">Product photo — placeholder</div>
-        <h3>Ask Malini — Certified Séance Participant</h3>
+        <div class="shop-thumb">Product photo, placeholder</div>
+        <h3>Ask Malini: Certified Finale Participant</h3>
         <p class="shop-price">$28</p>
-        <p>A mock carnival badge built off the same lettering as Malini's own card art: "Ask Malini" up top, a small orange medallion at center, "Certified Séance Participant — The Coffin Chase" along the bottom like a rank stamp. Proof you finished, and free advertising every time someone asks what it means.</p>
+        <p>A mock carnival badge built off the same lettering as Malini's own card art: "Ask Malini" up top, a small orange medallion at center, "Certified Finale Participant, The Coffin Chase" along the bottom like a rank stamp. Proof you finished, and free advertising every time someone asks what it means.</p>
         <button class="btn btn-primary btn-block" style="margin-top:14px;" disabled>Bonfire link coming soon</button>
       </div>
     </div>
