@@ -12,6 +12,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
+<!-- ANALYTICS: replace G-XXXXXXXXXX below with your own GA4 Measurement ID before launch.
+     Until you do, trackEvent() below just no-ops safely -- nothing breaks either way. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
 <style>
   /* ---------------------------------------------------------
      DESIGN TOKENS
@@ -605,23 +615,6 @@
   }
   .res-cta .social-row{ display:flex; gap:10px; justify-content:center; margin-top:12px; }
 
-  /* ---------- shop page ---------- */
-  .shop-grid{ display:grid; grid-template-columns: 1fr; gap:22px; margin: 18px 0 8px; }
-  .shop-card{
-    border: 1px solid var(--brass); border-radius: var(--radius); padding: 20px;
-    background: rgba(233,222,194,.03);
-  }
-  .shop-card .shop-thumb{
-    aspect-ratio: 4/3; border: 1px dashed var(--brass); border-radius: 6px;
-    display:flex; align-items:center; justify-content:center; margin-bottom:14px;
-    color: rgba(244,236,216,.4); font-family: var(--ui); font-size:.75rem; text-transform:uppercase; letter-spacing:.08em;
-  }
-  .shop-card h3{ font-family:var(--display); font-size:1.15rem; color:var(--bone); margin:0 0 6px; }
-  .shop-card .shop-price{ color: var(--brass-2); font-weight:600; margin: 0 0 10px; }
-  .shop-note{
-    margin-top: 18px; font-size:.8rem; color: rgba(244,236,216,.55); font-style:italic;
-  }
-
   footer.credit{
     text-align:center; font-family: var(--ui); font-size:.68rem; letter-spacing:.08em;
     text-transform:uppercase; color: rgba(244,236,216,.35); padding: 30px 20px 40px;
@@ -734,8 +727,8 @@ const STOPS = [
       question: "There's a street number bolted up near the entrance, the building's address. Add the digits together and tell me the sum. I have a system. Don't ask about the system.",
       answer: "12", altAnswers: ["twelve"],
       hint1: "It's a small metal number plate, usually right by the door. Read the digits, not the words around them.",
-      hint2: "Three digits. Add them the normal way, then stop overthinking it.",
-      reveal: "Twelve. That's the sum, if you were wondering. My system says the digits add up to something. I never said what.",
+      hint2: "Can't find a number on the building itself? Pull up Google Maps, it'll list the address right there.",
+      reveal: "The address is 606 Manitou Ave. Six plus zero plus six is twelve. Type it in.",
       correct: "Correct. Somehow, I'm never surprised when I'm right.",
       item: { letter: "C", name: "Citizen Complaint Form #4,417", desc: "Filed in 1974. Never addressed. I need it. Preferably before whoever wrote it stops complaining." },
       next: "West on Manitou Ave, past the brewery and the coffee shop, to where the street bends. Barker House.",
@@ -908,6 +901,11 @@ function updateTopbar(hash){
   header.classList.toggle("topbar--hidden", hash === "#intro");
 }
 
+/* Safe no-op until a real GA4 Measurement ID is set up top; never throws either way. */
+function trackEvent(name, params){
+  if(typeof gtag === "function") gtag("event", name, params || {});
+}
+
 function render(){
   const hash = location.hash || "#intro";
   const main = document.getElementById("main");
@@ -918,7 +916,6 @@ function render(){
   if(hash === "#finale") return renderFinale(main);
   if(hash === "#outro") return renderOutro(main);
   if(hash === "#resources") return renderResources(main);
-  if(hash === "#shop") return renderShop(main);
 
   const stopMatch = hash.match(/^#stop-(.+)$/);
   if(stopMatch){
@@ -1088,16 +1085,28 @@ function renderIntro(main){
 
       ${malini(true)}
 
+      <div class="malini-card-shell" style="max-width:420px;margin:0 auto 22px;">
+        <div class="malini-card">
+          <p class="malini-label">A Note From Malini</p>
+          <p class="malini-hint-text" style="text-align:center;">
+            For those of you born too late to know what this is: that's a radio. Below.
+            Push play and it talks. Headphones recommended. If you're with people, still
+            recommended, I don't know your friends. Honestly, at that point it's up to you
+            whether you want to narrate this for them. Seven stops around downtown Manitou
+            Springs, about an hour on foot, entirely free. Solve a quick riddle at each one,
+            get pointed to the next stop. Push play.
+          </p>
+        </div>
+      </div>
+
+      <p style="max-width:420px;margin:0 auto 22px;font-size:.72rem;color:rgba(244,236,216,.4);">
+        Your progress saves automatically, so it's safe to bookmark this and come back later.
+      </p>
+
       ${radioPlayerHTML("introRadio", "audio/intro.mp3", "The Introduction", "rolling", true)}
       ${chaseCaptions("intro", COLD_OPEN)}
 
-      <p style="max-width:420px;margin:0 auto 26px;font-size:.85rem;color:rgba(244,236,216,.55);">
-        Seven stops. Seven items. A little under an hour, start to finish,
-        assuming Malini doesn't decide he needs an eighth thing halfway
-        through. He might.
-      </p>
-
-      <button class="btn btn-primary" onclick="go('#map')">Start the Chase</button>
+      <button class="btn btn-primary" onclick="trackEvent('chase_started'); go('#map')">Start the Chase</button>
     </div>
   `;
   wireRadio("introRadio");
@@ -1150,7 +1159,6 @@ function renderMap(main){
 
     <div class="map-footer-links">
       <button class="btn btn-ghost" onclick="go('#resources')">While You're in Manitou</button>
-      <button class="btn btn-ghost" onclick="go('#shop')">Shop</button>
     </div>
   `;
 }
@@ -1401,6 +1409,7 @@ function checkMalini(stopId){
       const el = document.getElementById(id);
       if(el) el.disabled = true;
     });
+    trackEvent("stop_completed", { stop_id: stopId });
     completeStop(stopId);
     const backBtn = document.getElementById("stopBackBtn"+suffix);
     if(backBtn) backBtn.style.display = "block";
@@ -1463,6 +1472,7 @@ function handleTrayEscape(e){
 function renderFinale(main){
   const doneCount = Object.values(state.completed).filter(Boolean).length;
   if(doneCount < STOPS.length){ go("#map"); return; }
+  trackEvent("finale_reached");
 
   main.innerHTML = `
     <div class="intro-wrap">
@@ -1498,15 +1508,19 @@ function wireFinaleTapThrough(){
   audio.addEventListener("ended", ()=> btn.classList.add("show"));
 }
 
+let pendingOutroAutoplay = false;
+
 function finishFinale(){
   const audio = document.getElementById("finaleRadio1");
   if(audio) audio.pause();
+  pendingOutroAutoplay = true;
   go("#outro");
 }
 
 /* ---------------------- outro ---------------------- */
 
 function renderOutro(main){
+  trackEvent("outro_reached");
   main.innerHTML = `
     <div class="intro-wrap">
       <div class="seal-mark">${coffinSealSVG()}</div>
@@ -1522,12 +1536,31 @@ function renderOutro(main){
       <a id="downloadCard" class="btn btn-ghost btn-block" style="display:none;margin-top:10px;">Download Certificate</a>
 
       <div class="divider"></div>
+      <p class="eyebrow">Follow Along</p>
+      <div class="social-row" style="display:flex;gap:10px;justify-content:center;margin-bottom:14px;">
+        <a class="btn btn-ghost" href="https://instagram.com/chasetheentertainers" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-ghost" href="https://facebook.com/chasetheentertainer" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <a class="btn btn-primary btn-block" href="https://chasetheentertainer.com" target="_blank" rel="noopener">Book Chase for Your Event</a>
+
+      <div class="divider"></div>
       <button class="btn btn-ghost btn-block" onclick="go('#resources')">While You're in Manitou</button>
-      <button class="btn btn-ghost btn-block" style="margin-top:10px;" onclick="go('#shop')">Visit the Shop</button>
     </div>
   `;
   wireRadio("outroRadio");
   drawShareCard();
+
+  if(pendingOutroAutoplay){
+    pendingOutroAutoplay = false;
+    const audio = document.getElementById("outroRadio");
+    if(audio){
+      audio.play().then(()=>{
+        startRadioVisual("outroRadio");
+      }).catch(()=>{
+        /* autoplay blocked by the browser; the player just sits ready to press play manually */
+      });
+    }
+  }
 }
 
 function drawShareCard(){
@@ -1772,47 +1805,6 @@ function renderResources(main){
         <a class="btn btn-ghost" href="https://facebook.com/chasetheentertainer" target="_blank" rel="noopener">Facebook</a>
       </div>
     </div>
-  `;
-}
-
-/* ---------------------- shop page ---------------------- */
-
-function renderShop(main){
-  main.innerHTML = `
-    <button class="btn btn-ghost" style="margin-bottom:18px;" onclick="go('#map')">← Back to route</button>
-    <p class="eyebrow">Merch, such as it is</p>
-    <h2 class="section-title">The Shop</h2>
-    <div class="divider"></div>
-
-    <p style="max-width:460px;">
-      Two shirts, printed through Bonfire. Finish the walk and there's a
-      discount code waiting on the completion screen, everyone else pays
-      full price for the privilege.
-    </p>
-
-    <div class="shop-grid">
-      <div class="shop-card">
-        <div class="shop-thumb">Product photo, placeholder</div>
-        <h3>Manitou Springs Coffin Relocation Services</h3>
-        <p class="shop-price">$28</p>
-        <p>A dry, vintage-seal design: "Manitou Springs" arcing over a woodcut coffin-on-a-cart, "Coffin Relocation Services" arcing under it, and "Est. 1891 (Unintentionally)" underneath. Reads like a real 19th-century business mark, if you don't look too closely at what it's actually advertising.</p>
-        <button class="btn btn-primary btn-block" style="margin-top:14px;" disabled>Bonfire link coming soon</button>
-      </div>
-
-      <div class="shop-card">
-        <div class="shop-thumb">Product photo, placeholder</div>
-        <h3>Ask Malini: Certified Finale Participant</h3>
-        <p class="shop-price">$28</p>
-        <p>A mock carnival badge built off the same lettering as Malini's own card art: "Ask Malini" up top, a small orange medallion at center, "Certified Finale Participant, The Coffin Chase" along the bottom like a rank stamp. Proof you finished, and free advertising every time someone asks what it means.</p>
-        <button class="btn btn-primary btn-block" style="margin-top:14px;" disabled>Bonfire link coming soon</button>
-      </div>
-    </div>
-
-    <p class="shop-note">
-      Both designs are placeholders pending final art and live Bonfire
-      product links. Swap the thumbnail divs and the disabled buttons for
-      real images and buy-links once the campaign is set up.
-    </p>
   `;
 }
 
