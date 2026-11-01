@@ -44,16 +44,9 @@
   .nav-drawer .drawer-cta { margin-top: 1.5rem; background: var(--ink); color: var(--cream) !important; padding: 14px 24px; border-radius: 2px; text-align: center; border-bottom: none !important; }
   .nav-drawer .drawer-cta:hover { background: var(--orange); }
 
-  /* PROMO BANNER */
-  .promo-banner { margin-top: 64px; background: var(--ink); border-bottom: 2px solid var(--orange); padding: 0.85rem 4rem; }
-  .promo-banner-inner { display: flex; align-items: center; justify-content: center; gap: 1.25rem; flex-wrap: wrap; text-align: center; }
-  .promo-banner-text { font-family: 'Lora', serif; font-style: italic; font-size: 15px; color: var(--cream); }
-  .promo-banner-text strong { font-style: normal; color: var(--orange); }
-  .promo-banner-btn { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); background: var(--orange); padding: 8px 16px; border-radius: 2px; text-decoration: none; white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
-  .promo-banner-btn:hover { background: #e08a4a; }
 
   /* HERO */
-  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 64px); }
+  .hero { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 64px); }
   .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem 5rem 4rem; }
   .hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; }
   .hero-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(52px, 6vw, 82px); font-weight: 700; line-height: 0.95; letter-spacing: -0.01em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem; }
@@ -202,8 +195,6 @@
     nav { padding: 0 1.5rem; }
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
-    .promo-banner { padding: 1rem 1.25rem; }
-    .promo-banner-inner { flex-direction: column; gap: 0.6rem; }
     .hero { grid-template-columns: 1fr; }
     .hero-image { order: -1; aspect-ratio: 3/4; height: auto; }
     .hero-image img { object-position: center 20%; }
@@ -256,13 +247,6 @@
   <a href="gallery.html">Gallery</a>
   <a href="press.html">Press</a>
   <a href="contact.html" class="drawer-cta">Book Now</a>
-</div>
-
-<div class="promo-banner">
-  <div class="promo-banner-inner">
-    <p class="promo-banner-text"><strong>The Coffin Chase is live!</strong> Catch it all October in Manitou Springs.</p>
-    <a href="https://chasetheentertainer.com/thecoffinchase" class="promo-banner-btn">Learn More</a>
-  </div>
 </div>
 
 <section class="hero">
