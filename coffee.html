@@ -108,7 +108,8 @@
   .proof-divider { color: var(--orange); font-size: 18px; opacity: 0.5; }
 
   /* VOUCHER PREVIEW */
-  .unwrap { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+  .unwrap { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center; }
+  .tables-head { margin-top: 5rem; }
   .unwrap-title { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; text-transform: uppercase; line-height: 1.05; color: var(--ink); margin-bottom: 0.75rem; }
   .unwrap-text { font-size: 15px; line-height: 1.7; color: var(--slate); max-width: 380px; }
   .vp-wrap { container-type: inline-size; transform: rotate(-1.5deg); }
@@ -144,7 +145,8 @@
     .proof-strip { padding: 1.25rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
     .proof-divider { display: none; }
     .proof-items { gap: 0.35rem 1.25rem; }
-    .unwrap { grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem; }
+    .unwrap { grid-template-columns: 1fr; gap: 2rem; }
+    .tables-head { margin-top: 3.5rem; }
     .vp-wrap { transform: rotate(-1deg); }
   }
 
@@ -278,8 +280,6 @@
 </div>
 
 <section class="tiers-section" id="tables">
-  <span class="section-eyebrow">Pick Your Table</span>
-  <h2 class="section-headline">How Many <em>Cups?</em></h2>
   <div class="unwrap">
     <div>
       <h3 class="unwrap-title">What They'll Unwrap</h3>
@@ -309,6 +309,10 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="tables-head">
+    <span class="section-eyebrow">Pick Your Table</span>
+    <h2 class="section-headline">How Many <em>Cups?</em></h2>
   </div>
   <div class="tiers">
     <div class="tier">
