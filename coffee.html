@@ -72,7 +72,7 @@
   /* IDEA */
   .idea { background: var(--ink); border-top: 2px solid var(--orange); padding: 6rem 4rem; }
   .idea .section-headline { color: var(--cream); }
-  .idea-text { font-size: clamp(18px, 1.8vw, 22px); font-style: italic; line-height: 1.6; color: #c4cad4; max-width: 720px; margin-bottom: 1.25rem; }
+  .idea-text { font-size: clamp(18px, 1.8vw, 22px); line-height: 1.6; color: #c4cad4; max-width: 720px; margin-bottom: 1.25rem; }
   .idea-text strong { color: var(--cream); font-style: normal; font-weight: 500; }
 
   /* HOW */
@@ -99,6 +99,55 @@
   .scarcity { margin-top: 2rem; text-align: center; font-style: italic; color: var(--slate); font-size: 16px; }
   .secure-note { margin-top: 0.5rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-light); }
 
+
+  /* PROOF STRIP (matches homepage) */
+  .proof-strip { background: var(--ink); border-top: 2px solid var(--orange); padding: 1.25rem 4rem; display: flex; align-items: center; gap: 3rem; }
+  .proof-label { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate-light); white-space: nowrap; flex-shrink: 0; }
+  .proof-items { display: flex; gap: 0.5rem 2.5rem; align-items: center; flex-wrap: wrap; }
+  .proof-item { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #a0a8b4; white-space: nowrap; }
+  .proof-divider { color: var(--orange); font-size: 18px; opacity: 0.5; }
+
+  /* VOUCHER PREVIEW */
+  .unwrap { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+  .unwrap-title { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; text-transform: uppercase; line-height: 1.05; color: var(--ink); margin-bottom: 0.75rem; }
+  .unwrap-text { font-size: 15px; line-height: 1.7; color: var(--slate); max-width: 380px; }
+  .vp-wrap { container-type: inline-size; transform: rotate(-1.5deg); }
+  .vp { font-size: 2cqw; aspect-ratio: 7.5 / 4.25; background: var(--cream); display: grid; grid-template-columns: 1.55fr 1fr; border-top: 0.5em solid var(--orange); box-shadow: 0 20px 44px -14px rgba(26,26,46,0.45); }
+  .vp-main { padding: 2.6em 2.3em 2em 2.6em; display: flex; flex-direction: column; }
+  .vp-eyebrow { font-family: 'Inter', sans-serif; font-size: 0.6em; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5em; }
+  .vp-title { font-family: 'Barlow Condensed', sans-serif; font-size: 3em; font-weight: 700; text-transform: uppercase; line-height: 0.92; color: var(--ink); }
+  .vp-title em { color: var(--orange); font-style: italic; font-weight: 600; }
+  .vp-good { margin-top: 1em; font-style: italic; font-size: 0.85em; color: var(--slate); }
+  .vp-tier { font-family: 'Barlow Condensed', sans-serif; font-size: 1.45em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ink); line-height: 1.1; }
+  .vp-fields { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7em 1.4em; }
+  .vp-field small { display: block; font-family: 'Inter', sans-serif; font-size: 0.5em; letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate-light); }
+  .vp-field span { display: block; font-size: 0.9em; border-bottom: 1px solid var(--rule); padding-bottom: 0.15em; color: var(--ink); }
+  .vp-field.wide { grid-column: 1 / -1; }
+  .vp-field.wide span { font-style: italic; }
+  .vp-side { background: var(--ink); padding: 2.6em 2em 2em; display: flex; flex-direction: column; }
+  .vp-side h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--orange); margin-bottom: 0.6em; }
+  .vp-side ol { list-style: none; counter-reset: s; font-size: 0.72em; line-height: 1.5; color: #c4cad4; }
+  .vp-side li { counter-increment: s; display: flex; gap: 0.6em; margin-bottom: 0.5em; }
+  .vp-side li::before { content: counter(s); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; color: var(--orange); }
+  .vp-fine { margin-top: auto; font-family: 'Inter', sans-serif; font-size: 0.52em; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-light); line-height: 1.6; }
+  .vp-fine strong { color: var(--cream); font-weight: 500; }
+
+  /* STICKY MOBILE BUY BAR */
+  .buy-bar { display: none; }
+  @media (max-width: 768px) {
+    .buy-bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1rem 0.75rem 1.5rem; background: var(--ink); border-top: 2px solid var(--orange); transition: transform 0.3s; }
+    .buy-bar.is-hidden { transform: translateY(110%); }
+    .buy-bar-text { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--cream); line-height: 1.1; }
+    .buy-bar-text span { display: block; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; color: var(--orange); }
+    .buy-bar .btn-primary { background: var(--orange); padding: 12px 18px; white-space: nowrap; }
+    body { padding-bottom: 68px; }
+    .proof-strip { padding: 1.25rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .proof-divider { display: none; }
+    .proof-items { gap: 0.35rem 1.25rem; }
+    .unwrap { grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem; }
+    .vp-wrap { transform: rotate(-1deg); }
+  }
+
   /* FAQ */
   .faq-section { padding: 6rem 4rem; background: var(--cream); }
   .faq { max-width: 760px; margin-top: 2.5rem; border-top: 1px solid var(--rule); }
@@ -112,7 +161,7 @@
 
   /* DEADLINE */
   .deadline { background: var(--orange-light); padding: 5rem 4rem; text-align: center; }
-  .deadline .section-sub { margin: 0 auto 2.5rem; font-style: italic; }
+  .deadline .section-sub { margin: 0 auto 2.5rem; }
 
   /* FOOTER (matches site) */
   footer { background: var(--ink); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid var(--orange); }
@@ -215,9 +264,52 @@
   </div>
 </section>
 
+<div class="proof-strip">
+  <span class="proof-label">Performed at</span>
+  <div class="proof-items">
+    <span class="proof-item">Pier 39 &middot; San Francisco</span>
+    <span class="proof-divider">&middot;</span>
+    <span class="proof-item">Haunted Happenings &middot; Salem</span>
+    <span class="proof-divider">&middot;</span>
+    <span class="proof-item">Philly Fringe Festival</span>
+    <span class="proof-divider">&middot;</span>
+    <span class="proof-item">Suncoast Ren Faire</span>
+  </div>
+</div>
+
 <section class="tiers-section" id="tables">
   <span class="section-eyebrow">Pick Your Table</span>
   <h2 class="section-headline">How Many <em>Cups?</em></h2>
+  <div class="unwrap">
+    <div>
+      <h3 class="unwrap-title">What They'll Unwrap</h3>
+      <p class="unwrap-text">Every voucher arrives as a printable card with their name and your message on it. Print it, wrap it, tuck it in a stocking, or forward it straight to them.</p>
+    </div>
+    <div class="vp-wrap" aria-hidden="true">
+      <div class="vp">
+        <div class="vp-main">
+          <p class="vp-eyebrow">Chase the Entertainer presents</p>
+          <p class="vp-title">Coffee With<br>a <em>Magician</em></p>
+          <p class="vp-good">This voucher is good for</p>
+          <p class="vp-tier">The Pair &middot; Two Guests</p>
+          <div class="vp-fields">
+            <div class="vp-field"><small>For</small><span>Sam</span></div>
+            <div class="vp-field"><small>From</small><span>Alex</span></div>
+            <div class="vp-field wide"><small>Message</small><span>Happy birthday. Prepare to be confused.</span></div>
+          </div>
+        </div>
+        <div class="vp-side">
+          <h4>How to Redeem</h4>
+          <ol>
+            <li>Email Chase</li>
+            <li>Pick a date and your favorite café</li>
+            <li>Show up. The coffee's on Chase.</li>
+          </ol>
+          <p class="vp-fine"><strong>Never expires.</strong><br>chasetheentertainer.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="tiers">
     <div class="tier">
       <p class="tier-tag">Just You</p>
@@ -250,6 +342,10 @@
   <h2 class="section-headline">What You're <em>Actually</em> Getting</h2>
   <div class="faq">
     <details>
+      <summary>Can I send it straight to the person I'm gifting?</summary>
+      <p>Yes. After checkout, email <a href="mailto:Chase@chasetheentertainer.com">Chase@chasetheentertainer.com</a> with their name and a short message, and the voucher can go to you or straight to them.</p>
+    </details>
+    <details>
       <summary>How long does it last?</summary>
       <p>About as long as a good cup of coffee, usually 30 to 45 minutes. Nobody's holding a stopwatch.</p>
     </details>
@@ -268,10 +364,6 @@
     <details>
       <summary>Is this a show?</summary>
       <p>Sort of. It's coffee with a guy who happens to do impossible things. Relaxed, personal, and happening right at your table. The people at the next table will be jealous. That's not on you.</p>
-    </details>
-    <details>
-      <summary>Can I send it straight to the person I'm gifting?</summary>
-      <p>Yes. After checkout, email <a href="mailto:Chase@chasetheentertainer.com">Chase@chasetheentertainer.com</a> with their name and a short message, and the voucher can go to you or straight to them.</p>
     </details>
     <details>
       <summary>Will Malini be there?</summary>
@@ -301,6 +393,11 @@
   <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
 </footer>
 
+<div class="buy-bar" id="buy-bar">
+  <p class="buy-bar-text"><span>Coffee Included</span>From $49</p>
+  <a href="#tables" class="btn-primary">Buy a Voucher</a>
+</div>
+
 <script>
   var hamburger = document.getElementById('hamburger');
   var drawer = document.getElementById('nav-drawer');
@@ -314,6 +411,14 @@
       drawer.classList.remove('open');
     });
   });
+  (function () {
+    var bar = document.getElementById('buy-bar');
+    var tables = document.getElementById('tables');
+    if (!bar || !tables || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      bar.classList.toggle('is-hidden', entries[0].isIntersecting);
+    }, { threshold: 0.15 }).observe(tables);
+  })();
 </script>
 </body>
 </html>
