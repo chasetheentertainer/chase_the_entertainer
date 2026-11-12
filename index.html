@@ -190,6 +190,26 @@
   .footer-links a:hover { color: var(--orange); }
   .footer-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #3a4252; letter-spacing: 0.04em; }
 
+  /* COFFEE BANNER */
+  .announce { position: fixed; top: 0; left: 0; right: 0; z-index: 101; height: 40px; display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0 1rem; background: var(--ink); border-bottom: 2px solid var(--orange); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream); white-space: nowrap; overflow: hidden; transition: background 0.2s; }
+  .announce:hover { background: #24243e; }
+  .announce-tag { color: var(--orange); font-weight: 500; }
+  .announce-more { color: #a0a8b4; text-transform: none; letter-spacing: 0.02em; font-family: 'Lora', serif; font-style: italic; font-size: 14px; }
+  .announce-arrow { color: var(--orange); font-size: 15px; transition: transform 0.2s; }
+  .announce:hover .announce-arrow { transform: translateX(3px); }
+  nav { top: 40px; }
+  .nav-drawer { top: 104px; }
+  .hero { margin-top: 104px; min-height: calc(100vh - 104px); }
+  html { scroll-padding-top: 104px; }
+
+  /* COFFEE CARD (Pick Your Poison) */
+  .coffee-card { margin-top: 2px; background: var(--orange-light); position: relative; display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; align-items: center; padding: 2.5rem; }
+  .coffee-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--orange); }
+  .coffee-card .show-desc { margin-bottom: 0; max-width: 620px; }
+  .coffee-card-action { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .coffee-card-price { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--slate); }
+  .coffee-card-price strong { color: var(--ink); font-size: 34px; font-weight: 700; }
+
   /* MOBILE */
   @media (max-width: 768px) {
     nav { padding: 0 1.5rem; }
@@ -220,12 +240,20 @@
     .email-input { border-right: 1px solid #3a3a5a; border-bottom: none; border-radius: 2px 2px 0 0; }
     .email-submit { border-radius: 0 0 2px 2px; }
     .booking-cta { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
+    .announce-more { display: none; }
+    .coffee-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 1.5rem; }
     footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
   }
 </style>
 </head>
 <body>
+
+<a href="coffee.html" class="announce" aria-label="Now brewing: Coffee With a Magician">
+  <span class="announce-tag">Now Brewing</span>
+  <span class="announce-text">Coffee With a Magician<span class="announce-more">&nbsp;&nbsp;The gift that isn't another mug.</span></span>
+  <span class="announce-arrow">&rarr;</span>
+</a>
 
 <nav>
   <a href="index.html" class="nav-logo">Chase the <span>Entertainer</span></a>
@@ -242,6 +270,7 @@
 
 <div class="nav-drawer" id="nav-drawer">
   <a href="shows.html">Shows</a>
+  <a href="coffee.html">Coffee</a>
   <a href="about.html">About</a>
   <a href="malini.html">Malini</a>
   <a href="gallery.html">Gallery</a>
@@ -305,7 +334,7 @@
   <div class="shows-header">
     <span class="section-eyebrow">What He Does</span>
     <h2 class="section-headline">Pick Your <em>Poison</em></h2>
-    <p style="font-size:16px; color:var(--slate); line-height:1.7;">Two formats. Both involve impossible things happening. One has a microphone, one happens inches from your face. Neither has a rabbit.</p>
+    <p style="font-size:16px; color:var(--slate); line-height:1.7;">Three ways in. All of them involve impossible things happening. One has a microphone, one happens inches from your face, and one comes with a latte. None of them has a rabbit.</p>
   </div>
   <div class="shows-grid">
     <div class="show-card">
@@ -347,6 +376,17 @@
         </ul>
         <a href="contact.html" class="btn-primary">Inquire About This Show</a>
       </div>
+    </div>
+  </div>
+  <div class="coffee-card">
+    <div class="coffee-card-body">
+      <p class="show-tag">New &middot; Coffee With a Magician</p>
+      <h3 class="show-title">Just Coffee</h3>
+      <p class="show-desc">No event required. Chase buys the coffee, you pick the café, and impossible things happen before your latte gets cold. Sold as vouchers, for you or as a gift that isn't another mug.</p>
+    </div>
+    <div class="coffee-card-action">
+      <p class="coffee-card-price">From <strong>$49</strong></p>
+      <a href="coffee.html" class="btn-primary">Get a Voucher</a>
     </div>
   </div>
 </section>
@@ -453,6 +493,7 @@
   <div class="footer-logo">Chase the <span>Entertainer</span></div>
   <ul class="footer-links">
     <li><a href="shows.html">Shows</a></li>
+    <li><a href="coffee.html">Coffee</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="malini.html">Malini</a></li>

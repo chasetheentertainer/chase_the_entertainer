@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Coffee With a Magician | Chase the Entertainer</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Chase buys the coffee. You pick the café. Impossible things happen at your table. Coffee With a Magician vouchers, for you or as a gift. Colorado Springs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e;
+    --cream: #f5f2eb;
+    --warm-white: #faf8f4;
+    --orange: #d4732a;
+    --orange-hover: #b85f22;
+    --orange-light: #f0e4d4;
+    --slate: #4a5568;
+    --slate-light: #8896a8;
+    --rule: #d8d2c4;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Lora', serif; font-size: 17px; line-height: 1.7; }
+
+  /* NAV (matches site) */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--cream); border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 8px 20px; border-radius: 2px; letter-spacing: 0.1em !important; transition: background 0.2s !important; white-space: nowrap; }
+  .nav-cta:hover { background: var(--orange) !important; }
+  .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 32px; height: 32px; cursor: pointer; background: none; border: none; padding: 0; z-index: 110; }
+  .nav-hamburger span { display: block; width: 100%; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--cream); border-bottom: 2px solid var(--orange); z-index: 99; padding: 1.5rem 2rem 2rem; flex-direction: column; }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; padding: 1rem 0; border-bottom: 1px solid var(--rule); transition: color 0.2s; }
+  .nav-drawer a:hover { color: var(--orange); }
+  .nav-drawer a:last-child { border-bottom: none; }
+  .nav-drawer .drawer-cta { margin-top: 1.5rem; background: var(--ink); color: var(--cream) !important; padding: 14px 24px; border-radius: 2px; text-align: center; border-bottom: none !important; }
+  .nav-drawer .drawer-cta:hover { background: var(--orange); }
+
+  /* SHARED */
+  .btn-primary { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ink); color: var(--cream); padding: 14px 28px; border-radius: 2px; text-decoration: none; transition: background 0.2s; border: none; cursor: pointer; display: inline-block; text-align: center; }
+  .btn-primary:hover { background: var(--orange); }
+  .btn-ghost { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost:hover { color: var(--orange); border-color: var(--orange); }
+  .section-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; display: block; }
+  .section-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 4vw, 54px); font-weight: 700; line-height: 1; text-transform: uppercase; color: var(--ink); margin-bottom: 1rem; }
+  .section-headline em { font-style: italic; color: var(--orange); font-weight: 600; }
+  .section-sub { font-size: 16px; color: var(--slate); line-height: 1.7; max-width: 600px; }
+
+  /* HERO */
+  .hero { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; min-height: calc(90vh - 64px); }
+  .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem 5rem 4rem; }
+  .hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; }
+  .hero-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(52px, 6vw, 82px); font-weight: 700; line-height: 0.95; letter-spacing: -0.01em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero-headline em { font-style: italic; color: var(--orange); font-weight: 600; }
+  .hero-sub { font-size: 18px; line-height: 1.65; color: var(--slate); max-width: 440px; margin-bottom: 2.5rem; font-style: italic; }
+  .hero-actions { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .hero-credential { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: var(--slate-light); text-transform: uppercase; }
+  .hero-credential strong { color: var(--ink); font-weight: 500; }
+  .hero-image { position: relative; overflow: hidden; }
+  .hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+  .hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--cream) 0%, transparent 14%); pointer-events: none; }
+
+  /* IDEA */
+  .idea { background: var(--ink); border-top: 2px solid var(--orange); padding: 6rem 4rem; }
+  .idea .section-headline { color: var(--cream); }
+  .idea-text { font-size: clamp(18px, 1.8vw, 22px); font-style: italic; line-height: 1.6; color: #c4cad4; max-width: 720px; margin-bottom: 1.25rem; }
+  .idea-text strong { color: var(--cream); font-style: normal; font-weight: 500; }
+
+  /* HOW */
+  .how { padding: 6rem 4rem; background: var(--cream); }
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 3rem; }
+  .how-num { font-family: 'Barlow Condensed', sans-serif; font-size: 56px; font-weight: 700; line-height: 1; color: var(--orange); opacity: 0.5; margin-bottom: 0.75rem; }
+  .how-title { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink); margin-bottom: 0.5rem; }
+  .how-desc { font-size: 15px; line-height: 1.7; color: var(--slate); }
+
+  /* TIERS */
+  .tiers-section { background: var(--warm-white); padding: 6rem 4rem; }
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 3rem; }
+  .tier { background: var(--cream); position: relative; padding: 2.5rem; display: flex; flex-direction: column; }
+  .tier::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--orange); opacity: 0; transition: opacity 0.3s; }
+  .tier:hover::before, .tier.featured::before { opacity: 1; }
+  .tier-tag { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+  .tier-title { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 700; text-transform: uppercase; line-height: 1; color: var(--ink); }
+  .tier-price { font-family: 'Barlow Condensed', sans-serif; font-size: 64px; font-weight: 700; line-height: 1; color: var(--ink); margin: 1.25rem 0 1rem; }
+  .tier-price span { font-size: 28px; vertical-align: top; color: var(--orange); margin-right: 2px; }
+  .tier-desc { font-size: 15px; line-height: 1.7; color: var(--slate); margin-bottom: 2rem; flex: 1; }
+  .tier .btn-primary { width: 100%; }
+  .tier.featured .btn-primary { background: var(--orange); }
+  .tier.featured .btn-primary:hover { background: var(--orange-hover); }
+  .scarcity { margin-top: 2rem; text-align: center; font-style: italic; color: var(--slate); font-size: 16px; }
+  .secure-note { margin-top: 0.5rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-light); }
+
+  /* FAQ */
+  .faq-section { padding: 6rem 4rem; background: var(--cream); }
+  .faq { max-width: 760px; margin-top: 2.5rem; border-top: 1px solid var(--rule); }
+  .faq details { border-bottom: 1px solid var(--rule); padding: 1.4rem 0; }
+  .faq summary { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; color: var(--orange); font-size: 28px; line-height: 1; }
+  .faq details[open] summary::after { content: '–'; }
+  .faq details p { margin-top: 0.75rem; font-size: 15px; color: var(--slate); line-height: 1.7; }
+  .faq a { color: var(--orange); }
+
+  /* DEADLINE */
+  .deadline { background: var(--orange-light); padding: 5rem 4rem; text-align: center; }
+  .deadline .section-sub { margin: 0 auto 2.5rem; font-style: italic; }
+
+  /* FOOTER (matches site) */
+  footer { background: var(--ink); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid var(--orange); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); }
+  .footer-logo span { color: var(--orange); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a7485; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #3a4252; letter-spacing: 0.04em; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+    .hero-headline { font-size: clamp(40px, 12vw, 52px); }
+    .hero-image { order: -1; aspect-ratio: 4/3; }
+    .hero-image::after { background: linear-gradient(to bottom, transparent 60%, var(--cream)); }
+    .hero-text { padding: 2rem 1.5rem 3rem; }
+    .idea, .how, .tiers-section, .faq-section { padding: 4rem 1.5rem; }
+    .how-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .tiers { grid-template-columns: 1fr; }
+    .tier { padding: 2rem 1.5rem; }
+    .deadline { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
+  }
+
+  /* THANK YOU */
+  .thanks-hero { margin-top: 64px; padding: 7rem 4rem 5rem; text-align: center; background: var(--cream); border-bottom: 1px solid var(--rule); }
+  .thanks-hero .hero-sub { margin: 0 auto; }
+  .how { background: var(--warm-white); }
+  .thanks-contact { margin-top: 3.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+  .contact-line { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: var(--slate-light); }
+
+  /* EMAIL (matches homepage) */
+  .email-section { background: var(--ink); padding: 5rem 4rem; text-align: center; }
+  .email-eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+  .email-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 4vw, 56px); font-weight: 700; text-transform: uppercase; line-height: 1; color: var(--cream); margin-bottom: 1rem; }
+  .email-sub { font-style: italic; font-size: 17px; color: #8896a8; margin: 0 auto 2.5rem; max-width: 480px; }
+  .email-form { display: flex; max-width: 440px; margin: 0 auto; }
+  .email-input { flex: 1; padding: 14px 18px; font-family: 'Inter', sans-serif; font-size: 14px; background: #2a2a4a; border: 1px solid #3a3a5a; border-right: none; color: var(--cream); outline: none; border-radius: 2px 0 0 2px; }
+  .email-input::placeholder { color: #5a6278; }
+  .email-submit { padding: 14px 24px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--orange); color: var(--cream); border: none; cursor: pointer; border-radius: 0 2px 2px 0; transition: background 0.2s; white-space: nowrap; }
+  .email-submit:hover { background: var(--orange-hover); }
+  .email-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #4a5568; margin-top: 1rem; letter-spacing: 0.04em; }
+  .email-success { display: none; max-width: 440px; margin: 0 auto; padding: 1rem 1.5rem; border: 1px solid var(--orange); border-radius: 2px; background: rgba(212,115,42,0.1); }
+  .email-success p { font-style: italic; font-size: 15px; color: var(--cream); }
+  @media (max-width: 768px) {
+    .thanks-hero { padding: 4.5rem 1.5rem 3.5rem; }
+    .email-section { padding: 4rem 1.5rem; }
+    .email-form { flex-direction: column; }
+    .email-input { border-right: 1px solid #3a3a5a; border-bottom: none; border-radius: 2px 2px 0 0; }
+    .email-submit { border-radius: 0 0 2px 2px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Chase the <span>Entertainer</span></a>
+  <ul class="nav-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer" id="nav-drawer">
+  <a href="index.html">Home</a>
+  <a href="shows.html">Shows</a>
+  <a href="coffee.html">Coffee</a>
+  <a href="about.html">About</a>
+  <a href="malini.html">Malini</a>
+  <a href="contact.html" class="drawer-cta">Book Now</a>
+</div>
+
+<section class="thanks-hero">
+  <p class="hero-eyebrow">Coffee With a Magician</p>
+  <h1 class="hero-headline">You're <em>In.</em></h1>
+  <p class="hero-sub">Payment received. Somewhere, a latte has been reserved in your name. Here's what happens next.</p>
+</section>
+
+<section class="how">
+  <span class="section-eyebrow">What Happens Now</span>
+  <h2 class="section-headline">Three Things. No <em>Homework.</em></h2>
+  <div class="how-grid">
+    <div>
+      <div class="how-num">01</div>
+      <h3 class="how-title">Check Your Inbox</h3>
+      <p class="how-desc">PayPal sends your receipt right away. Your printable voucher follows from Chase within a day.</p>
+    </div>
+    <div>
+      <div class="how-num">02</div>
+      <h3 class="how-title">Is It a Gift?</h3>
+      <p class="how-desc">Email Chase their name and a short message. He'll put it on the voucher and send it to you or straight to them, your call.</p>
+    </div>
+    <div>
+      <div class="how-num">03</div>
+      <h3 class="how-title">Book the Coffee</h3>
+      <p class="how-desc">Whenever you're ready, email Chase to pick a date and your favorite café. No rush. It doesn't expire.</p>
+    </div>
+  </div>
+  <div class="thanks-contact">
+    <a href="mailto:Chase@chasetheentertainer.com?subject=Coffee%20With%20a%20Magician%20voucher" class="btn-primary" style="font-size:14px; padding:16px 32px;">Email Chase</a>
+    <p class="contact-line">Chase@chasetheentertainer.com</p>
+  </div>
+</section>
+
+<section class="email-section">
+  <p class="email-eyebrow">While You Wait</p>
+  <h2 class="email-headline">Malini Would Like<br>Your Email Too</h2>
+  <p class="email-sub">Irregular dispatches of citrus wisdom, upcoming shows, and advice that is technically unsolicited but usually correct.</p>
+  <form class="email-form" id="thanks-email-form" action="https://formspree.io/f/mnjylzyj" method="POST">
+    <input type="hidden" name="_subject" value="Malini Email Signup — Coffee Voucher Buyer">
+    <input type="text" name="_gotcha" style="display:none">
+    <input class="email-input" type="email" name="email" placeholder="your@email.com" aria-label="Your email address" required>
+    <button type="submit" class="email-submit">Submit to Malini</button>
+  </form>
+  <div class="email-success" id="thanks-email-success"><p>He already knew you'd do that.</p></div>
+  <p class="email-fine">No spam. Just oranges. Unsubscribe whenever. Malini will know.</p>
+</section>
+
+<footer>
+  <div class="footer-logo">Chase the <span>Entertainer</span></div>
+  <ul class="footer-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="coffee.html">Coffee</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="toolkit.html">Toolkit</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
+</footer>
+
+<script>
+  var hamburger = document.getElementById('hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  hamburger.addEventListener('click', function () {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  (function () {
+    var form = document.getElementById('thanks-email-form');
+    var success = document.getElementById('thanks-email-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('.email-submit');
+      btn.disabled = true;
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) {
+          if (r.ok) { form.style.display = 'none'; success.style.display = 'block'; }
+          else { btn.disabled = false; btn.textContent = 'Try Again'; }
+        })
+        .catch(function () { btn.disabled = false; btn.textContent = 'Try Again'; });
+    });
+  })();
+</script>
+</body>
+</html>

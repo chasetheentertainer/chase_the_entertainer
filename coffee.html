@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee With a Magician — Chase the Entertainer | Colorado Springs</title>
+<meta name="description" content="Chase buys the coffee. You pick the café. Impossible things happen at your table. Coffee With a Magician vouchers, for you or as a gift. Colorado Springs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1a2e;
+    --cream: #f5f2eb;
+    --warm-white: #faf8f4;
+    --orange: #d4732a;
+    --orange-hover: #b85f22;
+    --orange-light: #f0e4d4;
+    --slate: #4a5568;
+    --slate-light: #8896a8;
+    --rule: #d8d2c4;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Lora', serif; font-size: 17px; line-height: 1.7; }
+
+  /* NAV (matches site) */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: var(--cream); border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 8px 20px; border-radius: 2px; letter-spacing: 0.1em !important; transition: background 0.2s !important; white-space: nowrap; }
+  .nav-cta:hover { background: var(--orange) !important; }
+  .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 32px; height: 32px; cursor: pointer; background: none; border: none; padding: 0; z-index: 110; }
+  .nav-hamburger span { display: block; width: 100%; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--cream); border-bottom: 2px solid var(--orange); z-index: 99; padding: 1.5rem 2rem 2rem; flex-direction: column; }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; padding: 1rem 0; border-bottom: 1px solid var(--rule); transition: color 0.2s; }
+  .nav-drawer a:hover { color: var(--orange); }
+  .nav-drawer a:last-child { border-bottom: none; }
+  .nav-drawer .drawer-cta { margin-top: 1.5rem; background: var(--ink); color: var(--cream) !important; padding: 14px 24px; border-radius: 2px; text-align: center; border-bottom: none !important; }
+  .nav-drawer .drawer-cta:hover { background: var(--orange); }
+
+  /* SHARED */
+  .btn-primary { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ink); color: var(--cream); padding: 14px 28px; border-radius: 2px; text-decoration: none; transition: background 0.2s; border: none; cursor: pointer; display: inline-block; text-align: center; }
+  .btn-primary:hover { background: var(--orange); }
+  .btn-ghost { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost:hover { color: var(--orange); border-color: var(--orange); }
+  .section-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; display: block; }
+  .section-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 4vw, 54px); font-weight: 700; line-height: 1; text-transform: uppercase; color: var(--ink); margin-bottom: 1rem; }
+  .section-headline em { font-style: italic; color: var(--orange); font-weight: 600; }
+  .section-sub { font-size: 16px; color: var(--slate); line-height: 1.7; max-width: 600px; }
+
+  /* HERO */
+  .hero { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; min-height: calc(90vh - 64px); }
+  .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem 5rem 4rem; }
+  .hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.25rem; }
+  .hero-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(52px, 6vw, 82px); font-weight: 700; line-height: 0.95; letter-spacing: -0.01em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero-headline em { font-style: italic; color: var(--orange); font-weight: 600; }
+  .hero-sub { font-size: 18px; line-height: 1.65; color: var(--slate); max-width: 440px; margin-bottom: 2.5rem; font-style: italic; }
+  .hero-actions { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+  .hero-credential { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.06em; color: var(--slate-light); text-transform: uppercase; }
+  .hero-credential strong { color: var(--ink); font-weight: 500; }
+  .hero-image { position: relative; overflow: hidden; }
+  .hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+  .hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--cream) 0%, transparent 14%); pointer-events: none; }
+
+  /* IDEA */
+  .idea { background: var(--ink); border-top: 2px solid var(--orange); padding: 6rem 4rem; }
+  .idea .section-headline { color: var(--cream); }
+  .idea-text { font-size: clamp(18px, 1.8vw, 22px); font-style: italic; line-height: 1.6; color: #c4cad4; max-width: 720px; margin-bottom: 1.25rem; }
+  .idea-text strong { color: var(--cream); font-style: normal; font-weight: 500; }
+
+  /* HOW */
+  .how { padding: 6rem 4rem; background: var(--cream); }
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 3rem; }
+  .how-num { font-family: 'Barlow Condensed', sans-serif; font-size: 56px; font-weight: 700; line-height: 1; color: var(--orange); opacity: 0.5; margin-bottom: 0.75rem; }
+  .how-title { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink); margin-bottom: 0.5rem; }
+  .how-desc { font-size: 15px; line-height: 1.7; color: var(--slate); }
+
+  /* TIERS */
+  .tiers-section { background: var(--warm-white); padding: 6rem 4rem; }
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 3rem; }
+  .tier { background: var(--cream); position: relative; padding: 2.5rem; display: flex; flex-direction: column; }
+  .tier::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--orange); opacity: 0; transition: opacity 0.3s; }
+  .tier:hover::before, .tier.featured::before { opacity: 1; }
+  .tier-tag { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+  .tier-title { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 700; text-transform: uppercase; line-height: 1; color: var(--ink); }
+  .tier-price { font-family: 'Barlow Condensed', sans-serif; font-size: 64px; font-weight: 700; line-height: 1; color: var(--ink); margin: 1.25rem 0 1rem; }
+  .tier-price span { font-size: 28px; vertical-align: top; color: var(--orange); margin-right: 2px; }
+  .tier-desc { font-size: 15px; line-height: 1.7; color: var(--slate); margin-bottom: 2rem; flex: 1; }
+  .tier .btn-primary { width: 100%; }
+  .tier.featured .btn-primary { background: var(--orange); }
+  .tier.featured .btn-primary:hover { background: var(--orange-hover); }
+  .scarcity { margin-top: 2rem; text-align: center; font-style: italic; color: var(--slate); font-size: 16px; }
+  .secure-note { margin-top: 0.5rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-light); }
+
+  /* FAQ */
+  .faq-section { padding: 6rem 4rem; background: var(--cream); }
+  .faq { max-width: 760px; margin-top: 2.5rem; border-top: 1px solid var(--rule); }
+  .faq details { border-bottom: 1px solid var(--rule); padding: 1.4rem 0; }
+  .faq summary { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; color: var(--orange); font-size: 28px; line-height: 1; }
+  .faq details[open] summary::after { content: '–'; }
+  .faq details p { margin-top: 0.75rem; font-size: 15px; color: var(--slate); line-height: 1.7; }
+  .faq a { color: var(--orange); }
+
+  /* DEADLINE */
+  .deadline { background: var(--orange-light); padding: 5rem 4rem; text-align: center; }
+  .deadline .section-sub { margin: 0 auto 2.5rem; font-style: italic; }
+
+  /* FOOTER (matches site) */
+  footer { background: var(--ink); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 3px solid var(--orange); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); }
+  .footer-logo span { color: var(--orange); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6a7485; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-fine { font-family: 'Inter', sans-serif; font-size: 11px; color: #3a4252; letter-spacing: 0.04em; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+    .hero-headline { font-size: clamp(40px, 12vw, 52px); }
+    .hero-image { order: -1; aspect-ratio: 4/3; }
+    .hero-image::after { background: linear-gradient(to bottom, transparent 60%, var(--cream)); }
+    .hero-text { padding: 2rem 1.5rem 3rem; }
+    .idea, .how, .tiers-section, .faq-section { padding: 4rem 1.5rem; }
+    .how-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .tiers { grid-template-columns: 1fr; }
+    .tier { padding: 2rem 1.5rem; }
+    .deadline { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2.5rem 1.5rem; }
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Chase the <span>Entertainer</span></a>
+  <ul class="nav-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="#tables" class="nav-cta">Buy a Voucher</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer" id="nav-drawer">
+  <a href="index.html">Home</a>
+  <a href="shows.html">Shows</a>
+  <a href="about.html">About</a>
+  <a href="malini.html">Malini</a>
+  <a href="contact.html">Contact</a>
+  <a href="#tables" class="drawer-cta">Buy a Voucher</a>
+</div>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Coffee With a Magician</p>
+    <h1 class="hero-headline">Coffee.<br>Conversation.<br>&amp; <em>Impossible</em><br>Things.</h1>
+    <p class="hero-sub">What would it be like to have coffee with a magician? Pretty great, honestly. Chase buys the coffee. You pick the café. Things happen that shouldn't.</p>
+    <div class="hero-actions">
+      <a href="#tables" class="btn-primary">Buy a Voucher</a>
+      <a href="#how" class="btn-ghost">How It Works</a>
+    </div>
+    <div class="hero-credential">
+      <strong>From $49</strong> &nbsp;&middot;&nbsp; Coffee included &nbsp;&middot;&nbsp; Colorado Springs &nbsp;&middot;&nbsp; Never expires
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="https://pub-3d22a1f4b3c54e33a25973d448b030d1.r2.dev/chase/wine_bar.jpg"
+         alt="Chase doing close-up magic at a small table with two guests">
+  </div>
+</section>
+
+<section class="idea">
+  <span class="section-eyebrow">The Idea</span>
+  <h2 class="section-headline">A Gift That <em>Isn't</em> Another Mug</h2>
+  <p class="idea-text">No stage. No setup. No rabbit. Just Chase at your table with a deck of cards and whatever's lying around: <strong>your cup, your cash, your sugar packet.</strong> Impossible things, inches from your face, before your latte gets cold.</p>
+  <p class="idea-text">It's the gift for the person who has everything, except a story about the morning they had coffee with a magician.</p>
+</section>
+
+<section class="how" id="how">
+  <span class="section-eyebrow">How This Works</span>
+  <h2 class="section-headline">Three Steps. One <em>Latte.</em></h2>
+  <div class="how-grid">
+    <div>
+      <div class="how-num">01</div>
+      <h3 class="how-title">Grab a Voucher</h3>
+      <p class="how-desc">For you or as a gift. A printable voucher lands in your inbox, ready to wrap, forward, or tape to the fridge.</p>
+    </div>
+    <div>
+      <div class="how-num">02</div>
+      <h3 class="how-title">Pick a Date &amp; a Café</h3>
+      <p class="how-desc">Email Chase, choose from his open dates, and name your favorite coffee spot. Anywhere around the Springs.</p>
+    </div>
+    <div>
+      <div class="how-num">03</div>
+      <h3 class="how-title">Enjoy</h3>
+      <p class="how-desc">He'll be the one with the cards. The coffee's on him. Things will happen that you'll have trouble explaining later.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tiers-section" id="tables">
+  <span class="section-eyebrow">Pick Your Table</span>
+  <h2 class="section-headline">How Many <em>Cups?</em></h2>
+  <div class="tiers">
+    <div class="tier">
+      <p class="tier-tag">Just You</p>
+      <h3 class="tier-title">Solo</h3>
+      <div class="tier-price"><span>$</span>49</div>
+      <p class="tier-desc">You and a magician. One drink on Chase.</p>
+      <a href="https://www.paypal.com/ncp/payment/PLB-XB6FHPET6YU5" class="btn-primary">Buy Solo</a>
+    </div>
+    <div class="tier featured">
+      <p class="tier-tag">Most Popular</p>
+      <h3 class="tier-title">Pair</h3>
+      <div class="tier-price"><span>$</span>79</div>
+      <p class="tier-desc">Bring a friend, a date, or a client you're trying to impress. Two drinks on Chase.</p>
+      <a href="https://www.paypal.com/ncp/payment/PLB-L34NVDXPE6GF" class="btn-primary">Buy Pair</a>
+    </div>
+    <div class="tier">
+      <p class="tier-tag">3 to 4 Guests</p>
+      <h3 class="tier-title">Small Group</h3>
+      <div class="tier-price"><span>$</span>119</div>
+      <p class="tier-desc">Friends, family, or a team that deserves a better meeting. Drinks for the table.</p>
+      <a href="https://www.paypal.com/ncp/payment/PLB-UKA7VU54PD82" class="btn-primary">Buy Small Group</a>
+    </div>
+  </div>
+  <p class="scarcity">Only a few dates open each month. When they're booked, they're booked. Malini checked.</p>
+  <p class="secure-note">Secure checkout through PayPal &middot; Card or PayPal account</p>
+</section>
+
+<section class="faq-section">
+  <span class="section-eyebrow">Questions</span>
+  <h2 class="section-headline">What You're <em>Actually</em> Getting</h2>
+  <div class="faq">
+    <details>
+      <summary>How long does it last?</summary>
+      <p>About as long as a good cup of coffee, usually 30 to 45 minutes. Nobody's holding a stopwatch.</p>
+    </details>
+    <details>
+      <summary>Where?</summary>
+      <p>Any café you like around Colorado Springs. Somewhere farther? <a href="contact.html">Reach out</a> and we'll talk.</p>
+    </details>
+    <details>
+      <summary>Does the voucher expire?</summary>
+      <p>No. Book whenever a date works.</p>
+    </details>
+    <details>
+      <summary>Something came up?</summary>
+      <p>It happens. Just let Chase know and pick a new date.</p>
+    </details>
+    <details>
+      <summary>Is this a show?</summary>
+      <p>Sort of. It's coffee with a guy who happens to do impossible things. Relaxed, personal, and happening right at your table. The people at the next table will be jealous. That's not on you.</p>
+    </details>
+    <details>
+      <summary>Can I send it straight to the person I'm gifting?</summary>
+      <p>Yes. After checkout, email <a href="mailto:Chase@chasetheentertainer.com">Chase@chasetheentertainer.com</a> with their name and a short message, and the voucher can go to you or straight to them.</p>
+    </details>
+    <details>
+      <summary>Will Malini be there?</summary>
+      <p>Malini does not drink coffee. He has opinions about it, though.</p>
+    </details>
+  </div>
+</section>
+
+<section class="deadline">
+  <span class="section-eyebrow">The Fine Print</span>
+  <h2 class="section-headline">Holiday <em>Deadline</em></h2>
+  <p class="section-sub">Order by December 20 to have your voucher in time for gifting. Chase can do a lot of things. Time travel isn't one of them yet.</p>
+  <a href="#tables" class="btn-primary" style="font-size:14px; padding:16px 32px;">Buy a Voucher</a>
+</section>
+
+<footer>
+  <div class="footer-logo">Chase the <span>Entertainer</span></div>
+  <ul class="footer-links">
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="coffee.html">Coffee</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="malini.html">Malini</a></li>
+    <li><a href="toolkit.html">Toolkit</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-fine">&copy; 2026 Chase the Entertainer</p>
+</footer>
+
+<script>
+  var hamburger = document.getElementById('hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  hamburger.addEventListener('click', function () {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  drawer.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
